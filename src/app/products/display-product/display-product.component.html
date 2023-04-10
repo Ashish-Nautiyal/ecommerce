@@ -1,0 +1,42 @@
+<div *ngFor="let variant of productVariants" style="display: inline-block; width: 23%; margin: 1%;">
+  <mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title></mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div style="text-align: center;">
+        <div>
+          <ng-container *ngFor="let image of variant.product_image">
+            <img src="http://localhost:8088/uploads/{{image}}" alt="product image" height="30px"
+            width="50px" />
+          </ng-container>
+         
+        </div>
+        <p><b>Name</b>&nbsp;&nbsp;<span>{{variant.name}}</span></p>
+        <p><b>Price</b>&nbsp;&nbsp;<span>{{variant.price}}</span></p>
+        <p> <b>Quantity</b>&nbsp;&nbsp;<span>{{variant.quantity}}</span></p>
+        <p><b>Colour</b>&nbsp;&nbsp; <img src="http://localhost:8088/uploads/{{variant.colour_image}}"
+            alt="product image" height="20px" width="50px" /></p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
+<!-- <div *ngFor="let variant of productVariants">
+  <span *ngFor="let size of variant.sku"  style="display: inline-block; width: 23%; margin: 1%;">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div style="text-align: center;">
+          <img src="http://localhost:8088/uploads/{{variant.product_image}}" alt="product image" height="250px"
+            width="280px" />
+          <p><b>Colour</b>&nbsp;&nbsp;{{variant.colour}}</p>
+          <p><b>Size</b>&nbsp;&nbsp;{{size.size}}</p>
+          <p><b>Quantity</b>&nbsp;&nbsp;{{size.quantity}}</p>
+          <p><b>Price</b>&nbsp;&nbsp;{{size.price}}</p>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </span>
+</div> -->
