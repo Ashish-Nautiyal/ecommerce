@@ -18,6 +18,13 @@ export class VariantService {
     return this.http.get<any>(environment.baseUrl + 'getVariants');
   }
 
+  getVariantById(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'getVariantById', body);
+  }
+
+  getVariantColour(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'getVariantColours', body);
+  }
 
   addAttribute(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'add-Attribute', body);

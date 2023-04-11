@@ -9,7 +9,7 @@ import { VariantService } from 'src/app/services/variant.service';
 export class DisplayProductComponent implements OnInit {
 
   productVariants: any;
-
+  
   constructor(private variantService: VariantService) { }
 
   ngOnInit(): void {
@@ -21,16 +21,10 @@ export class DisplayProductComponent implements OnInit {
     this.variantService.getVariants().subscribe(
       (res) => {
         this.productVariants = res.data;
-        console.log('variant', this.productVariants);
       }, (error) => {
         console.log(error);
       }
     );
-  }
-
-
-  addToCart() {
-    alert('Product added to cart successfully!!!');
   }
 
 }

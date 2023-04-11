@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ReactiveFormsModule,FormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AdminRoutingModule } from './admin-routing.module';
 import { MaterialModule } from '../material/material.module';
 
@@ -10,7 +10,6 @@ import { AddCategoryComponent } from './add-category/add-category.component';
 import { AddProductComponent } from './add-product/add-product.component';
 import { AddVariantComponent } from './add-variant/add-variant.component';
 import { AddSubcategoryComponent } from './add-subcategory/add-subcategory.component';
-import { TreeDataComponent } from './tree-data/tree-data.component';
 import { AddVariantAttributeComponent } from './add-variant-attribute/add-variant-attribute.component';
 
 
@@ -21,7 +20,6 @@ import { AddVariantAttributeComponent } from './add-variant-attribute/add-varian
     AddProductComponent,
     AddVariantComponent,
     AddSubcategoryComponent,
-    TreeDataComponent,
     AddVariantAttributeComponent,
   ],
   imports: [

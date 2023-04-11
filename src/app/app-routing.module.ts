@@ -5,6 +5,7 @@ import { PageNotFoundComponent } from './auth/page-not-found/page-not-found.comp
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { DisplayProductComponent } from './products/display-product/display-product.component';
+import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { HomeComponent } from './user/home/home.component';
 
 const routes: Routes = [
@@ -19,6 +20,8 @@ const routes: Routes = [
   {
     path: 'user', component: NavbarComponent, children: [
       { path: 'display-product', component: DisplayProductComponent },
+      { path: 'product-detail', component: ProductDetailComponent },
+
       { path: 'home', component: HomeComponent },
     ]
   },
