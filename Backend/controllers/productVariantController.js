@@ -31,6 +31,7 @@ module.exports.addVariant = async (req, res) => {
 };
 
 
+
 module.exports.getVariants = async (req, res) => {
     try {
         const variants = await Variant.find();
@@ -63,12 +64,11 @@ module.exports.getVariantById = async (req, res) => {
 
 module.exports.getVariantSize = async (req, res) => {
     try {
-        console.log('body',req.body);
-      const attributes =  await variantAttribute.find({ variant_id: req.body.id });
-      if(!attributes.length > 0){
-        return res.status(201).json({ message: 'attributes not found', data: attributes });
-      }
-      res.status(201).json({ message: 'Attributes data', data: attributes });
+        const attributes = await variantAttribute.find({ variant_id: req.body.id });
+        if (!attributes.length > 0) {
+            return res.status(201).json({ message: 'attributes not found', data: attributes });
+        }
+        res.status(201).json({ message: 'Attributes data', data: attributes });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'server error' });
@@ -88,4 +88,22 @@ module.exports.getVariantColours = async (req, res) => {
         console.log(error);
         res.status(500).json({ message: 'server error' });
     }
-};    
+};
+
+
+
+module.exports.searchVariant = async (req, res) => {
+    try {
+        const searchQuery = req.body.searchQuery;
+        if (!searchQuery) {
+            return res.status(200).json({ message: 'search required' });
+        }
+        const searchResult = await Variant.find({
+            $or: [{ name: { $regex: searchQuery, $options: 'i' } }, { colour: { $regex: searchQuery, $options: 'i' } }]
+        });
+        res.status(200).json({ message: 'search result', data: searchResult });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'server error' });
+    }
+}

@@ -12,24 +12,33 @@ import { ProductService } from 'src/app/services/product.service';
 export class AddCategoryComponent implements OnInit {
 
   categoryForm: any;
+  selectedCategoryImage: any;
 
   constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
     this.categoryForm = new FormGroup({
       name: new FormControl('', Validators.required),
-      parent_id: new FormControl(null)
+      category_image: new FormControl('', Validators.required)
     });
   }
 
 
-  onSubmit() {   
-    this.categoryService.addCategory(this.categoryForm.value).subscribe(
+  onImageSelect(event: any) {
+    const file = event.target.files[0];
+    this.selectedCategoryImage = file;    
+  }
+
+
+  onSubmit() {
+    const formData = new FormData();
+    formData.append('name', this.categoryForm.get('name').value);
+    formData.append('category_image',this.selectedCategoryImage);
+    this.categoryService.addCategory(formData).subscribe(
       (res) => {
         this.ngOnInit();
       }, (error) => {
         console.log(error);
-
       }
     )
   }

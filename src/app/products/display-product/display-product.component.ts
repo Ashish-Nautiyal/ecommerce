@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { VariantService } from 'src/app/services/variant.service';
 
 @Component({
@@ -8,9 +9,10 @@ import { VariantService } from 'src/app/services/variant.service';
 })
 export class DisplayProductComponent implements OnInit {
 
-  productVariants: any;
-  
-  constructor(private variantService: VariantService) { }
+  productVariants: any = [];
+  searchQuery: any;
+
+  constructor(private variantService: VariantService, private router: Router) { }
 
   ngOnInit(): void {
     this.getVariants();
@@ -25,5 +27,12 @@ export class DisplayProductComponent implements OnInit {
         console.log(error);
       }
     );
-  } 
+  }
+
+
+  onSubmit() {
+    if (this.searchQuery) {
+      this.router.navigate(['/user/searchResult'], { queryParams: { searchQuery: this.searchQuery } });
+    }
+  }
 }

@@ -1,21 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import { VariantService } from 'src/app/services/variant.service';
 import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
-
-export interface DialogData {
-  _id: string
-  name: string
-  product_id: string
-  price: number
-  quantity: number
-  colour: string
-  colour_image: string
-  product_image: string[]
-  __v: number
-}
 
 @Component({
   selector: 'app-product-detail',
@@ -49,7 +36,6 @@ export class ProductDetailComponent implements OnInit {
       height: '700px',
       data: this.variant
     });
-
   }
 
 
@@ -81,15 +67,14 @@ export class ProductDetailComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
-    )  
+    )
   }
 
 
   getVariantSize() {
-    this.variantService.getVariantColour({ id: this.variant_id }).subscribe(
+    this.variantService.getVariantSize({ id: this.variant_id }).subscribe(
       (res) => {
         this.variant_size = res.data;
-        console.log('size', this.variant_size);
       }, (error) => {
         console.log(error);
       }

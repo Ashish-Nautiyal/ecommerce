@@ -58,7 +58,7 @@
     
     <div class="form-group">
         <label for="color_image">Color Image</label>
-        <input type="file" (change)="onSelectedColourFile($event)" id="color_image" formControlName="color_image">
+        <input type="file" (change)="onSelectColourFile($event)" id="color_image" formControlName="color_image">
         <span
             *ngIf="variantForm.get('color_image').invalid && (variantForm.get('color_image').dirty || variantForm.get('color_image').touched)">
             <span *ngIf="variantForm.get('color_image').errors.required">
@@ -69,7 +69,7 @@
 
     <div class="form-group">
         <label for="product_image">Product Image</label>
-        <input type="file" multiple  (change)="onSelectedProductFile($event)" id="product_image" formControlName="product_image">
+        <input type="file" multiple  (change)="onSelectProductFile($event)" id="product_image" formControlName="product_image">
         <span
             *ngIf="variantForm.get('product_image').invalid && (variantForm.get('product_image').dirty || variantForm.get('product_image').touched)">
             <span *ngIf="variantForm.get('product_image').errors.required">

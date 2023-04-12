@@ -18,6 +18,8 @@ variantRoute.get('/getVariants',variantController.getVariants);
 variantRoute.post('/getVariantById',variantController.getVariantById);
 variantRoute.post('/getVariantColours',variantController.getVariantColours);
 variantRoute.post('/getVariantSize',variantController.getVariantSize);
+variantRoute.post('/searchVariant',variantController.searchVariant);
+
 
 
 

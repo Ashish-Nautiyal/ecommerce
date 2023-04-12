@@ -7,9 +7,11 @@ const categorySchema = new mongoose.Schema({
         unique: true
     },
     parent_id: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category'
-    }
+        type: mongoose.Schema.Types.Mixed,
+        ref: 'Category',
+        default:null
+    },
+    category_image: { type: String, default:'no_image' }
 });
 
 

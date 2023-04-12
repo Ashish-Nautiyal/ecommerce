@@ -12,7 +12,7 @@ import { VariantService } from 'src/app/services/variant.service';
 export class AddVariantComponent implements OnInit {
 
   variantForm: any;
-  products: any;
+  products: any = [];
   selectedColourFile: any;
   selectedProductFile: any;
 
@@ -41,7 +41,6 @@ export class AddVariantComponent implements OnInit {
     this.productService.getProducts().subscribe(
       (res) => {
         this.products = res.data;
-        console.log('product', this.products);
       }, (error) => {
         console.log(error);
       }
@@ -49,21 +48,19 @@ export class AddVariantComponent implements OnInit {
   }
 
 
-  onSelectedColourFile(event: any) {
+  onSelectColourFile(event: any) {
     const file = event.target.files[0];
-    console.log('files', file);
-    this.selectedColourFile = event.target.files[0];
+    this.selectedColourFile = file;
   }
 
 
-  onSelectedProductFile(event: any) { 
-    const images = event.target.files;
-    this.selectedProductFile = images;
+  onSelectProductFile(event: any) { 
+    const files = event.target.files;
+    this.selectedProductFile = files;
   };
 
 
   onSubmit() {
-    console.log('form', this.variantForm.value);
     const formData = new FormData();
     formData.append('product_id', this.variantForm.get('product_id').value);
     formData.append('name', this.variantForm.get('name').value);

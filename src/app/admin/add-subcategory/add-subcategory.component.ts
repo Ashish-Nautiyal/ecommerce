@@ -41,6 +41,8 @@ export class AddSubcategoryComponent implements OnInit {
     this.categoryService.getCategories().subscribe(
       (res) => {
         this.categories = res.data;
+        console.log('cat',this.categories);
+        
       }, (error) => {
         console.log(error);
       }

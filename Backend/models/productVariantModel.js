@@ -13,6 +13,4 @@ const variantSchema = new mongoose.Schema({
     product_image: { type: Array }
 });
 
-
-
 module.exports = mongoose.model('Product-Variant', variantSchema);
