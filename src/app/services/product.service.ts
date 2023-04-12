@@ -26,9 +26,4 @@ export class ProductService {
   deleteProducts(body: any): Observable<any> {
     return this.http.delete<any>(environment.baseUrl + 'delete-product?id=' + body);
   }
-
-
-
-
-
 }

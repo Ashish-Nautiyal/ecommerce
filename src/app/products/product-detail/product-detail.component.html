@@ -7,32 +7,41 @@
             <mat-card-content>
                 <table>
                     <thead>
-
                     </thead>
                     <tbody>
                         <tr>
                             <td>
-                                <div *ngFor="let v of val.product_image">
-                                    <button mat-raised-button>
-                                        <img src="http://localhost:8088/uploads/{{v}}" alt="product image" height="20px"
-                                            width="20px" />
+                                <span *ngFor="let v of val.product_image;let i=index" class="colourBtn">
+                                    <button (mouseenter)="changeImage(i)">
+                                        <img src="http://localhost:8088/uploads/{{v}}" alt="product image" height="40px"
+                                            width="40px" />
                                     </button>
-                                </div>
+                                </span>
                             </td>
                             <td>
-                                <div style="text-align: center;">
-                                    <div>
-                                        <img src="http://localhost:8088/uploads/{{val.product_image[0]}}"
+                                <div>
+                                    <button (click)="openDialog()">
+                                        <img src="http://localhost:8088/uploads/{{val.product_image[imageIndex]}}"
                                             alt="product image" height="250px" width="250px" />
-                                    </div>
+                                    </button>
                                     <p><b>Name</b>&nbsp;&nbsp;<span>{{val.name}}</span></p>
                                     <p><b>Price</b>&nbsp;&nbsp;<span>{{val.price}}</span></p>
                                     <p> <b>Quantity</b>&nbsp;&nbsp;<span>{{val.quantity}}</span></p>
                                     <p><b>Colour</b>&nbsp;&nbsp;
                                         <span *ngFor="let val of variant_colours">
-                                            <button mat-raised-button>
-                                                <img src="http://localhost:8088/uploads/{{val.colour_image}}"
-                                                    alt="product image" height="20px" width="50px" />
+                                            <a
+                                                href="/user/product-detail?variant_id={{val._id}}&product_id={{val.product_id}}">
+                                                <button mat-button>
+                                                    <img src="http://localhost:8088/uploads/{{val.colour_image}}"
+                                                        alt="product image" height="30px" width="30px" />
+                                                </button>
+                                            </a>
+                                        </span>
+                                    </p>
+                                    <p><b>Size</b>&nbsp;&nbsp;
+                                        <span *ngFor="let size of variant_size">
+                                            <button mat-button>
+                                                {{size.size}}
                                             </button>
                                         </span>
                                     </p>

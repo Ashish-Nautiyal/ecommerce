@@ -25,6 +25,5 @@ export class DisplayProductComponent implements OnInit {
         console.log(error);
       }
     );
-  }
-
+  } 
 }

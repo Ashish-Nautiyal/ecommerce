@@ -9,9 +9,9 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatExpansionModule } from '@angular/material/expansion';
-import {MatRadioModule} from '@angular/material/radio';
-
-
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 
 
@@ -27,7 +27,9 @@ import {MatRadioModule} from '@angular/material/radio';
     MatMenuModule,
     MatTreeModule,
     MatExpansionModule,
-    MatRadioModule
+    MatRadioModule,
+    MatDialogModule,
+    MatGridListModule
   ]
 })
 

@@ -26,6 +26,10 @@ export class VariantService {
     return this.http.post<any>(environment.baseUrl + 'getVariantColours', body);
   }
 
+  getVariantSize(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'getVariantSize', body);
+  }
+
   addAttribute(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'add-Attribute', body);
   }
