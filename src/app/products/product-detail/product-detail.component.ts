@@ -81,7 +81,7 @@ export class ProductDetailComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
-    )
+    )  
   }
 
 
