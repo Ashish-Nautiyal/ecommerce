@@ -12,7 +12,7 @@ app.use(
     })
 );
 const directory = path.join(__dirname, 'uploads');
-app.use('/uploads', express.static(directory));
+app.use('/uploads', express.static(directory)); 
  
 
 app.use(express.json());

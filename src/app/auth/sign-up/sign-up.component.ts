@@ -30,7 +30,7 @@ export class SignUpComponent implements OnInit {
   onSubmit() {
     this.authService.signUp(this.signUpForm.value).subscribe(
       (res) => {
-        this.router.navigate(['/login']);
+        this.router.navigate(['/auth/login']);
       }, (err) => {
         console.log(err.message);
       }

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { VariantService } from 'src/app/services/variant.service';
 import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
 
@@ -12,21 +12,23 @@ import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
 
 export class ProductDetailComponent implements OnInit {
 
+  imageIndex: number = 0;
   variant_id: any;
-  product_id: any;
+  product_id: any
   variant: any = [];
-  variant_colours: any = [];
-  variant_size: any = [];
-  imageIndex: any = 0;
+  allVariant: any = [];
 
-
-  constructor(private route: ActivatedRoute, private variantService: VariantService, private router: Router, public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.querParam();
-    this.getVariantById();
-    this.getVariantColour();
-    this.getVariantSize();
+    this.activateRoute.queryParams.subscribe(params => {
+      this.variant_id = params['variant_id'];
+      this.product_id = params['product_id']
+    });
+    if (this.variant_id != undefined) {
+      this.getVariant();
+      this.getVariantByProduct();
+    }
   }
 
 
@@ -39,18 +41,8 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
-  querParam() {
-    this.route.queryParams
-      .subscribe(params => {
-        this.variant_id = params['variant_id'];
-        this.product_id = params['product_id'];
-      }
-      );
-  }
-
-
-  getVariantById() {
-    this.variantService.getVariantById({ id: this.variant_id }).subscribe(
+  getVariant() {
+    this.variantService.getVariantsById({ variant_id: this.variant_id }).subscribe(
       (res) => {
         this.variant = res.data;
       }, (error) => {
@@ -59,22 +51,10 @@ export class ProductDetailComponent implements OnInit {
     )
   }
 
-
-  getVariantColour() {
-    this.variantService.getVariantColour({ id: this.product_id }).subscribe(
+  getVariantByProduct() {
+    this.variantService.getVariantByProductId({ product_id: this.product_id }).subscribe(
       (res) => {
-        this.variant_colours = res.data;
-      }, (error) => {
-        console.log(error);
-      }
-    )
-  }
-
-
-  getVariantSize() {
-    this.variantService.getVariantSize({ id: this.variant_id }).subscribe(
-      (res) => {
-        this.variant_size = res.data;
+        this.allVariant = res.data;
       }, (error) => {
         console.log(error);
       }

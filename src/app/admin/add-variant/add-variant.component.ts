@@ -32,7 +32,7 @@ export class AddVariantComponent implements OnInit {
       quantity: new FormControl('', Validators.required),
       colour: new FormControl('', Validators.required),
       color_image: new FormControl('', Validators.required),
-      product_image: new FormControl('', Validators.required)
+      variant_image: new FormControl('', Validators.required)
     });
   }
 
@@ -69,7 +69,7 @@ export class AddVariantComponent implements OnInit {
     formData.append('colour', this.variantForm.get('colour').value);
     formData.append('colour_image', this.selectedColourFile);
     for(let i=0;i<this.selectedProductFile.length;i++){
-      formData.append('product_image', this.selectedProductFile[i]);
+      formData.append('variant_image', this.selectedProductFile[i]);
     }
 
     this.variantService.addVariant(formData).subscribe(

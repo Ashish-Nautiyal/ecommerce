@@ -4,7 +4,7 @@ const categoryRoute = require('express').Router();
 const multer = require('multer');
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, './uploads');
+        cb(null, './uploads/category_images');
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname);
@@ -14,11 +14,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 
-categoryRoute.post('/add-category',upload.single('category_image'),categoryController.addCategory);
-categoryRoute.get('/getCategories',categoryController.getCategory);
+categoryRoute.post('/addCategory',upload.single('category_image'),categoryController.addCategory);
+categoryRoute.get('/getCategory',categoryController.getCategories);
+categoryRoute.get('/getCategoryTree',categoryController.getCategoryTree);
 categoryRoute.get('/getSubCategories',categoryController.getSubCategory);
 categoryRoute.post('/getCategoriesById',categoryController.getCategoryById);
  
 
 
-module.exports = categoryRoute; 
+module.exports = categoryRoute;  

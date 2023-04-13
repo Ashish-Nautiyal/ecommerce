@@ -11,15 +11,19 @@ export class VariantService {
   constructor(private http: HttpClient) { }
 
   addVariant(body: object): Observable<any> {
-    return this.http.post<any>(environment.baseUrl + 'add-variant', body);
+    return this.http.post<any>(environment.baseUrl + 'addVariant', body);
+  }
+
+  getVariantsById(body: any): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'getVariantById', body);
   }
 
   getVariants(): Observable<any> {
     return this.http.get<any>(environment.baseUrl + 'getVariants');
   }
 
-  getVariantById(body: object): Observable<any> {
-    return this.http.post<any>(environment.baseUrl + 'getVariantById', body);
+  getVariantByProductId(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'getVariantByProductId', body);
   }
 
   getVariantColour(body: object): Observable<any> {
@@ -35,6 +39,6 @@ export class VariantService {
   }
 
   addAttribute(body: object): Observable<any> {
-    return this.http.post<any>(environment.baseUrl + 'add-Attribute', body);
+    return this.http.post<any>(environment.baseUrl + 'addAttribute', body);
   }
 }

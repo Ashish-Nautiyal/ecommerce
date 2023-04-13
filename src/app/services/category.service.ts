@@ -13,12 +13,17 @@ export class CategoryService {
 
 
   addCategory(body: object): Observable<any> {
-    return this.http.post<any>(environment.baseUrl + 'add-category', body);
+    return this.http.post<any>(environment.baseUrl + 'addCategory', body);
+  }
+
+  
+  getCategory(): Observable<any> {
+    return this.http.get<any>(environment.baseUrl + 'getCategory');
   }
 
 
-  getCategories(): Observable<any> {
-    return this.http.get<any>(environment.baseUrl + 'getCategories');
+  getCategoryTree(): Observable<any> {
+    return this.http.get<any>(environment.baseUrl + 'getCategoryTree');
   }
 
 

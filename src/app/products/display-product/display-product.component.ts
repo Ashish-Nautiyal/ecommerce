@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { VariantService } from 'src/app/services/variant.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-display-product',
@@ -9,30 +9,32 @@ import { VariantService } from 'src/app/services/variant.service';
 })
 export class DisplayProductComponent implements OnInit {
 
-  productVariants: any = [];
-  searchQuery: any;
+  products: any = [];
+  category_id: any;
 
-  constructor(private variantService: VariantService, private router: Router) { }
+
+  constructor( private router: Router, private productService: ProductService, private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getVariants();
+    this.activateRoute.queryParams.subscribe(params => this.category_id = params['category_id']);    
+    if (this.category_id != undefined) {
+      this.getProductsByCategory();
+    }
   };
 
 
-  getVariants() {
-    this.variantService.getVariants().subscribe(
+  getProductsByCategory() {
+    this.productService.getProductByCatId({ category_id: this.category_id }).subscribe(
       (res) => {
-        this.productVariants = res.data;
+        this.products = res.data;
       }, (error) => {
         console.log(error);
       }
-    );
+    )
   }
 
-
-  onSubmit() {
-    if (this.searchQuery) {
-      this.router.navigate(['/user/searchResult'], { queryParams: { searchQuery: this.searchQuery } });
-    }
+  
+  onSelectedProduct(event: any) {
+    this.router.navigate(['/user/displayVariant'], { queryParams: { product_id: event._id } });
   }
 }

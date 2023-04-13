@@ -15,6 +15,7 @@ export class AddProductComponent implements OnInit {
   categories: any;
   subCategories: any = [];
   subCategories1: any = [];
+  selectedProductFile: any;
 
 
 
@@ -31,12 +32,27 @@ export class AddProductComponent implements OnInit {
       category_id: new FormControl('', Validators.required),
       subCategory_id: new FormControl(null),
       description: new FormControl('', Validators.required),
+      price: new FormControl('', [Validators.required, Validators.min(0)]),
+      product_image: new FormControl('', Validators.required),
     });
   }
 
 
+  onFileSelect(event: any) {
+    this.selectedProductFile = event.target.files[0];
+  }
+
   onSubmit() {
-    this.productService.addProduct(this.productForm.value).subscribe(
+    const formData = new FormData();
+    formData.append('name', this.productForm.get('name').value);
+    formData.append('category_id', this.productForm.get('category_id').value);
+    formData.append('subCategory_id', this.productForm.get('subCategory_id').value);
+    formData.append('description', this.productForm.get('description').value);
+    formData.append('price', this.productForm.get('price').value);
+    formData.append('product_image', this.selectedProductFile);
+
+
+    this.productService.addProduct(formData).subscribe(
       (res) => {
         this.ngOnInit();
       }, (error) => {
@@ -48,7 +64,7 @@ export class AddProductComponent implements OnInit {
 
 
   getCategories() {
-    this.categoryService.getCategories().subscribe(
+    this.categoryService.getCategory().subscribe(
       (res) => {
         this.categories = res.data;
       }, (error) => {

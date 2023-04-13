@@ -2,26 +2,25 @@ const Category = require('../models/categoryModel');
 
 module.exports.addCategory = async (req, res) => {
     try {
-        console.log('body', req.body);
-        console.log('file', req.file);
-
         const { name, parent_id } = req.body;
+
         if (!name) {
             return res.status(200).send({ message: 'all fields are required' });
         }
-        if(req.file){
+
+        if (req.file) {
             var newCategory = new Category({
                 name,
                 parent_id,
                 category_image: req.file.originalname
             });
-        }else{
+        } else {
             var newCategory = new Category({
                 name,
                 parent_id,
             });
         }
-      
+
         await newCategory.save();
         res.status(200).send({ success: true, data: newCategory });
     } catch (error) {
@@ -31,7 +30,21 @@ module.exports.addCategory = async (req, res) => {
 };
 
 
-module.exports.getCategory = async (req, res) => {
+module.exports.getCategories = async (req, res) => {
+    try {
+        const categories = await Category.find({parent_id:{$eq:null}});
+        if (!categories.length > 0) {
+            res.status(200).json({ message: 'categories not found', success: false, data: categories });
+        }
+        res.status(200).json({ message: 'categories data', success: true, data: categories });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'server error' });
+    }
+};
+
+
+module.exports.getCategoryTree = async (req, res) => {
     async function getCategoriesTree() {
         const categories = await Category.find();
         const categoryMap = {};
@@ -67,7 +80,7 @@ module.exports.getCategory = async (req, res) => {
         const categories = await getCategoriesTree();
         res.status(200).send({ success: true, data: categories });
     } catch (error) {
-        console.log(error);
+        console.log(error); 
         res.status(500).send({ success: false, message: error.message });
     }
 };

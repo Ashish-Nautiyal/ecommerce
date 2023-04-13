@@ -1,15 +1,15 @@
 <button mat-button mat-dialog-close style="float: right;">Cancel</button>
-<mat-grid-list cols="2" rowHeight="2:1" *ngFor="let variant of data">
-    <p class="variantTitle">{{variant.name}}</p>
+<mat-grid-list cols="2" rowHeight="2:1" >
+    <p class="variantTitle">{{data[0].name}}</p>
     <mat-grid-tile>
-        <div *ngFor="let v of variant.product_image;let i=index" >
+        <div *ngFor="let v of data[0].variant_image;let i=index" >
             <button (mouseenter)="changeImage(i)">
-                <img src="http://localhost:8088/uploads/{{v}}" alt="product image" height="80px" width="80px" />
+                <img src="http://localhost:8088/uploads/product_variant_images/{{v}}" alt="product image" height="80px" width="80px" />
             </button>
         </div>
     </mat-grid-tile>
     <mat-grid-tile>
-        <img src="http://localhost:8088/uploads/{{variant.product_image[imageIndex]}}" alt="product image"
+        <img src="http://localhost:8088/uploads/product_variant_images/{{data[0].variant_image[imageIndex]}}" alt="product image"
             height="300px" width="550px" />
     </mat-grid-tile>
 </mat-grid-list>

@@ -1,7 +1,7 @@
 const variantAttributeRoutes = require('express').Router();
 const variantAttributeController = require('../controllers/variantAttributeController');
 
-variantAttributeRoutes.post('/add-Attribute', variantAttributeController.addVariantAttribute);
+variantAttributeRoutes.post('/addAttribute', variantAttributeController.addVariantAttribute);
 
 
 

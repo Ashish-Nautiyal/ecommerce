@@ -14,16 +14,20 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
   addProduct(body: object): Observable<response> {
-    return this.http.post<response>(environment.baseUrl + 'add-product', body);
+    return this.http.post<response>(environment.baseUrl + 'addProduct', body);
   }
 
 
   getProducts(): Observable<products> {
-    return this.http.get<products>(environment.baseUrl + 'display-product');
+    return this.http.get<products>(environment.baseUrl + 'getProducts');
+  }
+
+  getProductByCatId(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'getProductByCatId', body);
   }
 
 
   deleteProducts(body: any): Observable<any> {
-    return this.http.delete<any>(environment.baseUrl + 'delete-product?id=' + body);
+    return this.http.delete<any>(environment.baseUrl + 'deleteProduct?id=' + body);
   }
 }

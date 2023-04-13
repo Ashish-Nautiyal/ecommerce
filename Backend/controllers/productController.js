@@ -1,11 +1,11 @@
 const Product = require('../models/productModel');
 
 module.exports.addProduct = async (req, res) => {
-    const { name, category_id, subCategory_id, description } = req.body;
+    const { name, category_id, subCategory_id, description, price } = req.body;
 
     try {
         // Validate the request data
-        if (!name || !category_id || !subCategory_id || !description) {
+        if (!name || !category_id || !subCategory_id || !description || !price) {
             return res.status(400).json({ message: 'all fields are required' });
         }
         // Create a new Product object using the request body
@@ -14,6 +14,8 @@ module.exports.addProduct = async (req, res) => {
             category_id: req.body.category_id,
             subCategory_id: req.body.subCategory_id,
             description: req.body.description,
+            price: req.body.price,
+            product_image: req.file.originalname
         });
 
         // Save the new product to the database
@@ -37,6 +39,22 @@ module.exports.getProducts = async (req, res) => {
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'server error' });
+    }
+};
+
+
+
+module.exports.getProductsByCatId = async (req, res) => {
+    try {
+        const { category_id } = req.body;
+        if (!category_id) {
+            return res.status(200).json({ success: false, message: 'category_id not found' });
+        }
+        const products = await Product.find({ category_id });
+        res.status(200).json({ success: true, data: products });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ success: false, message: 'server error' });
     }
 };
 

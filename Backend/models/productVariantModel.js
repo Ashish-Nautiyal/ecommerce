@@ -10,7 +10,7 @@ const variantSchema = new mongoose.Schema({
     quantity: { type: Number },
     colour: { type: String },
     colour_image: { type: String },
-    product_image: { type: Array }
+    variant_image: { type: Array }
 });
 
 module.exports = mongoose.model('Product-Variant', variantSchema);

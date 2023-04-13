@@ -68,11 +68,11 @@
     </div>
 
     <div class="form-group">
-        <label for="product_image">Product Image</label>
-        <input type="file" multiple  (change)="onSelectProductFile($event)" id="product_image" formControlName="product_image">
+        <label for="variant_image">Variant Image</label>
+        <input type="file" multiple  (change)="onSelectProductFile($event)" id="variant_image" formControlName="variant_image">
         <span
-            *ngIf="variantForm.get('product_image').invalid && (variantForm.get('product_image').dirty || variantForm.get('product_image').touched)">
-            <span *ngIf="variantForm.get('product_image').errors.required">
+            *ngIf="variantForm.get('variant_image').invalid && (variantForm.get('variant_image').dirty || variantForm.get('variant_image').touched)">
+            <span *ngIf="variantForm.get('variant_image').errors.required">
                 * Product image is required.
             </span>
         </span>

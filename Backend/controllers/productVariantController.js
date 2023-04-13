@@ -10,7 +10,7 @@ module.exports.addVariant = async (req, res) => {
         }
 
         let productImages = [];
-        req.files.product_image.map((image) => {
+        req.files.variant_image.map((image) => {
             productImages.push(image.originalname)
         });
         const newVariant = new Variant({
@@ -20,7 +20,7 @@ module.exports.addVariant = async (req, res) => {
             quantity,
             colour,
             colour_image: req.files.colour_image[0].originalname,
-            product_image: productImages
+            variant_image: productImages
         });
         await newVariant.save();
         res.status(200).json({ message: 'variant added', success: true });
@@ -46,10 +46,24 @@ module.exports.getVariants = async (req, res) => {
 };
 
 
-
 module.exports.getVariantById = async (req, res) => {
     try {
-        const variants = await Variant.find({ _id: req.body.id });
+        const variants = await Variant.find({ _id: req.body.variant_id });
+        if (!variants.length > 0) {
+            return res.status(201).json({ message: 'Variant not found', data: variants });
+        }
+        res.status(201).json({ message: 'Variants data', data: variants });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'server error' });
+    }
+};
+
+
+
+module.exports.getVariantByProductId = async (req, res) => {
+    try {
+        const variants = await Variant.find({ product_id: req.body.product_id });
         if (!variants.length > 0) {
             return res.status(201).json({ message: 'Variant not found', data: variants });
         }
