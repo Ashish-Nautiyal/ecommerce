@@ -21,5 +21,4 @@ export class AuthService {
   login(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'login', body);
   }
-
 }

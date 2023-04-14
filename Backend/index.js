@@ -12,12 +12,12 @@ app.use(
     })
 );
 const directory = path.join(__dirname, 'uploads');
-app.use('/uploads', express.static(directory)); 
- 
+app.use('/uploads', express.static(directory));
+
 
 app.use(express.json());
 app.use(cors());
- 
+
 //user routes
 const userRoutes = require('./routes/userRoute');
 app.use('/api', userRoutes);
@@ -32,12 +32,12 @@ app.use('/api', categoryRoutes);
 
 //Variant routes
 const variantRoutes = require('./routes/productVariantRoute');
-app.use('/api',variantRoutes);
+app.use('/api', variantRoutes);
 
 
 //VariantAttribute routes
 const variantAttributeRoutes = require('./routes/variantAttributeRoute');
-app.use('/api',variantAttributeRoutes);
+app.use('/api', variantAttributeRoutes);
 
 
 http.listen(process.env.PORT, () => {

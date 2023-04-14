@@ -12,44 +12,36 @@ import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
 
 export class ProductDetailComponent implements OnInit {
 
-  imageIndex: number = 0;
-  variant_id: any;
-  product_id: any
-  variant: any = [];
+  product_id: any;
   allVariant: any = [];
+  imageIndex: number = 0;
+  variantIndex: number = 0;
 
-  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute) { }
+  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
-    this.activateRoute.queryParams.subscribe(params => {
-      this.variant_id = params['variant_id'];
-      this.product_id = params['product_id']
-    });
-    if (this.variant_id != undefined) {
-      this.getVariant();
+    this.getQueryParams();
+    if (this.product_id != undefined) {
       this.getVariantByProduct();
-    }
+    }  
   }
 
 
-  openDialog(): void {
+  getQueryParams() {
+    this.activateRoute.queryParams.subscribe(params => {
+      this.product_id = params['product_id'];
+    });
+  }
+
+
+  openDialog(variantIndex:any): void {
     this.dialog.open(ImageDialogComponent, {
       width: '1600px',
       height: '700px',
-      data: this.variant
+      data: {data:this.allVariant,variantIndex:variantIndex}  
     });
   }
 
-
-  getVariant() {
-    this.variantService.getVariantsById({ variant_id: this.variant_id }).subscribe(
-      (res) => {
-        this.variant = res.data;
-      }, (error) => {
-        console.log(error);
-      }
-    )
-  }
 
   getVariantByProduct() {
     this.variantService.getVariantByProductId({ product_id: this.product_id }).subscribe(
@@ -64,5 +56,10 @@ export class ProductDetailComponent implements OnInit {
 
   changeImage(i: any) {
     this.imageIndex = i;
+  }
+
+
+  onSelectColour(i: any) {
+    this.variantIndex = i;
   }
 }

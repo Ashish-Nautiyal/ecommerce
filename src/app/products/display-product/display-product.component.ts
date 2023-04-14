@@ -35,6 +35,6 @@ export class DisplayProductComponent implements OnInit {
 
   
   onSelectedProduct(event: any) {
-    this.router.navigate(['/user/displayVariant'], { queryParams: { product_id: event._id } });
+    this.router.navigate(['/user/productDetail'], { queryParams: { product_id: event._id } });
   }
 }

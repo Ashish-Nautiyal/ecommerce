@@ -32,7 +32,6 @@ export class AddProductComponent implements OnInit {
       category_id: new FormControl('', Validators.required),
       subCategory_id: new FormControl(null),
       description: new FormControl('', Validators.required),
-      price: new FormControl('', [Validators.required, Validators.min(0)]),
       product_image: new FormControl('', Validators.required),
     });
   }
@@ -48,7 +47,6 @@ export class AddProductComponent implements OnInit {
     formData.append('category_id', this.productForm.get('category_id').value);
     formData.append('subCategory_id', this.productForm.get('subCategory_id').value);
     formData.append('description', this.productForm.get('description').value);
-    formData.append('price', this.productForm.get('price').value);
     formData.append('product_image', this.selectedProductFile);
 
 

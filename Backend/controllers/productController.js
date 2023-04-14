@@ -1,11 +1,11 @@
 const Product = require('../models/productModel');
 
 module.exports.addProduct = async (req, res) => {
-    const { name, category_id, subCategory_id, description, price } = req.body;
+    const { name, category_id, subCategory_id, description } = req.body;
 
     try {
         // Validate the request data
-        if (!name || !category_id || !subCategory_id || !description || !price) {
+        if (!name || !category_id || !subCategory_id || !description ) {
             return res.status(400).json({ message: 'all fields are required' });
         }
         // Create a new Product object using the request body
@@ -14,7 +14,6 @@ module.exports.addProduct = async (req, res) => {
             category_id: req.body.category_id,
             subCategory_id: req.body.subCategory_id,
             description: req.body.description,
-            price: req.body.price,
             product_image: req.file.originalname
         });
 

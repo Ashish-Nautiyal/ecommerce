@@ -7,7 +7,6 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { AddToCartComponent } from './products/add-to-cart/add-to-cart.component';
 import { DisplayCategoryComponent } from './products/display-category/display-category.component';
 import { DisplayProductComponent } from './products/display-product/display-product.component';
-import { DisplayVariantComponent } from './products/display-variant/display-variant.component';
 import { ImageDialogComponent } from './products/image-dialog/image-dialog.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { SearchResultComponent } from './products/search-result/search-result.component';
@@ -26,7 +25,6 @@ const routes: Routes = [
     path: 'user', component: NavbarComponent, children: [
       { path: 'displayCategory', component: DisplayCategoryComponent },
       { path: 'display-product', component: DisplayProductComponent },
-      { path: 'displayVariant', component: DisplayVariantComponent },
       { path: 'productDetail', component: ProductDetailComponent },
       { path: 'imageDialog', component: ImageDialogComponent },
       { path: 'searchResult', component: SearchResultComponent },

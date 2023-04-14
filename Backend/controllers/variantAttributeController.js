@@ -10,7 +10,7 @@ module.exports.addVariantAttribute = async (req, res) => {
         const newAttribute = new variantAttribute({
             variant_id,
             size           
-        })
+        });
         await newAttribute.save();
         res.status(200).json({ message: 'Attribute added', success: true });
     } catch (error) {

@@ -10,7 +10,6 @@ import { SearchResultComponent } from './search-result/search-result.component';
 import { FormsModule } from '@angular/forms';
 import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
 import { DisplayCategoryComponent } from './display-category/display-category.component';
-import { DisplayVariantComponent } from './display-variant/display-variant.component';
 
 
 @NgModule({
@@ -21,7 +20,6 @@ import { DisplayVariantComponent } from './display-variant/display-variant.compo
     SearchResultComponent,
     AddToCartComponent,
     DisplayCategoryComponent,
-    DisplayVariantComponent,
   ],
   imports: [
     CommonModule,
