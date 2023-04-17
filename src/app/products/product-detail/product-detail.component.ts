@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { CartService } from 'src/app/services/cart.service';
 import { VariantService } from 'src/app/services/variant.service';
 import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
 
@@ -12,20 +13,26 @@ import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
 
 export class ProductDetailComponent implements OnInit {
 
+  currentUser: any;
   product_id: any;
   allVariant: any = [];
   imageIndex: number = 0;
   variantIndex: number = 0;
 
-  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute ) { }
+  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute, private cartService: CartService) { }
 
   ngOnInit(): void {
+    this.getCurrentUser();
     this.getQueryParams();
     if (this.product_id != undefined) {
       this.getVariantByProduct();
-    }  
+    }
   }
 
+
+  getCurrentUser() {
+    this.currentUser = localStorage.getItem('email');
+  }
 
   getQueryParams() {
     this.activateRoute.queryParams.subscribe(params => {
@@ -34,11 +41,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
-  openDialog(variantIndex:any): void {
+  openDialog(variantIndex: any): void {
     this.dialog.open(ImageDialogComponent, {
       width: '1600px',
       height: '700px',
-      data: {data:this.allVariant,variantIndex:variantIndex}  
+      data: { data: this.allVariant, variantIndex: variantIndex }
     });
   }
 
@@ -62,4 +69,15 @@ export class ProductDetailComponent implements OnInit {
   onSelectColour(i: any) {
     this.variantIndex = i;
   }
-}
+
+
+  addToCart(val: any) {
+    this.cartService.addToCart({ user: this.currentUser, variant_id: val._id, price: val.price }).subscribe(
+      (res) => {
+        this.ngOnInit();
+      }, (error) => {
+        console.log(error);
+      }
+    )
+  }
+} 

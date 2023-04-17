@@ -40,7 +40,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <button>Add to cart</button>
+                            <button (click)="addToCart(allVariant[variantIndex])">Add to cart</button>
                         </td>
                         <td>
                             <button>Buy now</button>
@@ -51,6 +51,13 @@
         </mat-card-content>
     </mat-card>
 </ng-container>
-<!-- <ng-template #thisOne>
-    <h1>Product not found</h1>
-</ng-template> -->
+<button (click)="sidenav.toggle()"></button>
+<mat-sidenav-container>
+    <mat-sidenav #sidenav mode="side" position="end" opened>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div style="height: 88vh;">
+            Main
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

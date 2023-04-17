@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.loginForm.value).subscribe(
       (res) => {
         const helper = new JwtHelperService();
-        const token = helper.decodeToken(res.token);
+        const token = helper.decodeToken(res.data.token);
         localStorage.setItem('email', token.email);
         localStorage.setItem('role', token.role);
         if (token.role == 0) {
@@ -36,7 +36,6 @@ export class LoginComponent implements OnInit {
         } else {
           this.router.navigate(['/user/display-product']);
         }
-
       }, (err) => {
         console.log(err);
       }

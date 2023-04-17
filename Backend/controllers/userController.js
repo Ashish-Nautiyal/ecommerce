@@ -54,9 +54,10 @@ module.exports.login = async (req, res) => {
                 return res.status(401).send('Incorrect password');
             }
 
-            const token = jwt.sign({ email: user.email,role:user.role }, process.env.JWT_SECRET_KEY);
+            const token = jwt.sign({ email: user.email, role: user.role }, process.env.JWT_SECRET_KEY);
+            var userToken = { ...user.toObject(), token }
 
-            return res.status(200).json({ message: 'user login successfully', token, user });
+            return res.status(200).json({ message: 'user login successfully', data: userToken });
         });
     } catch (error) {
         console.log(error.message);

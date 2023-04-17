@@ -1,1 +1,30 @@
-<h1>Cart Component</h1>
+<ng-container *ngIf="cart.length > 0;else thisOne">
+  <h1>Your Total = {{cartTotal | currency : 'INR' }}</h1>
+  <div *ngFor="let val of cart;let i=index" style="display: inline-block; width: 23%; margin: 1%;">
+    <mat-card class="example-card">
+      <mat-card-header>
+        <mat-card-title></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <div style="text-align: center;">
+          <div>
+            <img src="http://localhost:8088/uploads/product_variant_images/{{val.variant_image[0]}}" alt="product image"
+              height="250px" width="250px" />
+          </div>
+          <p>{{val.name}}</p>
+          <p>{{val.price | currency : 'INR' }}</p>
+          <div>
+            <button [disabled]="val.quantity === 1" (click)="decrease(val)">-</button>
+            <input disabled type="text" value="{{val.quantity}}">
+            <button  (click)="increase(val)">+</button>
+          </div>
+          <button>Buy now</button>
+          <button (click)="removeCart(val)">Remove</button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</ng-container>
+<ng-template #thisOne>
+  <h1>Cart is empty</h1>
+</ng-template>

@@ -30,14 +30,24 @@ app.use('/api', productRoutes);
 const categoryRoutes = require('./routes/categoryRoute');
 app.use('/api', categoryRoutes);
 
-//Variant routes
+//variant routes
 const variantRoutes = require('./routes/productVariantRoute');
 app.use('/api', variantRoutes);
 
 
-//VariantAttribute routes
+//variantAttribute routes
 const variantAttributeRoutes = require('./routes/variantAttributeRoute');
 app.use('/api', variantAttributeRoutes);
+
+//cart routes
+const cartRoutes = require('./routes/cartRoute');
+app.use('/api', cartRoutes);
+
+
+
+
+
+
 
 
 http.listen(process.env.PORT, () => {
