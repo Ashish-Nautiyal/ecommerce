@@ -3,5 +3,7 @@ const userRoute = require('express').Router();
 
 userRoute.post('/sign-up',userControlller.signUp);
 userRoute.post('/login',userControlller.login);
+userRoute.post('/sms',userControlller.sms);
+
 
 module.exports = userRoute; 

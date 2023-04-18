@@ -10,6 +10,7 @@ import { DisplayProductComponent } from './products/display-product/display-prod
 import { ImageDialogComponent } from './products/image-dialog/image-dialog.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { SearchResultComponent } from './products/search-result/search-result.component';
+import { WishlistComponent } from './products/wishlist/wishlist.component';
 import { HomeComponent } from './user/home/home.component';
 
 const routes: Routes = [
@@ -29,6 +30,7 @@ const routes: Routes = [
       { path: 'imageDialog', component: ImageDialogComponent },
       { path: 'searchResult', component: SearchResultComponent },
       { path: 'addToCart', component: AddToCartComponent },
+      { path: 'wishList', component: WishlistComponent },
       { path: 'home', component: HomeComponent },
     ]
   },

@@ -1,6 +1,9 @@
 const User = require('../models/userModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
 
 
 module.exports.signUp = async (req, res) => {
@@ -63,4 +66,26 @@ module.exports.login = async (req, res) => {
         console.log(error.message);
         res.status(500).json({ message: 'server error' });
     }
-};
+}; 
+
+
+module.exports.sms = async (req, res) => {
+    try {
+        if(!req.body.mobile){
+            return res.status(200).json({ message: 'mobile required' });
+        }
+        client.messages
+            .create({
+                body: 'success',
+                from: process.env.MOBILE,
+                to: req.body.mobile
+            })
+            .then((message) => {
+                console.log(message);
+                res.status(200).json({ message: 'message sent' });
+            });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'server error' })
+    }
+}  

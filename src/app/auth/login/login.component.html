@@ -2,7 +2,7 @@
     <h1>Login Form</h1>
     <div class="form-group">
         <label for="email">Email</label>
-        <input type="email" formControlName="email" class="form-control">
+        <input type="email" formControlName="email" id="email" class="form-control">
         <span *ngIf="loginForm.get('email').invalid && (loginForm.get('email').dirty || loginForm.get('email').touched)"
             class="error">
             <span *ngIf="loginForm.get('email').errors.required">

@@ -31,10 +31,10 @@ module.exports.addCategory = async (req, res) => {
 
 
 module.exports.getCategories = async (req, res) => {
-    try {
+    try {     
         const categories = await Category.find({parent_id:{$eq:null}});
         if (!categories.length > 0) {
-            res.status(200).json({ message: 'categories not found', success: false, data: categories });
+            res.status(200).json({ message: 'categories not found', success: false, data: categories,ip:ip });
         }
         res.status(200).json({ message: 'categories data', success: true, data: categories });
     } catch (error) {

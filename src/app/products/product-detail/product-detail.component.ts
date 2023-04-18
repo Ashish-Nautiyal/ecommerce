@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
+import { environment } from 'src/app/enviroments/enviroment';
 import { CartService } from 'src/app/services/cart.service';
 import { VariantService } from 'src/app/services/variant.service';
+import { WishlistService } from 'src/app/services/wishlist.service';
 import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
 
 @Component({
@@ -19,7 +21,7 @@ export class ProductDetailComponent implements OnInit {
   imageIndex: number = 0;
   variantIndex: number = 0;
 
-  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute, private cartService: CartService) { }
+  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute, private cartService: CartService, private wishListService: WishlistService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -72,7 +74,30 @@ export class ProductDetailComponent implements OnInit {
 
 
   addToCart(val: any) {
-    this.cartService.addToCart({ user: this.currentUser, variant_id: val._id, price: val.price }).subscribe(
+    if (this.currentUser) {
+      this.cartService.addToCart({ user: this.currentUser, variant_id: val._id, price: val.price }).subscribe(
+        (res) => {
+          this.ngOnInit();
+        }, (error) => {
+          console.log(error);
+        }
+      )
+    } else {
+      let ip = environment.data[2].ip;
+
+      this.cartService.addToCart({ user: ip, variant_id: val._id, price: val.price }).subscribe(
+        (res) => {
+          this.ngOnInit();
+        }, (error) => {
+          console.log(error);
+        }
+      )
+    }
+  }
+
+
+  addWishList(val: any) {
+    this.wishListService.addWishlist({ user: this.currentUser, varinat_id: val._id }).subscribe(
       (res) => {
         this.ngOnInit();
       }, (error) => {

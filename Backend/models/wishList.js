@@ -5,10 +5,10 @@ const wishListSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.Mixed,
         required: true,
     },
-    product_id: [{
-        type: mongoose.Schema.Types.ObjectId,
+    products: {
+        type: Array,
         ref: 'Product'
-    }]
+    }
 });
 
 

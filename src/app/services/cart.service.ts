@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../enviroments/enviroment';
@@ -13,7 +13,7 @@ export class CartService {
   addToCart(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'addToCart', body)
   }
-
+  // x-forwarded-for
 
   getCart(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'getCart', body)
@@ -31,6 +31,6 @@ export class CartService {
 
 
   removeCart(body: object): Observable<any> {
-    return this.http.post<any>(environment.baseUrl + 'removeCart',body)
+    return this.http.post<any>(environment.baseUrl + 'removeCart', body)
   }
 }
