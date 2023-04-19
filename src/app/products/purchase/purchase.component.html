@@ -1,0 +1,42 @@
+<h1>Your order</h1>
+<ng-container *ngIf="purchaseData;">
+    <mat-card class="example-card">
+        <mat-card-header>
+            <mat-card-title></mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <table>
+                <thead>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <div>
+                                <img src="http://localhost:8088/uploads/product_variant_images/{{purchaseData.variant_image[0]}}"
+                                    alt="product image" height="250px" width="250px" />
+                                <p><b>Name</b>&nbsp;&nbsp;<span>{{purchaseData.name}}</span></p>
+                                <p><b>Price</b>&nbsp;&nbsp;<span>{{purchaseData.price | currency: 'INR'}}</span></p>
+                                <p><b>Colour</b>&nbsp;&nbsp;
+                                    <img src="http://localhost:8088/uploads/product_variant_images/{{purchaseData.colour_image}}"
+                                        alt="product image" height="10px" width="30px" />
+                                </p>
+                                <p> <b>Quantity</b>&nbsp;&nbsp;
+                                    <button [disabled]="quantity <= 1" (click)="quantityEdit(-1)">-</button>
+                                    <input type="number" [(ngModel)]="quantity" />
+                                    <button (click)="quantityEdit(1)">+</button>
+                                </p>
+                                <p><b>total&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>&nbsp;&nbsp;<input type="text"
+                                        disabled value="{{purchaseData.price * quantity}}" [(ngModel)]="total" /></p>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <button class="buy-now">Buy now</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</ng-container>

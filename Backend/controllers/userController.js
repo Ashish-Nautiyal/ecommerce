@@ -37,6 +37,33 @@ module.exports.signUp = async (req, res) => {
 };
 
 
+module.exports.quickSignUp = async (req, res) => {
+    try {
+        const { phone_number } = req.body;
+
+        // Validate the request data
+        if (!phone_number) {
+            return res.status(400).json({ message: 'phone number required' });
+        }
+
+        // Check if the email address is already in use
+        const existingUser = await User.findOne({ phone_number });
+        if (existingUser) {
+            return res.status(409).json({ message: 'phone is already in use' });
+        }
+
+        // Create a new user record in the database
+        const newUser = new User({ phone_number });
+        await newUser.save();
+
+        // Send a response indicating that the registration was successful
+        res.status(201).json({ message: 'User registered successfully', data: newUser });
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).json({ message: 'server error' });
+    }
+};
+
 module.exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -66,12 +93,12 @@ module.exports.login = async (req, res) => {
         console.log(error.message);
         res.status(500).json({ message: 'server error' });
     }
-}; 
+};
 
 
 module.exports.sms = async (req, res) => {
     try {
-        if(!req.body.mobile){
+        if (!req.body.mobile) {
             return res.status(200).json({ message: 'mobile required' });
         }
         client.messages

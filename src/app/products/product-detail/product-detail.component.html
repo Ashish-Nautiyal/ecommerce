@@ -39,12 +39,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td>
-                            <button (click)="addToCart(allVariant[variantIndex])">Add to cart</button>
+                        <td class="btn">
+                            <button (click)="addToCart(allVariant[variantIndex])">Add to cart</button>&nbsp;
                             <button (click)="addWishList(allVariant[variantIndex])">Add to wishlist</button>
                         </td>
-                        <td>
-                            <button>Buy now</button>
+                        <td class="btn">
+                            <button (click)="buyNow(allVariant[variantIndex])">Buy now</button>
                         </td>
                     </tr>
                 </tbody>

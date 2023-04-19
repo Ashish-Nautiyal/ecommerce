@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from 'src/app/enviroments/enviroment';
 import { WishlistService } from 'src/app/services/wishlist.service';
 
 @Component({
@@ -23,8 +24,20 @@ export class WishlistComponent implements OnInit {
   }
 
 
+  getUserId() {
+    let user_id;
+    if (this.currentUser) {
+      user_id = this.currentUser;
+    } else {
+      user_id = environment.data[2].ip;
+    }
+    return user_id;
+  }
+
+
   getWishList() {
-    this.wishListService.getWishlist({ user: this.currentUser }).subscribe(
+    let user_id = this.getUserId();
+    this.wishListService.getWishlist({ user: user_id }).subscribe(
       (res) => {
         if (res.data) {
           this.wishList = res.data;
@@ -37,7 +50,8 @@ export class WishlistComponent implements OnInit {
 
 
   removeWishlist(val: any) {
-    this.wishListService.removeWishlist({ user: this.currentUser, variant_id: val._id }).subscribe(
+    let user_id = this.getUserId();
+    this.wishListService.removeWishlist({ user: user_id, variant_id: val._id }).subscribe(
       (res) => {
         this.getWishList();
       }, (error) => {

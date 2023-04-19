@@ -1,4 +1,5 @@
 <ng-container *ngIf="cart.length > 0;else thisOne">
+  <h1>Cart</h1>
   <h1>Your Total = {{cartTotal | currency : 'INR' }}</h1>
   <div *ngFor="let val of cart;let i=index" style="display: inline-block; width: 23%; margin: 1%;">
     <mat-card class="example-card">
@@ -18,8 +19,10 @@
             <input disabled type="text" value="{{val.quantity}}">
             <button  (click)="increase(val)">+</button>
           </div>
-          <button>Buy now</button>
-          <button (click)="removeCart(val)">Remove</button>
+          <div class="btn">
+            <button>Buy now</button>&nbsp;
+            <button (click)="removeCart(val)">Remove</button>
+          </div>      
         </div>
       </mat-card-content>
     </mat-card>

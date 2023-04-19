@@ -41,7 +41,7 @@ module.exports.getCategories = async (req, res) => {
         console.log(error);
         res.status(500).json({ success: false, message: 'server error' });
     }
-};
+}; 
 
 
 module.exports.getCategoryTree = async (req, res) => {

@@ -46,6 +46,10 @@ app.use('/api', cartRoutes);
 const wishListRoutes = require('./routes/wishListRoute');
 app.use('/api', wishListRoutes);
 
+//order routes
+const orderRoutes = require('./routes/orderRoute');
+app.use('/api', orderRoutes);
+
 
 http.listen(process.env.PORT, () => {
     console.log('server listen on port', process.env.PORT);

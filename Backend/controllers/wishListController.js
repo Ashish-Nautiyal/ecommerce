@@ -7,8 +7,8 @@ module.exports.addWishlist = async (req, res) => {
         if (!user || !varinat_id) {
             return res.status(200).json({ message: 'all fields required' });
         }
-        const wishList = await Wishlist.find({ user: req.body.user });
-        if (wishList.length > 0) {
+        const wishList = await Wishlist.findOne({ user: req.body.user });
+        if (wishList) {
             if (!wishList.products.includes(req.body.varinat_id)) {
                 await Wishlist.updateOne({ user: req.body.user }, { $push: { products: req.body.varinat_id } });
                 return res.status(200).json({ message: 'wishList updated' });
@@ -33,13 +33,18 @@ module.exports.getWishlist = async (req, res) => {
         if (!req.body.user) {
             return res.status(200).json({ message: 'user field required' });
         }
+        console.log('gshfgh', req.body);
         const wishList = await Wishlist.findOne({ user: req.body.user });
+        console.log('agfdg', wishList);
+        if (!wishList) {
+            return res.status(200).json({ message: 'wishlist data not found' });
+        }
         const wishListData = [];
         for (let i = 0; i < wishList.products.length; i++) {
             let a = await Variant.findOne({ _id: wishList.products[i] });
             wishListData.push(a);
         }
-        res.status(200).json({ message: 'cart data', data: wishListData });
+        res.status(200).json({ message: 'wishlist data', data: wishListData });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'server error' });

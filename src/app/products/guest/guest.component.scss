@@ -1,12 +1,9 @@
-input {
-    width: 20px;
-    text-align: center;
-    border: 1px solid black;
+.container {
+    margin-left: 30%;
+    margin-top: 16%;
 }
-h1{
-    text-align:  center;
-}
-.btn button {
+
+button {
     background-color: cornflowerblue;
     color: white;
     border: 1px solid cornflowerblue;

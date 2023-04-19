@@ -26,102 +26,62 @@ export class AddToCartComponent implements OnInit {
   }
 
 
-  getCartData() {
-    if(this.currentUser){
-      this.cartService.getCart({ user: this.currentUser }).subscribe(
-        (res) => {
-          this.cart = res.data;
-          this.cartTotal = res.total;
-        }, (error) => {
-          console.log(error);
-        }
-      );
-    }else{
-      let ip = environment.data[2].ip;
-
-      this.cartService.getCart({ user: ip }).subscribe(
-        (res) => {
-          this.cart = res.data;
-          this.cartTotal = res.total;
-        }, (error) => {
-          console.log(error);
-        }
-      )
+  getUserId() {
+    let user_id;
+    if (this.currentUser) {
+      user_id = this.currentUser;
+    } else {
+      user_id = environment.data[2].ip;
     }
-  
+    return user_id;
+  }
+
+  getCartData() {
+    let user_id = this.getUserId();
+    this.cartService.getCart({ user: user_id }).subscribe(
+      (res) => {
+        this.cart = res.data;
+        this.cartTotal = res.total;
+      }, (error) => {
+        console.log(error);
+      }
+    );
   }
 
 
   increase(val: any) {
-    if(this.currentUser){
-      this.cartService.increaseCart({ user: this.currentUser, variant_id: val._id, price: val.price }).subscribe(
-        (res) => {
-          this.getCartData();
-        }, (error) => {
-          console.log(error);
-        }
-      )
-    }else{
-      let ip = environment.data[2].ip;
-
-      this.cartService.increaseCart({ user: ip, variant_id: val._id, price: val.price }).subscribe(
-        (res) => {
-          this.getCartData();
-        }, (error) => {
-          console.log(error);
-        }
-      )
-    }
-   
+    let user_id = this.getUserId();
+    this.cartService.increaseCart({ user: user_id, variant_id: val._id, price: val.price }).subscribe(
+      (res) => {
+        this.getCartData();
+      }, (error) => {
+        console.log(error);
+      }
+    );
   }
 
 
   decrease(val: any) {
-    if(this.currentUser){
-      this.cartService.decreaseCart({ user: this.currentUser, variant_id: val._id, price: val.price }).subscribe(
-        (res) => {
-          this.getCartData();
-        }, (error) => {
-          console.log(error);
-        }
-      )
-    }else{
-      let ip = environment.data[2].ip;
-
-      this.cartService.decreaseCart({ user: ip, variant_id: val._id, price: val.price }).subscribe(
-        (res) => {
-          this.getCartData();
-        }, (error) => {
-          console.log(error);
-        }
-      )
-    }
- 
+    let user_id = this.getUserId();
+    this.cartService.decreaseCart({ user: user_id, variant_id: val._id, price: val.price }).subscribe(
+      (res) => {
+        this.getCartData();
+      }, (error) => {
+        console.log(error);
+      }
+    );
   }
 
 
   removeCart(val: any) {
-    if(this.currentUser){
-      this.cartService.removeCart({ user: this.currentUser, variant_id: val._id }).subscribe(
-        (res) => {
-          this.getCartData();
-        }, (error) => {
-          console.log(error);
-  
-        }
-      );
-    }else{
-      let ip = environment.data[2].ip;
+    let user_id = this.getUserId();
+    this.cartService.removeCart({ user: user_id, variant_id: val._id }).subscribe(
+      (res) => {
+        this.getCartData();
+      }, (error) => {
+        console.log(error);
 
-      this.cartService.removeCart({ user: ip, variant_id: val._id }).subscribe(
-        (res) => {
-          this.getCartData();
-        }, (error) => {
-          console.log(error);
-  
-        }
-      );
-    }
-   
+      }
+    );
   }
 }

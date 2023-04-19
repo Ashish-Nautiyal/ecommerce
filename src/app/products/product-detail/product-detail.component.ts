@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/app/enviroments/enviroment';
 import { CartService } from 'src/app/services/cart.service';
 import { VariantService } from 'src/app/services/variant.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
+import { GuestComponent } from '../guest/guest.component';
 import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
 
 @Component({
@@ -21,7 +22,7 @@ export class ProductDetailComponent implements OnInit {
   imageIndex: number = 0;
   variantIndex: number = 0;
 
-  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute, private cartService: CartService, private wishListService: WishlistService) { }
+  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute, private cartService: CartService, private wishListService: WishlistService, private router: Router) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -34,6 +35,17 @@ export class ProductDetailComponent implements OnInit {
 
   getCurrentUser() {
     this.currentUser = localStorage.getItem('email');
+  }
+
+
+  getUserId() {
+    let user_id;
+    if (this.currentUser) {
+      user_id = this.currentUser;
+    } else {
+      user_id = environment.data[2].ip;
+    }
+    return user_id;
   }
 
   getQueryParams() {
@@ -52,6 +64,15 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
+  openDialogForGuest(): void {
+    this.dialog.open(GuestComponent, {
+      width: '400px',
+      height: '200px',
+      data: this.allVariant[this.variantIndex]
+    });
+  }
+
+  
   getVariantByProduct() {
     this.variantService.getVariantByProductId({ product_id: this.product_id }).subscribe(
       (res) => {
@@ -74,30 +95,8 @@ export class ProductDetailComponent implements OnInit {
 
 
   addToCart(val: any) {
-    if (this.currentUser) {
-      this.cartService.addToCart({ user: this.currentUser, variant_id: val._id, price: val.price }).subscribe(
-        (res) => {
-          this.ngOnInit();
-        }, (error) => {
-          console.log(error);
-        }
-      )
-    } else {
-      let ip = environment.data[2].ip;
-
-      this.cartService.addToCart({ user: ip, variant_id: val._id, price: val.price }).subscribe(
-        (res) => {
-          this.ngOnInit();
-        }, (error) => {
-          console.log(error);
-        }
-      )
-    }
-  }
-
-
-  addWishList(val: any) {
-    this.wishListService.addWishlist({ user: this.currentUser, varinat_id: val._id }).subscribe(
+    let user_id = this.getUserId();
+    this.cartService.addToCart({ user: user_id, variant_id: val._id, price: val.price }).subscribe(
       (res) => {
         this.ngOnInit();
       }, (error) => {
@@ -105,4 +104,26 @@ export class ProductDetailComponent implements OnInit {
       }
     )
   }
-} 
+
+
+
+  addWishList(val: any) {
+    let user_id = this.getUserId();
+    this.wishListService.addWishlist({ user: user_id, varinat_id: val._id }).subscribe(
+      (res) => {
+        this.ngOnInit();
+      }, (error) => {
+        console.log(error);
+      }
+    )
+  }
+
+
+  buyNow(event: any) {
+    if (this.currentUser) {
+      this.router.navigate(['/user/purchase'], { queryParams: { data: JSON.stringify(event) } });
+    } else {
+      this.openDialogForGuest();
+    }
+  }
+}

@@ -7,10 +7,14 @@ import { DisplayProductComponent } from './display-product/display-product.compo
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ImageDialogComponent } from './image-dialog/image-dialog.component';
 import { SearchResultComponent } from './search-result/search-result.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddToCartComponent } from './add-to-cart/add-to-cart.component';
 import { DisplayCategoryComponent } from './display-category/display-category.component';
 import { WishlistComponent } from './wishlist/wishlist.component';
+import { PurchaseComponent } from './purchase/purchase.component';
+import { OrderDetailComponent } from './order-detail/order-detail.component';
+import { GuestComponent } from './guest/guest.component';
+import { QuickSignupComponent } from './quick-signup/quick-signup.component';
 
 
 @NgModule({
@@ -22,11 +26,16 @@ import { WishlistComponent } from './wishlist/wishlist.component';
     AddToCartComponent,
     DisplayCategoryComponent,
     WishlistComponent,
+    PurchaseComponent,
+    OrderDetailComponent,
+    GuestComponent,
+    QuickSignupComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     DisplayProductComponent
