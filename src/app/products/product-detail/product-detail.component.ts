@@ -98,7 +98,7 @@ export class ProductDetailComponent implements OnInit {
     let user_id = this.getUserId();
     this.cartService.addToCart({ user: user_id, variant_id: val._id, price: val.price }).subscribe(
       (res) => {
-        this.ngOnInit();
+        this.router.navigate(['/user/addToCart']);
       }, (error) => {
         console.log(error);
       }
@@ -111,7 +111,8 @@ export class ProductDetailComponent implements OnInit {
     let user_id = this.getUserId();
     this.wishListService.addWishlist({ user: user_id, varinat_id: val._id }).subscribe(
       (res) => {
-        this.ngOnInit();
+        this.router.navigate(['/user/wishList']);
+        
       }, (error) => {
         console.log(error);
       }

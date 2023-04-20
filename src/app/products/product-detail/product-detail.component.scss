@@ -2,6 +2,10 @@
     display: flex;
 }
 
+img{
+    cursor: pointer;
+}
+
 mat-sidenav {
     width: 20%;
     height: auto;
@@ -13,4 +17,5 @@ mat-sidenav {
     border: 1px solid cornflowerblue;
     border-radius: 5px;
     height: 40px;
+    cursor: pointer;
 }
