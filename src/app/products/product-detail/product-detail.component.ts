@@ -102,17 +102,15 @@ export class ProductDetailComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
-
 
 
   addWishList(val: any) {
     let user_id = this.getUserId();
     this.wishListService.addWishlist({ user: user_id, varinat_id: val._id }).subscribe(
       (res) => {
-        this.router.navigate(['/user/wishList']);
-        
+        this.router.navigate(['/user/wishList']);        
       }, (error) => {
         console.log(error);
       }
@@ -121,8 +119,9 @@ export class ProductDetailComponent implements OnInit {
 
 
   buyNow(event: any) {
+    localStorage.setItem('data',JSON.stringify(event) )
     if (this.currentUser) {
-      this.router.navigate(['/user/purchase'], { queryParams: { data: JSON.stringify(event) } });
+      this.router.navigate(['/user/purchase']);
     } else {
       this.openDialogForGuest();
     }

@@ -15,6 +15,7 @@ import { QuickSignupComponent } from './products/quick-signup/quick-signup.compo
 import { SearchResultComponent } from './products/search-result/search-result.component';
 import { WishlistComponent } from './products/wishlist/wishlist.component';
 import { HomeComponent } from './user/home/home.component';
+import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -37,6 +38,7 @@ const routes: Routes = [
       { path: 'purchase', component: PurchaseComponent },
       { path: 'guest', component: GuestComponent },
       { path: 'quickSignUp', component: QuickSignupComponent },
+      { path: 'updateProfile', component: UpdateProfileComponent },
       { path: 'home', component: HomeComponent },
     ]
   },

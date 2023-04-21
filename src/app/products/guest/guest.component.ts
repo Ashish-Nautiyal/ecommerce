@@ -14,7 +14,6 @@ export class GuestComponent implements OnInit {
 
   ngOnInit(): void {
     this.guestData = this.data;
-    console.log('data', this.guestData);
   }
 
 

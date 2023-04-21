@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { environment } from 'src/app/enviroments/enviroment';
 import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
@@ -11,8 +12,8 @@ import { AuthService } from 'src/app/services/auth.service';
 export class QuickSignupComponent implements OnInit {
 
   quickSignUpForm: any;
-  
-  constructor(private authService: AuthService,private router: Router) { }
+  number = "7983447913";
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.quickSignUpForm = new FormGroup({
@@ -23,10 +24,22 @@ export class QuickSignupComponent implements OnInit {
   onSubmit() {
     this.authService.quickSignup(this.quickSignUpForm.value).subscribe(
       (res) => {
+        this.ipToUserId();
         this.router.navigate(['/auth/login']);
       }, (error) => {
         console.log(error);
       }
     )
+  }
+
+  ipToUserId() {
+    for (let i = 0; i < environment.data.length; i++) {
+      if (environment.data[i].phone_number == this.number) {
+        console.log('yes');
+        break;
+      } else {
+        console.log('no');
+      }
+    }
   }
 }

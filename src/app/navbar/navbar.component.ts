@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +12,7 @@ export class NavbarComponent implements OnInit {
   currentUserEmail: any;
   currentUserRole: any;
 
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -26,5 +28,10 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('email');
     localStorage.removeItem('role');
     this.getCurrentUser();
+  }
+
+
+  updateProfile() {
+    this.router.navigate(['/user/updateProfile']);
   }
 }

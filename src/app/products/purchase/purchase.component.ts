@@ -37,7 +37,6 @@ export class PurchaseComponent implements OnInit {
     this.total = this.purchaseData.price * this.quantity;
   }
 
-
   buy() {
     let orderData = {
       user: this.currentUser,

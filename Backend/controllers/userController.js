@@ -64,6 +64,7 @@ module.exports.quickSignUp = async (req, res) => {
     }
 };
 
+
 module.exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -96,6 +97,20 @@ module.exports.login = async (req, res) => {
 };
 
 
+module.exports.updateProfile = async (req, res) => {
+    try {
+        if (!req.body.phone_number) {
+            return res.status(200).json({ message: 'Phone number required' });
+        }
+        await User.updateOne({ phone_number: req.body.phone_number }, { $set: req.body });
+        res.status(200).json({ message: 'data updated' });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'server error' })
+    }
+}
+
+
 module.exports.sms = async (req, res) => {
     try {
         if (!req.body.mobile) {
@@ -113,6 +128,6 @@ module.exports.sms = async (req, res) => {
             });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' })
+        res.status(500).json({ message: 'server error' });
     }
 }  

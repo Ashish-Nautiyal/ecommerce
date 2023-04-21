@@ -21,6 +21,9 @@ export class AuthService {
     return this.http.post<response>(environment.baseUrl + 'quickSignup', body);
   }
 
+  // ipToUserId(body: object): Observable<response> {
+  //   return this.http.post<response>(environment.baseUrl + 'quickSignup', body);
+  // }
 
   login(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'login', body);

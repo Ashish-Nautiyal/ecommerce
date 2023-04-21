@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { environment } from 'src/app/enviroments/enviroment';
 import { CategoryService } from 'src/app/services/category.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class DisplayCategoryComponent implements OnInit {
   constructor(private categoryService: CategoryService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getCategories();
+    this.getCategories();    
   }
 
 

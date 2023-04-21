@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 import { MaterialModule } from '../material/material.module';
 
 import { HomeComponent } from './home/home.component';
+import { UpdateProfileComponent } from './update-profile/update-profile.component';
 
 
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    UpdateProfileComponent
   ],
   imports: [
     CommonModule,

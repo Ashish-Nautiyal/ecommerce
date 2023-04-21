@@ -10,6 +10,7 @@
             <a routerLink="/auth/sign-up" mat-button>Signup</a>
             <a routerLink="/auth/login" mat-button>Login</a>
         </div>
+        <a *ngIf="currentUserRole != null" routerLink="/user/updateProfile" mat-button (click)="updateProfile()">Update Profile</a>
         <a *ngIf="currentUserRole != null" routerLink="/auth/login" mat-button (click)="logOut()">Logout</a>
         <a routerLink="/user/addToCart">
             <mat-icon>shopping_cart</mat-icon>

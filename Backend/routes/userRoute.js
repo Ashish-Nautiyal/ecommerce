@@ -5,6 +5,8 @@ userRoute.post('/sign-up',userControlller.signUp);
 userRoute.post('/quickSignup',userControlller.quickSignUp);
 userRoute.post('/login',userControlller.login);
 userRoute.post('/sms',userControlller.sms);
+userRoute.post('/updateProfile',userControlller.updateProfile);
+
 
 
 module.exports = userRoute; 
