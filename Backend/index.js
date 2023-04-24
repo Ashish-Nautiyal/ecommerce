@@ -50,6 +50,10 @@ app.use('/api', wishListRoutes);
 const orderRoutes = require('./routes/orderRoute');
 app.use('/api', orderRoutes);
 
+//address routes
+const addressRoutes = require('./routes/shippingAddressRoute');
+app.use('/api', addressRoutes);
+
 
 http.listen(process.env.PORT, () => {
     console.log('server listen on port', process.env.PORT);

@@ -30,7 +30,7 @@
                                 <p><b>Colour</b>&nbsp;&nbsp;
                                     <span *ngFor="let val of allVariant;let i=index">
                                         <img src="http://localhost:8088/uploads/product_variant_images/{{val.colour_image}}"
-                                            alt="product image" height="30px" width="30px"
+                                            alt="product image" height="15px" width="30px"
                                             (click)="onSelectColour(i)" />
                                         &nbsp;
                                     </span>
@@ -52,13 +52,3 @@
         </mat-card-content>
     </mat-card>
 </ng-container>
-<!-- <button (click)="sidenav.toggle()"></button>
-<mat-sidenav-container>
-    <mat-sidenav #sidenav mode="side" position="end" opened>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <div style="height: 88vh;">
-            Main
-        </div>
-    </mat-sidenav-content>
-</mat-sidenav-container> -->

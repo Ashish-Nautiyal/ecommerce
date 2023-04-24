@@ -12,7 +12,7 @@ import { AuthService } from 'src/app/services/auth.service';
 export class QuickSignupComponent implements OnInit {
 
   quickSignUpForm: any;
-  number = "7983447913";
+
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
@@ -21,25 +21,36 @@ export class QuickSignupComponent implements OnInit {
     });
   }
 
+
   onSubmit() {
     this.authService.quickSignup(this.quickSignUpForm.value).subscribe(
       (res) => {
-        this.ipToUserId();
-        this.router.navigate(['/auth/login']);
+        let ip;
+        const phone = this.quickSignUpForm.get('phone_number').value;
+        for (let i = 0; i < environment.data.length; i++) {
+          if (environment.data[i].phone_number == phone) {
+            ip = environment.data[i].ip;
+            console.log('iii',ip);
+            
+            // this.ipToUserID(ip);
+            break;
+          }
+        }
+        this.router.navigate(['/user/checkout']);
+      }, (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+
+  ipToUserID(ip: any) {
+    this.authService.ipToUserID({ ip: ip }).subscribe(
+      (res) => {
+
       }, (error) => {
         console.log(error);
       }
     )
-  }
-
-  ipToUserId() {
-    for (let i = 0; i < environment.data.length; i++) {
-      if (environment.data[i].phone_number == this.number) {
-        console.log('yes');
-        break;
-      } else {
-        console.log('no');
-      }
-    }
   }
 }

@@ -48,6 +48,7 @@ export class ProductDetailComponent implements OnInit {
     return user_id;
   }
 
+
   getQueryParams() {
     this.activateRoute.queryParams.subscribe(params => {
       this.product_id = params['product_id'];
@@ -67,12 +68,11 @@ export class ProductDetailComponent implements OnInit {
   openDialogForGuest(): void {
     this.dialog.open(GuestComponent, {
       width: '400px',
-      height: '200px',
-      data: this.allVariant[this.variantIndex]
+      height: '200px'
     });
   }
 
-  
+
   getVariantByProduct() {
     this.variantService.getVariantByProductId({ product_id: this.product_id }).subscribe(
       (res) => {
@@ -80,7 +80,7 @@ export class ProductDetailComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
 
@@ -110,18 +110,18 @@ export class ProductDetailComponent implements OnInit {
     let user_id = this.getUserId();
     this.wishListService.addWishlist({ user: user_id, varinat_id: val._id }).subscribe(
       (res) => {
-        this.router.navigate(['/user/wishList']);        
+        this.router.navigate(['/user/wishList']);
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
 
   buyNow(event: any) {
-    localStorage.setItem('data',JSON.stringify(event) )
+    localStorage.setItem('product', JSON.stringify(event));
     if (this.currentUser) {
-      this.router.navigate(['/user/purchase']);
+      this.router.navigate(['/user/checkout']);
     } else {
       this.openDialogForGuest();
     }

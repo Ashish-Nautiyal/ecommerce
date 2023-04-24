@@ -17,12 +17,12 @@ export class GuestComponent implements OnInit {
   }
 
 
-  signUp() {
+  signIn() {
     this.router.navigate(['/user/quickSignUp']);
   }
 
 
   guest() {
-    this.router.navigate(['/user/purchase'], { queryParams: { data: JSON.stringify(this.guestData) } });
+    this.router.navigate(['/user/checkout']);
   }
 }

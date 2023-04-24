@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const shippingAddressSchema = new mongoose.Schema({
     user: {
-        type: mongoose.Schema.Types.ObjectId
+        type: mongoose.Schema.Types.Mixed
     },
     country: {
         type: String,

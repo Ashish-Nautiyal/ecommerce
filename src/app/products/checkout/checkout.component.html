@@ -1,0 +1,27 @@
+<h1><u>Checkout</u></h1>
+<mat-grid-list cols="2" rowHeight="2:1">
+    <mat-grid-tile>
+        <div>
+            <button>
+                <img src="http://localhost:8088/uploads/product_variant_images/{{purchaseData.variant_image[0]}}"
+                    alt="product image" height="250px" width="250px" />
+            </button>
+            <p><b>Name</b>&nbsp;&nbsp;<span>{{purchaseData.name}}</span></p>
+            <p><b>Price</b>&nbsp;&nbsp;<span>{{purchaseData.price}}</span></p>
+            <p> 
+                <b>Quantity</b>&nbsp;&nbsp;{{quantity}}
+            </p>
+            <p><b>Colour</b>&nbsp;&nbsp;
+                <img src="http://localhost:8088/uploads/product_variant_images/{{purchaseData.colour_image}}"
+                    alt="product image" height="15px" width="30px" />
+            </p>
+        </div>
+    </mat-grid-tile>
+    <mat-grid-tile>
+        <div>
+            <b>Your Total</b>
+            <p>{{purchaseData.price | currency: 'INR'}}</p>
+        </div>
+    </mat-grid-tile>
+</mat-grid-list>
+<app-shipping-address></app-shipping-address>

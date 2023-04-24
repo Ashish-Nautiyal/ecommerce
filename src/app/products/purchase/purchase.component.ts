@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { OrderService } from 'src/app/services/order.service';
+import { Router } from '@angular/router';
+import { environment } from 'src/app/enviroments/enviroment';
+import { ProductService } from 'src/app/services/product.service';
 
 @Component({
   selector: 'app-purchase',
@@ -10,46 +11,32 @@ import { OrderService } from 'src/app/services/order.service';
 export class PurchaseComponent implements OnInit {
 
   currentUser: any;
-  purchaseData: any;
+  productData: any;
+  addressData: any;
   quantity: number = 1;
-  total: any;
 
-  constructor(private activateRoute: ActivatedRoute, private orderService: OrderService) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    this.activateRoute.queryParams.subscribe(
-      (params) => { this.purchaseData = JSON.parse(params['data']); }
-    );
-    this.total = this.purchaseData.price * this.quantity;
     this.getCurrentUser();
+    this.getLocalstorageData();
   }
+
 
   getCurrentUser() {
     this.currentUser = localStorage.getItem('email');
   }
 
-  quantityEdit(val: any) {
-    if (val === -1) {
-      this.quantity = this.quantity - 1;
-    } else {
-      this.quantity = this.quantity + 1;
-    }
-    this.total = this.purchaseData.price * this.quantity;
+
+  getLocalstorageData() {
+    let product = localStorage.getItem('product') || '';
+    let address = localStorage.getItem('address') || '';
+    this.productData = JSON.parse(product);
+    this.addressData = JSON.parse(address);
   }
 
+
   buy() {
-    let orderData = {
-      user: this.currentUser,
-      variant_id: this.purchaseData._id,
-      price: this.purchaseData.price,
-      quantity: this.quantity,
-      total: this.total
-    }
-    this.orderService.saveOrder(orderData).subscribe(
-      (res) => {
-      }, (error) => {
-        console.log(error);
-      }
-    )
+    this.router.navigate(['/user/order']);
   }
 }

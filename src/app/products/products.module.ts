@@ -15,6 +15,8 @@ import { PurchaseComponent } from './purchase/purchase.component';
 import { OrderDetailComponent } from './order-detail/order-detail.component';
 import { GuestComponent } from './guest/guest.component';
 import { QuickSignupComponent } from './quick-signup/quick-signup.component';
+import { CheckoutComponent } from './checkout/checkout.component';
+import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
 
 
 @NgModule({
@@ -30,6 +32,8 @@ import { QuickSignupComponent } from './quick-signup/quick-signup.component';
     OrderDetailComponent,
     GuestComponent,
     QuickSignupComponent,
+    CheckoutComponent,
+    ShippingAddressComponent,
   ],
   imports: [
     CommonModule,
@@ -38,7 +42,19 @@ import { QuickSignupComponent } from './quick-signup/quick-signup.component';
     ReactiveFormsModule
   ],
   exports: [
-    DisplayProductComponent
+    DisplayProductComponent,
+    ProductDetailComponent,
+    ImageDialogComponent,
+    SearchResultComponent,
+    AddToCartComponent,
+    DisplayCategoryComponent,
+    WishlistComponent,
+    PurchaseComponent,
+    OrderDetailComponent,
+    GuestComponent,
+    QuickSignupComponent,
+    CheckoutComponent,
+    ShippingAddressComponent,
   ]
 })
 

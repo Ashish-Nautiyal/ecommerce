@@ -30,4 +30,16 @@ export class ProductService {
   deleteProducts(body: any): Observable<any> {
     return this.http.delete<any>(environment.baseUrl + 'deleteProduct?id=' + body);
   }
+
+
+  addShippingAddress(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'addShippingAddress', body);
+  }
+
+
+  getShippingAddress(body:object): Observable<products> {
+    return this.http.post<products>(environment.baseUrl + 'getShippingAddress',body);
+  }
+  
+ 
 }

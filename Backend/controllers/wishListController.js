@@ -33,9 +33,7 @@ module.exports.getWishlist = async (req, res) => {
         if (!req.body.user) {
             return res.status(200).json({ message: 'user field required' });
         }
-        console.log('gshfgh', req.body);
         const wishList = await Wishlist.findOne({ user: req.body.user });
-        console.log('agfdg', wishList);
         if (!wishList) {
             return res.status(200).json({ message: 'wishlist data not found' });
         }

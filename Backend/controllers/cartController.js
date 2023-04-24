@@ -48,7 +48,7 @@ module.exports.getCart = async (req, res) => {
         res.status(500).json({ message: 'server error' });
     }
 }
-
+  
 
 module.exports.increaseCart = async (req, res) => {
     try {
