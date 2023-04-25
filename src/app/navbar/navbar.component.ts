@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit {
 
 
   logOut() {
-    localStorage.removeItem('email');
+    localStorage.removeItem('user');
     localStorage.removeItem('role');
     this.getCurrentUser();
   }

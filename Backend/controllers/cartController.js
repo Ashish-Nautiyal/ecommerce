@@ -3,7 +3,7 @@ const Variant = require('../models/productVariantModel');
 
 module.exports.addTocart = async (req, res) => {
     try {
-        if (!req.body.user ||!req.body.variant_id) {
+        if (!req.body.user || !req.body.variant_id) {
             return res.status(200).json({ message: 'all fields required' });
         }
 
@@ -30,7 +30,7 @@ module.exports.addTocart = async (req, res) => {
 
 module.exports.getCart = async (req, res) => {
     try {
-        if(!req.body.user){
+        if (!req.body.user) {
             return res.status(200).json({ message: 'all fields required' });
         }
         const cart = await Cart.find({ user: req.body.user });
@@ -48,11 +48,11 @@ module.exports.getCart = async (req, res) => {
         res.status(500).json({ message: 'server error' });
     }
 }
-  
+
 
 module.exports.increaseCart = async (req, res) => {
     try {
-        if (!req.body.user ||!req.body.variant_id) {
+        if (!req.body.user || !req.body.variant_id) {
             return res.status(200).json({ message: 'all fields required' });
         }
         const cart = await Cart.findOne({ $and: [{ user: req.body.user }, { variant_id: req.body.variant_id }] });
@@ -70,8 +70,8 @@ module.exports.increaseCart = async (req, res) => {
 
 
 module.exports.decreaseCart = async (req, res) => {
-    try {  
-        if (!req.body.user ||!req.body.variant_id) {
+    try {
+        if (!req.body.user || !req.body.variant_id) {
             return res.status(200).json({ message: 'all fields required' });
         }
         const cart = await Cart.findOne({ $and: [{ user: req.body.user }, { variant_id: req.body.variant_id }] });
@@ -94,7 +94,7 @@ module.exports.decreaseCart = async (req, res) => {
 module.exports.removeCart = async (req, res) => {
     try {
         if (!req.body.user) {
-         
+
         }
         if (!req.body.variant_id) {
             return res.status(200).json({ message: 'all fields required' });

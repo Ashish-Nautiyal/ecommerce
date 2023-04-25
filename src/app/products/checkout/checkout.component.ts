@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-checkout',
@@ -10,10 +11,13 @@ export class CheckoutComponent implements OnInit {
   purchaseData: any;
   quantity:number= 1;
   
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     let data:any = localStorage.getItem('product');
     this.purchaseData = JSON.parse(data);
+    if(!data){
+      this.router.navigate(['/user/displayCategory']);
+    }
   }
 }

@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 export class GuestComponent implements OnInit {
 
   guestData: any;
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: any, private router: Router) { }
 
   ngOnInit(): void {
@@ -18,11 +19,13 @@ export class GuestComponent implements OnInit {
 
 
   signIn() {
+    localStorage.setItem('product', JSON.stringify(this.guestData));
     this.router.navigate(['/user/quickSignUp']);
   }
 
 
   guest() {
+    localStorage.setItem('product', JSON.stringify(this.guestData));
     this.router.navigate(['/user/checkout']);
   }
 }

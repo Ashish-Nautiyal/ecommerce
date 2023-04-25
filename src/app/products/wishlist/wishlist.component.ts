@@ -20,7 +20,7 @@ export class WishlistComponent implements OnInit {
 
 
   getCurrentUser() {
-    this.currentUser = localStorage.getItem('email');
+    this.currentUser = localStorage.getItem('user');
   }
 
 

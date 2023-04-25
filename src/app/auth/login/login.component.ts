@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
       (res) => {
         const helper = new JwtHelperService();
         const token = helper.decodeToken(res.data.token);
-        localStorage.setItem('email', token.email);
+        localStorage.setItem('user', token.user);
         localStorage.setItem('role', token.role);
         if (token.role == 0) {
           this.router.navigate(['/admin/admin-dashboard']);

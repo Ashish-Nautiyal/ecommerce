@@ -10,7 +10,12 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  updateProfile(body:object):Observable<any>{
-    return this.http.post<any>(environment.baseUrl+ 'updateProfile' , body)
+  updateProfile(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'updateProfile', body)
+  }
+
+  
+  ipToUserID(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'ipToUser', body);
   }
 }

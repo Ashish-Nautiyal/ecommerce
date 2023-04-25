@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
+const Cart = require('../models/cart');
+const WishList = require('../models/wishList');
 
 
 module.exports.signUp = async (req, res) => {
@@ -43,13 +45,13 @@ module.exports.quickSignUp = async (req, res) => {
 
         // Validate the request data
         if (!phone_number) {
-            return res.status(400).json({ message: 'phone number required' });
+            return res.status(400).json({ message: 'phone number required', success: false });
         }
 
         // Check if the email address is already in use
         const existingUser = await User.findOne({ phone_number });
         if (existingUser) {
-            return res.status(409).json({ message: 'phone is already in use' });
+            return res.status(200).json({ message: 'phone is already in use', success: false });
         }
 
         // Create a new user record in the database
@@ -57,7 +59,7 @@ module.exports.quickSignUp = async (req, res) => {
         await newUser.save();
 
         // Send a response indicating that the registration was successful
-        res.status(201).json({ message: 'User registered successfully', data: newUser });
+        res.status(201).json({ message: 'User registered successfully', success: true, data: newUser });
     } catch (error) {
         console.log(error.message);
         res.status(500).json({ message: 'server error' });
@@ -85,8 +87,8 @@ module.exports.login = async (req, res) => {
                 return res.status(401).send('Incorrect password');
             }
 
-            const token = jwt.sign({ email: user.email, role: user.role }, process.env.JWT_SECRET_KEY);
-            var userToken = { ...user.toObject(), token }
+            const token = jwt.sign({ user: user._id, role: user.role }, process.env.JWT_SECRET_KEY);
+            var userToken = { ...user.toObject(), token };
 
             return res.status(200).json({ message: 'user login successfully', data: userToken });
         });
@@ -106,7 +108,7 @@ module.exports.updateProfile = async (req, res) => {
         res.status(200).json({ message: 'data updated' });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' })
+        res.status(500).json({ message: 'server error' });
     }
 }
 
@@ -130,4 +132,19 @@ module.exports.sms = async (req, res) => {
         console.log(error);
         res.status(500).json({ message: 'server error' });
     }
-}  
+}
+
+
+module.exports.updateIpToUser = async (req, res) => {
+    try {
+        if (!req.body.user || !req.body.ip) {
+            return res.status(200).json({ message: 'user and ip required', success: false });
+        }
+        await Cart.updateMany({ user: req.body.ip }, { $set: { user: req.body.user } });
+        await WishList.updateOne({ user: req.body.ip }, { $set: { user: req.body.user } });
+        res.status(200).json({ message: 'ip updated with user id', success: true });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'server error' });
+    }
+}

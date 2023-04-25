@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/app/enviroments/enviroment';
-import { ProductService } from 'src/app/services/product.service';
+import { OrderService } from 'src/app/services/order.service';
 
 @Component({
   selector: 'app-purchase',
@@ -14,8 +13,8 @@ export class PurchaseComponent implements OnInit {
   productData: any;
   addressData: any;
   quantity: number = 1;
-
-  constructor(private router: Router) { }
+  total: any;
+  constructor(private router: Router, private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -24,7 +23,7 @@ export class PurchaseComponent implements OnInit {
 
 
   getCurrentUser() {
-    this.currentUser = localStorage.getItem('email');
+    this.currentUser = localStorage.getItem('user');
   }
 
 
@@ -33,10 +32,21 @@ export class PurchaseComponent implements OnInit {
     let address = localStorage.getItem('address') || '';
     this.productData = JSON.parse(product);
     this.addressData = JSON.parse(address);
+    this.total = this.productData.price;
   }
 
 
   buy() {
-    this.router.navigate(['/user/order']);
+    const obj = { user: this.addressData.user, variant_id: this.productData._id, quantity: this.quantity, price: this.productData.price, total: this.total }
+    console.log('obj',obj);
+    
+    // this.orderService.saveOrder(obj).subscribe(
+    //   (res) => {
+
+    //   }, (error) => {
+    //     console.log(error);
+    //   }
+    // );
+    // this.router.navigate(['/user/order']);
   }
 }

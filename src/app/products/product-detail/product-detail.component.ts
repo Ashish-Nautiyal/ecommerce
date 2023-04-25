@@ -34,7 +34,7 @@ export class ProductDetailComponent implements OnInit {
 
 
   getCurrentUser() {
-    this.currentUser = localStorage.getItem('email');
+    this.currentUser = localStorage.getItem('user');
   }
 
 
@@ -65,10 +65,11 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
-  openDialogForGuest(): void {
+  openDialogForGuest(data: any): void {
     this.dialog.open(GuestComponent, {
       width: '400px',
-      height: '200px'
+      height: '200px',
+      data: data
     });
   }
 
@@ -119,11 +120,10 @@ export class ProductDetailComponent implements OnInit {
 
 
   buyNow(event: any) {
-    localStorage.setItem('product', JSON.stringify(event));
     if (this.currentUser) {
       this.router.navigate(['/user/checkout']);
     } else {
-      this.openDialogForGuest();
+      this.openDialogForGuest(event);
     }
   }
 }
