@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { environment } from 'src/app/enviroments/enviroment';
-import { CartService } from 'src/app/services/cart.service';
 
 @Component({
   selector: 'app-add-to-cart',
@@ -11,9 +10,9 @@ export class AddToCartComponent implements OnInit {
 
   currentUser: any;
   cart: any = [];
-  cartTotal: any;
+  quantity: any = [];
 
-  constructor(private cartService: CartService) { }
+  constructor() { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -26,62 +25,52 @@ export class AddToCartComponent implements OnInit {
   }
 
 
-  getUserId() {
-    let user_id;
-    if (this.currentUser) {
-      user_id = this.currentUser;
-    } else {
-      user_id = environment.data[2].ip;
-    }
-    return user_id;
-  }
-
   getCartData() {
-    let user_id = this.getUserId();
-    this.cartService.getCart({ user: user_id }).subscribe(
-      (res) => {
-        this.cart = res.data;
-        this.cartTotal = res.total;
-      }, (error) => {
-        console.log(error);
+    if (localStorage.getItem('cart')) {
+      this.cart = JSON.parse(localStorage.getItem('cart') || '');     
+      for (let i = 0; i < this.cart.length; i++) {
+        this.quantity[i] = this.cart[i].qty;
       }
-    );
+    } else {
+      this.cart = [];
+    }
   }
 
 
-  increase(val: any) {
-    let user_id = this.getUserId();
-    this.cartService.increaseCart({ user: user_id, variant_id: val._id, price: val.price }).subscribe(
-      (res) => {
-        this.getCartData();
-      }, (error) => {
-        console.log(error);
-      }
-    );
+  increaseCart(i: any) {
+    let cart = JSON.parse(localStorage.getItem('cart') || '');   
+    this.quantity[i] = this.quantity[i] + 1;
+    cart[i].qty = this.quantity[i];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    this.getCartData();
   }
 
 
-  decrease(val: any) {
-    let user_id = this.getUserId();
-    this.cartService.decreaseCart({ user: user_id, variant_id: val._id, price: val.price }).subscribe(
-      (res) => {
-        this.getCartData();
-      }, (error) => {
-        console.log(error);
-      }
-    );
+  decreaseCart(i: any) {
+    let cart = JSON.parse(localStorage.getItem('cart') || '');
+    this.quantity[i] = this.quantity[i] - 1;
+    cart[i].qty = this.quantity[i];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    this.getCartData();
   }
 
 
   removeCart(val: any) {
-    let user_id = this.getUserId();
-    this.cartService.removeCart({ user: user_id, variant_id: val._id }).subscribe(
-      (res) => {
-        this.getCartData();
-      }, (error) => {
-        console.log(error);
-
+    let cart = JSON.parse(localStorage.getItem('cart') || '');
+    var index = null;
+    for (var i = 0; i < cart.length; i++) {
+      if (cart[i]._id == val._id) {
+        index = i;
+        break;
       }
-    );
+    }
+    cart.splice(index, 1);
+    if (cart.length > 0) {
+      localStorage.setItem('cart', JSON.stringify(cart));
+      this.getCartData();
+    } else {
+      localStorage.removeItem('cart');
+      this.getCartData();
+    }
   }
 }

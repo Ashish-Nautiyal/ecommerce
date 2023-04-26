@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/app/enviroments/enviroment';
-import { CartService } from 'src/app/services/cart.service';
 import { VariantService } from 'src/app/services/variant.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { GuestComponent } from '../guest/guest.component';
@@ -22,7 +21,7 @@ export class ProductDetailComponent implements OnInit {
   imageIndex: number = 0;
   variantIndex: number = 0;
 
-  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute, private cartService: CartService, private wishListService: WishlistService, private router: Router) { }
+  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute, private wishListService: WishlistService, private router: Router) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -65,11 +64,10 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
-  openDialogForGuest(data: any): void {
+  openDialogForGuest(): void {
     this.dialog.open(GuestComponent, {
       width: '400px',
-      height: '200px',
-      data: data
+      height: '200px'
     });
   }
 
@@ -97,13 +95,21 @@ export class ProductDetailComponent implements OnInit {
 
   addToCart(val: any) {
     let user_id = this.getUserId();
-    this.cartService.addToCart({ user: user_id, variant_id: val._id, price: val.price }).subscribe(
-      (res) => {
-        this.router.navigate(['/user/addToCart']);
-      }, (error) => {
-        console.log(error);
+    val.user = user_id;
+    val.qty = 1;
+    if (!localStorage.getItem('cart')) {
+      let cart = [];
+      cart.push(val);
+      localStorage.setItem('cart', JSON.stringify(cart));
+    } else {
+      let cart = JSON.parse(localStorage.getItem('cart') || '');
+      const found = cart.some((el: any) => el._id == val._id);
+      if (!found) {
+        cart.push(val);
+        localStorage.setItem('cart', JSON.stringify(cart));
       }
-    );
+    }
+    this.router.navigate(['/user/addToCart']);
   }
 
 
@@ -119,11 +125,36 @@ export class ProductDetailComponent implements OnInit {
   }
 
 
-  buyNow(event: any) {
+  buyNow(val: any) {
+    let user_id = this.getUserId();
+    val.user = user_id;
+    val.qty = 1;
+    if (!localStorage.getItem('cart')) {
+      let cart = [];
+      cart.push(val);
+      localStorage.setItem('cart', JSON.stringify(cart));
+    } else {
+      let cart = JSON.parse(localStorage.getItem('cart') || '');
+      const found = cart.some((el: any) => el._id == val._id);
+      if (!found) {
+        cart.push(val);
+        localStorage.setItem('cart', JSON.stringify(cart));
+      } else {
+        var index = 0;
+        for (var i = 0; i < cart.length; i++) {
+          if (cart[i]._id == val._id) {
+            index = i;
+            break;
+          }
+        }
+        cart[index].qty = cart[index].qty + 1;
+        localStorage.setItem('cart', JSON.stringify(cart));
+      }
+    }
     if (this.currentUser) {
       this.router.navigate(['/user/checkout']);
     } else {
-      this.openDialogForGuest(event);
+      this.openDialogForGuest();
     }
   }
 }

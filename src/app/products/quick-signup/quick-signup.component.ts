@@ -33,7 +33,6 @@ export class QuickSignupComponent implements OnInit {
               for (let i = 0; i < environment.data.length; i++) {
                 if (environment.data[i].phone_number == data.phone_number) {
                   localStorage.setItem('user', data._id);
-                  localStorage.setItem('role', data.role);
                   this.ipToUserID(environment.data[i].ip, data._id);
                   break;
                 }

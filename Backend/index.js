@@ -38,10 +38,6 @@ app.use('/api', variantRoutes);
 const variantAttributeRoutes = require('./routes/variantAttributeRoute');
 app.use('/api', variantAttributeRoutes);
 
-//cart routes
-const cartRoutes = require('./routes/cartRoute');
-app.use('/api', cartRoutes);
-
 //wishList routes
 const wishListRoutes = require('./routes/wishListRoute');
 app.use('/api', wishListRoutes);

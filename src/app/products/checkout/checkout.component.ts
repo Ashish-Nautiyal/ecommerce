@@ -8,15 +8,13 @@ import { Router } from '@angular/router';
 })
 export class CheckoutComponent implements OnInit {
 
-  purchaseData: any;
-  quantity:number= 1;
-  
+  purchaseData: any = [];
+
   constructor(private router: Router) { }
 
   ngOnInit() {
-    let data:any = localStorage.getItem('product');
-    this.purchaseData = JSON.parse(data);
-    if(!data){
+    this.purchaseData = JSON.parse(localStorage.getItem('cart') || '');
+    if (!this.purchaseData) {
       this.router.navigate(['/user/displayCategory']);
     }
   }

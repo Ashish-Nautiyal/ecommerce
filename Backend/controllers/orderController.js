@@ -2,12 +2,13 @@ const Order = require('../models/order');
 
 module.exports.saveOrder = async (req, res) => {
     try {
-        if (!req.body.user || !req.body.variant_id || !req.body.quantity || !req.body.price || !req.body.total) {
+        if (!req.body.user || !req.body.variant_id || !req.body.quantity || !req.body.price || !req.body.total ||!req.body.shippingAddress) {
             res.status(200).json({ message: 'all fields required' });
         }
         const newOrder = new Order({
             user: req.body.user,
             products: [{ variant_id: req.body.variant_id, quantity: req.body.quantity, price: req.body.price }],
+            shippingAddress:req.body.shippingAddress,
             total: req.body.total,
         });
         newOrder.save();

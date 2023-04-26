@@ -18,9 +18,12 @@
         <div>
             <b>Your Total</b>
             <p>{{productData.price | currency: 'INR'}}</p>
-            <b>Shipping Address</b>            
-            <p>{{addressData.street}}&nbsp;{{addressData.city}}&nbsp;{{addressData.state}}&nbsp;{{addressData.country}}&nbsp;{{addressData.pincode}}</p>        
-            <button class="buyBtn" (click)="buy()">BUY</button>
+            <b>Shipping Address</b>
+            <p>{{addressData.street}}&nbsp;{{addressData.city}}&nbsp;{{addressData.state}}&nbsp;{{addressData.country}}&nbsp;{{addressData.pincode}}
+            </p>
+            <p><b>Phone</b>&nbsp;{{addressData.phone_number}}</p>
+            <button class="buyBtn" (click)="editBtn()">Edit</button>&nbsp;
+            <button class="buyBtn" (click)="buy()">Buy</button>
         </div>
     </mat-grid-tile>
 </mat-grid-list>

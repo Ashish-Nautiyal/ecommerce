@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
-const Cart = require('../models/cart');
 const WishList = require('../models/wishList');
 
 
@@ -140,7 +139,6 @@ module.exports.updateIpToUser = async (req, res) => {
         if (!req.body.user || !req.body.ip) {
             return res.status(200).json({ message: 'user and ip required', success: false });
         }
-        await Cart.updateMany({ user: req.body.ip }, { $set: { user: req.body.user } });
         await WishList.updateOne({ user: req.body.ip }, { $set: { user: req.body.user } });
         res.status(200).json({ message: 'ip updated with user id', success: true });
     } catch (error) {
