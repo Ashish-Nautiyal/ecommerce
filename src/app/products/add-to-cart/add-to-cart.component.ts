@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { environment } from 'src/app/enviroments/enviroment';
 
 @Component({
@@ -10,13 +11,14 @@ export class AddToCartComponent implements OnInit {
 
   currentUser: any;
   cart: any = [];
-  quantity: any = [];
+  total: any;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
     this.getCartData();
+    this.returnTotal();
   }
 
 
@@ -27,10 +29,7 @@ export class AddToCartComponent implements OnInit {
 
   getCartData() {
     if (localStorage.getItem('cart')) {
-      this.cart = JSON.parse(localStorage.getItem('cart') || '');     
-      for (let i = 0; i < this.cart.length; i++) {
-        this.quantity[i] = this.cart[i].qty;
-      }
+      this.cart = JSON.parse(localStorage.getItem('cart') || '');
     } else {
       this.cart = [];
     }
@@ -38,20 +37,20 @@ export class AddToCartComponent implements OnInit {
 
 
   increaseCart(i: any) {
-    let cart = JSON.parse(localStorage.getItem('cart') || '');   
-    this.quantity[i] = this.quantity[i] + 1;
-    cart[i].qty = this.quantity[i];
+    let cart = JSON.parse(localStorage.getItem('cart') || '');
+    cart[i].qty = cart[i].qty + 1;
     localStorage.setItem('cart', JSON.stringify(cart));
-    this.getCartData();
+    this.returnTotal();
+    this.getCartData();    
   }
 
 
   decreaseCart(i: any) {
     let cart = JSON.parse(localStorage.getItem('cart') || '');
-    this.quantity[i] = this.quantity[i] - 1;
-    cart[i].qty = this.quantity[i];
+    cart[i].qty = cart[i].qty - 1;
     localStorage.setItem('cart', JSON.stringify(cart));
-    this.getCartData();
+    this.returnTotal();
+    this.getCartData();    
   }
 
 
@@ -67,10 +66,27 @@ export class AddToCartComponent implements OnInit {
     cart.splice(index, 1);
     if (cart.length > 0) {
       localStorage.setItem('cart', JSON.stringify(cart));
+      this.returnTotal();
       this.getCartData();
     } else {
       localStorage.removeItem('cart');
       this.getCartData();
     }
+  }
+
+
+  returnTotal() {
+    if(localStorage.getItem('cart')){
+    let cart = JSON.parse(localStorage.getItem('cart') || '');   
+      this.total =0;
+      for (let i = 0; i < cart.length; i++) {
+        this.total += cart[i].price * cart[i].qty;
+      }
+    } 
+  }
+
+  
+  proceedToBuy() {
+    this.router.navigate(['/user/checkout']);
   }
 }

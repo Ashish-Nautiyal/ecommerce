@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
 
 
   onSubmit() {
+    localStorage.clear();
     this.authService.login(this.loginForm.value).subscribe(
       (res) => {
         const helper = new JwtHelperService();

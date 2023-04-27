@@ -1,6 +1,6 @@
 <ng-container *ngIf="wishList.length>0; else thisOne">
     <div *ngFor="let val of wishList;let i=index" style="display: inline-block; width: 23%; margin: 1%;">
-        <h1>Wishlist</h1>
+        <h1><u>Your Wishlist</u></h1>
         <mat-card class="example-card">
             <mat-card-header>
                 <mat-card-title></mat-card-title>
@@ -22,5 +22,5 @@
     </div>
 </ng-container>
 <ng-template #thisOne>
-    <h1>Wishlist empty</h1>
+    <h1>Your Wishlist empty</h1>
 </ng-template>

@@ -1,29 +1,25 @@
-<mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile>
-        <div>
-            <button>
-                <img src="http://localhost:8088/uploads/product_variant_images/{{productData.variant_image[0]}}"
-                    alt="product image" height="250px" width="250px" />
-            </button>
-            <p><b>Name</b>&nbsp;&nbsp;<span>{{productData.name}}</span></p>
-            <p><b>Price</b>&nbsp;&nbsp;<span>{{productData.price}}</span></p>
-            <p> <b>Quantity</b>&nbsp;&nbsp;{{quantity}}
-            <p><b>Colour</b>&nbsp;&nbsp;
-                <img src="http://localhost:8088/uploads/product_variant_images/{{productData.colour_image}}"
-                    alt="product image" height="10px" width="30px" />
-            </p>
-        </div>
-    </mat-grid-tile>
-    <mat-grid-tile>
-        <div>
-            <b>Your Total</b>
-            <p>{{productData.price | currency: 'INR'}}</p>
-            <b>Shipping Address</b>
-            <p>{{addressData.street}}&nbsp;{{addressData.city}}&nbsp;{{addressData.state}}&nbsp;{{addressData.country}}&nbsp;{{addressData.pincode}}
-            </p>
-            <p><b>Phone</b>&nbsp;{{addressData.phone_number}}</p>
-            <button class="buyBtn" (click)="editBtn()">Edit</button>&nbsp;
-            <button class="buyBtn" (click)="buy()">Buy</button>
-        </div>
-    </mat-grid-tile>
-</mat-grid-list>
+<div *ngFor="let product of productData" style="display: inline-block; width: 20%; margin: 1%;">
+    <button>
+        <img src="http://localhost:8088/uploads/product_variant_images/{{product.variant_image[0]}}" alt="product image"
+            height="250px" width="250px" />
+    </button>
+    <p><b>Name</b>&nbsp;&nbsp;<span>{{product.name}}</span></p>
+    <p><b>Price</b>&nbsp;&nbsp;<span>{{product.price}}</span></p>
+    <p> <b>Quantity</b>&nbsp;&nbsp;{{product.qty}}
+    <p><b>Colour</b>&nbsp;&nbsp;
+        <img src="http://localhost:8088/uploads/product_variant_images/{{product.colour_image}}" alt="product image"
+            height="10px" width="30px" />
+    </p>
+</div>
+<div class="order">
+    <b>Your Total</b>
+    <p>{{total | currency: 'INR'}}</p>
+    <p>{{productData.price | currency: 'INR'}}</p>
+    <b>Shipping Address</b>
+    <p>{{addressData.street}}&nbsp;{{addressData.city}}&nbsp;{{addressData.state}}&nbsp;{{addressData.country}}&nbsp;{{addressData.pincode}}
+    </p>
+    <b>Phone</b>
+    <p>{{addressData.phone_number}}</p>
+    <button class="buyBtn" (click)="editBtn()">Edit</button>&nbsp;
+    <button class="buyBtn" (click)="buy()">Buy</button>
+</div>

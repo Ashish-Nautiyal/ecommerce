@@ -49,11 +49,11 @@ export class ShippingAddressComponent implements OnInit {
 
 
   onSubmit() {
-    if(localStorage.getItem('product')){
+    if (localStorage.getItem('cart')) {
       localStorage.setItem("address", JSON.stringify(this.addressForm.value));
       this.router.navigate(['/user/purchase']);
-    }else{
-      this.router.navigate(['/user/displayCategory']); 
+    } else {
+      this.router.navigate(['/user/displayCategory']);
     }
   }
 }

@@ -107,6 +107,16 @@ export class ProductDetailComponent implements OnInit {
       if (!found) {
         cart.push(val);
         localStorage.setItem('cart', JSON.stringify(cart));
+      }else{
+        var index = 0;
+        for (var i = 0; i < cart.length; i++) {
+          if (cart[i]._id == val._id) {
+            index = i;
+            break;
+          }
+        }
+        cart[index].qty = cart[index].qty + 1;
+        localStorage.setItem('cart', JSON.stringify(cart));
       }
     }
     this.router.navigate(['/user/addToCart']);

@@ -1,6 +1,6 @@
 <ng-container *ngIf="cart.length > 0;else thisOne">
-  <h1>Cart</h1>
-  <div *ngFor="let val of cart;let i=index" style="display: inline-block; width: 23%; margin: 1%;">
+  <h1><u>Your Shopping Cart</u></h1>
+  <div *ngFor="let val of cart;let i=index" style="display: inline-block; width: 20%; margin: 1%;">
     <mat-card class="example-card">
       <mat-card-header>
         <mat-card-title></mat-card-title>
@@ -14,17 +14,21 @@
           <p>{{val.name}}</p>
           <p>{{val.price | currency : 'INR' }}</p>
           <div>
-            <button [disabled]="quantity[i] <= 1" (click)="decreaseCart(i)">-</button>
-            <input disabled type="text" [value]="quantity[i]">
-            <button (click)="increaseCart(i)">+</button>
+            <button [disabled]="val.qty <= 1" (click)="decreaseCart(i)">-</button>
+            <input disabled type="text" value="{{val.qty}}">
+            <button (click)="increaseCart(i)">+</button>`
           </div>
           <div class="btn">
-            <button>Buy now</button>&nbsp;
             <button (click)="removeCart(val)">Remove</button>
           </div>
         </div>
       </mat-card-content>
     </mat-card>
+  </div>
+  <div class="bt" style="float: right;">
+    <b>Your order</b>
+    <p>{{total | currency : 'INR'}}</p>
+    <button (click)="proceedToBuy()">Proceed to buy</button>
   </div>
 </ng-container>
 <ng-template #thisOne>
