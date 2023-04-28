@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -13,7 +14,7 @@ export class PurchaseComponent implements OnInit {
   productData: any;
   addressData: any;
   total: number = 0;
-  constructor(private router: Router, private productService: ProductService) { }
+  constructor(private router: Router, private productService: ProductService, private orderService: OrderService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -29,20 +30,27 @@ export class PurchaseComponent implements OnInit {
 
 
   buy() {
-    console.log('0', this.productData);
-    console.log('1', this.addressData);
-    if (localStorage.getItem('address')) {
-      let address = JSON.parse(localStorage.getItem('address') || '');
-      this.productService.addShippingAddress(address).subscribe(
-        (res) => {
-
-        }, (error) => {
-
-        }
-      )
-    } else {
-
-    }
+    console.log('done');    
+    // if (localStorage.getItem('address')) {
+    //   let address = JSON.parse(localStorage.getItem('address') || '');
+    //   this.productService.addShippingAddress(address).subscribe(
+    //     (res) => {
+    //       console.log('0', res);
+    //       let product = JSON.parse(localStorage.getItem('cart') || '');
+    //       this.orderService.saveOrder({ product: product, user: address.user, shippingAddress: res.data._id, total: this.total }).subscribe(
+    //         (res) => {
+    //           console.log('1', res);
+    //         }, (error) => {
+    //           console.log(error);
+    //         }
+    //       )
+    //     }, (error) => {
+    //       console.log(error);
+    //     }
+    //   );
+    // } else {
+    //   this.router.navigate(['/user/displayCategory']);
+    // }
   }
 
 
@@ -52,7 +60,7 @@ export class PurchaseComponent implements OnInit {
 
 
   returnTotal() {
-    if(localStorage.getItem('cart')){
+    if (localStorage.getItem('cart')) {
       let cart = JSON.parse(localStorage.getItem('cart') || '');
       for (let i = 0; i < cart.length; i++) {
         this.total += cart[i].price * cart[i].qty;

@@ -2,17 +2,28 @@ const Order = require('../models/order');
 
 module.exports.saveOrder = async (req, res) => {
     try {
-        if (!req.body.user || !req.body.variant_id || !req.body.quantity || !req.body.price || !req.body.total ||!req.body.shippingAddress) {
-            res.status(200).json({ message: 'all fields required' });
+        console.log('body', req.body);
+        const { user, product, shippingAddress, total } = req.body;
+        if (!user || !product || !shippingAddress || !total) {
+            return res.status(200).json({ message: 'all fields required' });
         }
-        const newOrder = new Order({
-            user: req.body.user,
-            products: [{ variant_id: req.body.variant_id, quantity: req.body.quantity, price: req.body.price }],
-            shippingAddress:req.body.shippingAddress,
-            total: req.body.total,
-        });
-        newOrder.save();
-        res.status(200).json({ message: 'order saved', data: newOrder });
+        let products = product;
+        for (let i = 0; i < products.length; i++) {
+            let userExist = await Order.findOne({ user: req.body.user });
+            if (userExist) {
+                await Order.updateOne({ _id: userExist._id }, { $push: { products: { variant_id: products[i]._id, quantity: products[i].qty, price: products[i].price } } });
+            } else {
+                const newOrder = new Order({
+                    user,
+                    products: [{ variant_id: products[i]._id, quantity: products[i].qty, price: products[i].price }],
+                    shippingAddress,
+                    total,
+                });
+                console.log('order', newOrder);
+                await newOrder.save();
+            }
+        }
+        res.status(200).json({ message: 'order saved' });
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: 'server error' });
