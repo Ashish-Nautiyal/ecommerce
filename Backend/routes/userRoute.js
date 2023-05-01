@@ -7,7 +7,7 @@ userRoute.post('/login',userControlller.login);
 userRoute.post('/sms',userControlller.sms);
 userRoute.post('/updateProfile',userControlller.updateProfile);
 userRoute.post('/ipToUser',userControlller.updateIpToUser);
-
+userRoute.post('/payment',userControlller.payment);
 
 
 

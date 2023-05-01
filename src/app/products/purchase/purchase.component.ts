@@ -10,6 +10,7 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class PurchaseComponent implements OnInit {
 
+  paymentHandler: any = null;
   currentUser: any;
   productData: any;
   addressData: any;
@@ -17,6 +18,7 @@ export class PurchaseComponent implements OnInit {
   constructor(private router: Router, private productService: ProductService, private orderService: OrderService) { }
 
   ngOnInit(): void {
+    this.invokeStripe();
     this.getCurrentUser();
     this.returnTotal();
     this.productData = JSON.parse(localStorage.getItem('cart') || '');
@@ -30,7 +32,7 @@ export class PurchaseComponent implements OnInit {
 
 
   buy() {
-    console.log('done');    
+    console.log('done');
     // if (localStorage.getItem('address')) {
     //   let address = JSON.parse(localStorage.getItem('address') || '');
     //   this.productService.addShippingAddress(address).subscribe(
@@ -65,6 +67,54 @@ export class PurchaseComponent implements OnInit {
       for (let i = 0; i < cart.length; i++) {
         this.total += cart[i].price * cart[i].qty;
       }
+    }
+  }
+
+
+  makePayment(amount: number) {
+    const paymentHandler = (<any>window).StripeCheckout.configure({
+      key: 'pk_test_51N2pSMSEsz94il2uKSb0bh1sNX6EvL2otUrfDdXaqWocdbrLComG22aqGjXeDCpeH1ob0Wq0AXLCGOHnLFdTdEkF00EICybkLp',
+      locale: 'auto',
+      token: function (stripeToken: any) {
+        console.log(stripeToken);
+        paymentStripe(stripeToken);
+      },
+    });
+
+    const paymentStripe = (stripeToken:any) => {
+      this.productService.makePayment(stripeToken).subscribe(
+        (res) => {
+          console.log(res);          
+        }, (error) => {
+          console.log(error);          
+        }
+      )
+    }
+
+    paymentHandler.open({
+      name: 'Ashish',
+      description: 'stripe payment',
+      amount: amount * 100
+    })
+  }
+
+
+  invokeStripe() {
+    if (!window.document.getElementById('stripe-script')) {
+      const script = window.document.createElement('script');
+      script.id = 'stripe-script';
+      script.type = 'text/javascript';
+      script.src = 'https://checkout.stripe.com/checkout.js';
+      script.onload = () => {
+        this.paymentHandler = (<any>window).StripeCheckout.configure({
+          key: 'pk_test_51N2pSMSEsz94il2uKSb0bh1sNX6EvL2otUrfDdXaqWocdbrLComG22aqGjXeDCpeH1ob0Wq0AXLCGOHnLFdTdEkF00EICybkLp',
+          locale: 'auto',
+          token: function (stripeToken: any) {
+            console.log(stripeToken);
+          },
+        });
+      };
+      window.document.body.appendChild(script);
     }
   }
 }

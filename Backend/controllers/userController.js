@@ -7,6 +7,12 @@ const client = require('twilio')(accountSid, authToken);
 const WishList = require('../models/wishList');
 
 
+const Publishable_Key = process.env.STRIPE_PUBLISHABLE_KEY;
+const Secret_Key = process.env.STRIPE_SECRET_KEY;
+
+const stripe = require('stripe')(Secret_Key)
+
+
 module.exports.signUp = async (req, res) => {
     try {
         const { name, address, email, password, phone_number } = req.body;
@@ -146,3 +152,44 @@ module.exports.updateIpToUser = async (req, res) => {
         res.status(500).json({ message: 'server error' });
     }
 }
+
+
+
+module.exports.payment = async (req, res) => {
+    console.log('bbbb',req.body);
+    try {
+        const token = req.body;
+        stripe.customers.create({
+            email: 'ashish@gmail.com',
+            source: token.id,
+            name: 'Gourav Hammad',
+            address: {
+                line1: 'TC 9/4 Old MES colony',
+                postal_code: '452331',
+                city: 'Indore',
+                state: 'Madhya Pradesh',
+                country: 'India',
+            } 
+        })
+            .then((customer) => {
+                console.log('customer',customer);
+                return stripe.charges.create({
+                    amount: 2500,     // Charging Rs 25
+                    description: 'Web Development Product',
+                    currency: 'USD',
+                    customer: customer.id
+                });
+            })
+            .then((charge) => {
+                console.log('charge',charge);
+                res.json({ data: 'success' });  // If no error occurs
+            })
+            .catch((err) => {
+                console.log(err);
+                res.json({ data: 'failure' });       // If some error occurs
+            });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: 'server error' });
+    }
+}   

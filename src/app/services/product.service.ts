@@ -32,6 +32,10 @@ export class ProductService {
   }
 
 
+  makePayment(stripeToken:any): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'payment', stripeToken);
+  }
+
   addShippingAddress(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'addShippingAddress', body);
   }
