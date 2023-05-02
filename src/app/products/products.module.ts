@@ -17,6 +17,8 @@ import { GuestComponent } from './guest/guest.component';
 import { QuickSignupComponent } from './quick-signup/quick-signup.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
+import { SuccessComponent } from './success/success.component';
+import { CancelComponent } from './cancel/cancel.component';
 
 
 @NgModule({
@@ -34,6 +36,8 @@ import { ShippingAddressComponent } from './shipping-address/shipping-address.co
     QuickSignupComponent,
     CheckoutComponent,
     ShippingAddressComponent,
+    SuccessComponent,
+    CancelComponent,
   ],
   imports: [
     CommonModule,

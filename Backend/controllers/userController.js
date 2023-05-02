@@ -155,41 +155,42 @@ module.exports.updateIpToUser = async (req, res) => {
 
 
 
+// module.exports.payment = async (req, res) => {
+//     console.log('bbbb', req.body);
+//     const YOUR_DOMAIN = 'http://localhost:4200';
+//     const session = await stripe.checkout.sessions.create({
+//         payment_method_types: ['card'],
+//         line_items: [
+//             {
+//                 price_data: {
+//                     currency: 'inr',
+//                     unit_amount: req.body.amount * 100,
+//                     product_data: {
+//                         name: 'T-shirt',
+//                         // description: 'Comfortable cotton t-shirt',
+//                         // images: ['https://example.com/t-shirt.png'],
+//                     },
+//                 },
+//                 quantity: 1,
+//             },
+//         ],
+//         mode: 'payment',
+//         success_url: `${YOUR_DOMAIN}/user/success`,
+//         cancel_url: `${YOUR_DOMAIN}/user/cancel`,
+//     });
+//     res.json({url: session.url});
+// }   
+
 module.exports.payment = async (req, res) => {
-    console.log('bbbb',req.body);
-    try {
-        const token = req.body;
-        stripe.customers.create({
-            email: 'ashish@gmail.com',
-            source: token.id,
-            name: 'Gourav Hammad',
-            address: {
-                line1: 'TC 9/4 Old MES colony',
-                postal_code: '452331',
-                city: 'Indore',
-                state: 'Madhya Pradesh',
-                country: 'India',
-            } 
-        })
-            .then((customer) => {
-                console.log('customer',customer);
-                return stripe.charges.create({
-                    amount: 2500,     // Charging Rs 25
-                    description: 'Web Development Product',
-                    currency: 'USD',
-                    customer: customer.id
-                });
-            })
-            .then((charge) => {
-                console.log('charge',charge);
-                res.json({ data: 'success' });  // If no error occurs
-            })
-            .catch((err) => {
-                console.log(err);
-                res.json({ data: 'failure' });       // If some error occurs
-            });
-    } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: 'server error' });
-    }
+    console.log('bbbb', req.body);
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: req.body.amount * 100,
+        currency: "inr",
+        automatic_payment_methods: {
+            enabled: true,
+        },
+    });
+    res.send({
+        clientSecret: paymentIntent.client_secret,
+    });
 }   

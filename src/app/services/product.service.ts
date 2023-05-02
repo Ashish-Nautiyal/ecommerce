@@ -22,6 +22,7 @@ export class ProductService {
     return this.http.get<products>(environment.baseUrl + 'getProducts');
   }
 
+
   getProductByCatId(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'getProductByCatId', body);
   }
@@ -32,18 +33,19 @@ export class ProductService {
   }
 
 
-  makePayment(stripeToken:any): Observable<any> {
+  makePayment(stripeToken: any): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'payment', stripeToken);
   }
+
 
   addShippingAddress(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'addShippingAddress', body);
   }
 
 
-  getShippingAddress(body:object): Observable<products> {
-    return this.http.post<products>(environment.baseUrl + 'getShippingAddress',body);
+  getShippingAddress(body: object): Observable<products> {
+    return this.http.post<products>(environment.baseUrl + 'getShippingAddress', body);
   }
-  
- 
+
+
 }

@@ -18,7 +18,7 @@ export class PurchaseComponent implements OnInit {
   constructor(private router: Router, private productService: ProductService, private orderService: OrderService) { }
 
   ngOnInit(): void {
-    this.invokeStripe();
+    // this.invokeStripe();
     this.getCurrentUser();
     this.returnTotal();
     this.productData = JSON.parse(localStorage.getItem('cart') || '');
@@ -32,7 +32,7 @@ export class PurchaseComponent implements OnInit {
 
 
   buy() {
-    console.log('done');
+    // console.log('done');
     // if (localStorage.getItem('address')) {
     //   let address = JSON.parse(localStorage.getItem('address') || '');
     //   this.productService.addShippingAddress(address).subscribe(
@@ -53,6 +53,14 @@ export class PurchaseComponent implements OnInit {
     // } else {
     //   this.router.navigate(['/user/displayCategory']);
     // }
+    this.productService.makePayment({amount:2000}).subscribe(
+      (res) => {
+        console.log('res',res);  
+        // window.location.href = res.url;        
+      }, (error) => {
+        console.log(error);          
+      }
+    )
   }
 
 

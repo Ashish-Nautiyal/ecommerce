@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/app/enviroments/enviroment';
 
 @Component({
   selector: 'app-add-to-cart',
