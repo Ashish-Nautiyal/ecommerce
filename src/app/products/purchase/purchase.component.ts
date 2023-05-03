@@ -32,31 +32,10 @@ export class PurchaseComponent implements OnInit {
 
 
   buy() {
-    // console.log('done');
-    // if (localStorage.getItem('address')) {
-    //   let address = JSON.parse(localStorage.getItem('address') || '');
-    //   this.productService.addShippingAddress(address).subscribe(
-    //     (res) => {
-    //       console.log('0', res);
-    //       let product = JSON.parse(localStorage.getItem('cart') || '');
-    //       this.orderService.saveOrder({ product: product, user: address.user, shippingAddress: res.data._id, total: this.total }).subscribe(
-    //         (res) => {
-    //           console.log('1', res);
-    //         }, (error) => {
-    //           console.log(error);
-    //         }
-    //       )
-    //     }, (error) => {
-    //       console.log(error);
-    //     }
-    //   );
-    // } else {
-    //   this.router.navigate(['/user/displayCategory']);
-    // }
     this.productService.makePayment({amount:2000}).subscribe(
       (res) => {
         console.log('res',res);  
-        // window.location.href = res.url;        
+        window.location.href = res.url;        
       }, (error) => {
         console.log(error);          
       }

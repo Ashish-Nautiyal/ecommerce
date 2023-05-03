@@ -10,7 +10,7 @@ const WishList = require('../models/wishList');
 const Publishable_Key = process.env.STRIPE_PUBLISHABLE_KEY;
 const Secret_Key = process.env.STRIPE_SECRET_KEY;
 
-const stripe = require('stripe')(Secret_Key)
+const stripe = require('stripe')(Secret_Key);
 
 
 module.exports.signUp = async (req, res) => {
@@ -155,42 +155,43 @@ module.exports.updateIpToUser = async (req, res) => {
 
 
 
-// module.exports.payment = async (req, res) => {
-//     console.log('bbbb', req.body);
-//     const YOUR_DOMAIN = 'http://localhost:4200';
-//     const session = await stripe.checkout.sessions.create({
-//         payment_method_types: ['card'],
-//         line_items: [
-//             {
-//                 price_data: {
-//                     currency: 'inr',
-//                     unit_amount: req.body.amount * 100,
-//                     product_data: {
-//                         name: 'T-shirt',
-//                         // description: 'Comfortable cotton t-shirt',
-//                         // images: ['https://example.com/t-shirt.png'],
-//                     },
-//                 },
-//                 quantity: 1,
-//             },
-//         ],
-//         mode: 'payment',
-//         success_url: `${YOUR_DOMAIN}/user/success`,
-//         cancel_url: `${YOUR_DOMAIN}/user/cancel`,
-//     });
-//     res.json({url: session.url});
-// }   
-
 module.exports.payment = async (req, res) => {
     console.log('bbbb', req.body);
-    const paymentIntent = await stripe.paymentIntents.create({
-        amount: req.body.amount * 100,
-        currency: "inr",
-        automatic_payment_methods: {
-            enabled: true,
-        },
+    const YOUR_DOMAIN = 'http://localhost:4200';
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [
+            {
+                price_data: {
+                    currency: 'inr',
+                    unit_amount: req.body.amount * 100,
+                    product_data: {
+                        name: 'T-shirt',
+                        // description: 'Comfortable cotton t-shirt',
+                        // images: ['https://example.com/t-shirt.png'],
+                    },
+                },
+                quantity: 1,
+            },
+        ],
+        mode: 'payment',
+        success_url: `${YOUR_DOMAIN}/user/success`,
+        cancel_url: `${YOUR_DOMAIN}/user/cancel`,
     });
-    res.send({
-        clientSecret: paymentIntent.client_secret,
-    });
+    console.log('session',session);
+    res.json({url: session.url});
 }   
+
+// module.exports.payment = async (req, res) => {
+//     console.log('bbbb', req.body);
+//     const paymentIntent = await stripe.paymentIntents.create({
+//         amount: req.body.amount * 100,
+//         currency: "inr",
+//         automatic_payment_methods: {
+//             enabled: true,
+//         },
+//     });
+//     res.send({
+//         clientSecret: paymentIntent.client_secret,
+//     });
+// }   
