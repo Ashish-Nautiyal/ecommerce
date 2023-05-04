@@ -6,6 +6,7 @@ const cors = require('cors');
 const path = require('path');
 const http = require('http').createServer(app);
 const bodyParser = require('body-parser');
+
 app.use(
     bodyParser.urlencoded({
         extended: true,
@@ -15,7 +16,7 @@ const directory = path.join(__dirname, 'uploads');
 app.use('/uploads', express.static(directory));
 
 
-app.use(express.json());
+// app.use(express.json());
 app.use(cors());
 
 //user routes

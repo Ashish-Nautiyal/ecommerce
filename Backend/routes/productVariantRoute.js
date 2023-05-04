@@ -14,12 +14,12 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 variantRoute.post('/addVariant',upload.fields([{ name: 'variant_image'}, { name: 'colour_image' }]), variantController.addVariant);
-variantRoute.get('/getVariants',variantController.getVariants);
+variantRoute.get('/getVariants',require('express').json(),variantController.getVariants);
 variantRoute.post('/getVariantById',variantController.getVariantById);
-variantRoute.post('/getVariantByProductId',variantController.getVariantByProductId);
-variantRoute.post('/getVariantColours',variantController.getVariantColours);
-variantRoute.post('/getVariantSize',variantController.getVariantSize);
-variantRoute.post('/searchVariant',variantController.searchVariant);
+variantRoute.post('/getVariantByProductId',require('express').json(),variantController.getVariantByProductId);
+variantRoute.post('/getVariantColours',require('express').json(),variantController.getVariantColours);
+variantRoute.post('/getVariantSize',require('express').json(),variantController.getVariantSize);
+variantRoute.post('/searchVariant',require('express').json(),variantController.searchVariant);
 
 
 

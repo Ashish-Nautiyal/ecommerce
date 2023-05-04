@@ -2,7 +2,6 @@ const Order = require('../models/order');
 
 module.exports.saveOrder = async (req, res) => {
     try {
-        console.log('body', req.body);
         const { user, product, shippingAddress } = req.body;
         if (!user || !product || !shippingAddress) {
             return res.status(200).json({ message: 'all fields required' });
@@ -13,7 +12,6 @@ module.exports.saveOrder = async (req, res) => {
             let total = products[i].qty * products[i].price;
             if (userExist) {
                 let newTotal = userExist.total + total;
-                console.log('nttt', newTotal);
                 await Order.updateOne({ _id: userExist._id }, { $set: { total: newTotal }, $push: { products: { variant_id: products[i]._id, quantity: products[i].qty, price: products[i].price } } });
             } else {
                 const newOrder = new Order({
@@ -22,7 +20,6 @@ module.exports.saveOrder = async (req, res) => {
                     shippingAddress,
                     total: total,
                 });
-                console.log('order', newOrder);
                 await newOrder.save();
             }
         }

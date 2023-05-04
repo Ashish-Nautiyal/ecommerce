@@ -7,7 +7,9 @@ userRoute.post('/login',userControlller.login);
 userRoute.post('/sms',userControlller.sms);
 userRoute.post('/updateProfile',userControlller.updateProfile);
 userRoute.post('/ipToUser',userControlller.updateIpToUser);
-userRoute.post('/payment',userControlller.payment);
+userRoute.post('/payment',require('express').json(),userControlller.payment);
+userRoute.post('/webhook',require('express').raw({type: 'application/json'}),userControlller.Webhook);
+
 
 
 

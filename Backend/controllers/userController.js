@@ -6,8 +6,6 @@ const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 const WishList = require('../models/wishList');
 
-
-const Publishable_Key = process.env.STRIPE_PUBLISHABLE_KEY;
 const Secret_Key = process.env.STRIPE_SECRET_KEY;
 
 const stripe = require('stripe')(Secret_Key);
@@ -156,7 +154,6 @@ module.exports.updateIpToUser = async (req, res) => {
 
 
 module.exports.payment = async (req, res) => {
-    console.log('bbbb', req.body);
     const YOUR_DOMAIN = 'http://localhost:4200';
     const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
@@ -166,9 +163,7 @@ module.exports.payment = async (req, res) => {
                     currency: 'inr',
                     unit_amount: req.body.amount * 100,
                     product_data: {
-                        name: 'T-shirt',
-                        // description: 'Comfortable cotton t-shirt',
-                        // images: ['https://example.com/t-shirt.png'],
+                        name: 'T-shirt'
                     },
                 },
                 quantity: 1,
@@ -178,20 +173,48 @@ module.exports.payment = async (req, res) => {
         success_url: `${YOUR_DOMAIN}/user/success`,
         cancel_url: `${YOUR_DOMAIN}/user/cancel`,
     });
-    console.log('session',session);
-    res.json({url: session.url});
-}   
+    res.json({ url: session.url });
+}
 
-// module.exports.payment = async (req, res) => {
-//     console.log('bbbb', req.body);
-//     const paymentIntent = await stripe.paymentIntents.create({
-//         amount: req.body.amount * 100,
-//         currency: "inr",
-//         automatic_payment_methods: {
-//             enabled: true,
-//         },
-//     });
-//     res.send({
-//         clientSecret: paymentIntent.client_secret,
-//     });
-// }   
+
+
+module.exports.Webhook = async (req, res) => {
+    let endpointSecret = "whsec_x9FNCgMRl8KIOmE9p291Ukq7dk16sxnX";
+    let session;
+    const sig = req.headers['stripe-signature'];
+    console.log('body', req.body);
+    console.log('sig', sig);
+    let event;
+    try {
+        event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);
+        console.log('event', event);
+    } catch (err) {
+        console.log('err', err);
+        res.status(400).send(`Webhook Error: ${err.message}`);
+        return;
+    }
+
+    // Handle the event
+    switch (event.type) {
+        case 'checkout.session.async_payment_failed':
+            session = event.data.object;
+            // Then define and call a function to handle the event checkout.session.async_payment_failed
+            console.log('session1', session);
+            break;
+
+
+
+        case 'checkout.session.completed':
+            session = event.data.object;
+            console.log('session2', session);
+            // Then define and call a function to handle the event checkout.session.async_payment_succeeded        
+            break;
+
+
+        default:
+            console.log(`Unhandled event type ${event.type}`);
+    }
+
+    // Return a 200 response to acknowledge receipt of the event
+    res.send('done');
+}  

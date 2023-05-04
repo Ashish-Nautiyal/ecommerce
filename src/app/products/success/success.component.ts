@@ -13,7 +13,7 @@ export class SuccessComponent implements OnInit {
   constructor(private productService: ProductService, private orderService: OrderService, private router: Router) { }
 
   ngOnInit(): void {
-    this.orderSave();
+    // this.orderSave();
   }
 
 
