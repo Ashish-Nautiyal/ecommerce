@@ -173,6 +173,8 @@ module.exports.payment = async (req, res) => {
         success_url: `${YOUR_DOMAIN}/user/success`,
         cancel_url: `${YOUR_DOMAIN}/user/cancel`,
     });
+    console.log('session',session);
+    console.log('bbb',req.body);
     res.json({ url: session.url });
 }
 
