@@ -13,10 +13,10 @@ export class DisplayProductComponent implements OnInit {
   category_id: any;
 
 
-  constructor( private router: Router, private productService: ProductService, private activateRoute: ActivatedRoute) { }
+  constructor(private router: Router, private productService: ProductService, private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.activateRoute.queryParams.subscribe(params => this.category_id = params['category_id']);    
+    this.activateRoute.queryParams.subscribe(params => this.category_id = params['category_id']);
     if (this.category_id != undefined) {
       this.getProductsByCategory();
     }
@@ -33,7 +33,7 @@ export class DisplayProductComponent implements OnInit {
     )
   }
 
-  
+
   onSelectedProduct(event: any) {
     this.router.navigate(['/user/productDetail'], { queryParams: { product_id: event._id } });
   }

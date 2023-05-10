@@ -11,6 +11,7 @@ import { AddProductComponent } from './add-product/add-product.component';
 import { AddVariantComponent } from './add-variant/add-variant.component';
 import { AddSubcategoryComponent } from './add-subcategory/add-subcategory.component';
 import { AddVariantAttributeComponent } from './add-variant-attribute/add-variant-attribute.component';
+import { ListCategoryComponent } from './list-category/list-category.component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { AddVariantAttributeComponent } from './add-variant-attribute/add-varian
     AddVariantComponent,
     AddSubcategoryComponent,
     AddVariantAttributeComponent,
+    ListCategoryComponent,
   ],
   imports: [
     CommonModule,
@@ -34,7 +36,9 @@ import { AddVariantAttributeComponent } from './add-variant-attribute/add-varian
     AddCategoryComponent,
     AddProductComponent,
     AddVariantComponent,
-    AddSubcategoryComponent
+    AddSubcategoryComponent,
+    AddVariantAttributeComponent,
+    ListCategoryComponent,
   ]
 })
 

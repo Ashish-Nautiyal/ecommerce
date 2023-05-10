@@ -28,6 +28,6 @@
   </div>
 
   <div>
-    <button mat-raised-button type="submit" value="Add">Add</button>
+    <button type="submit" [disabled]="subCategoryForm.invalid" class="btn btn-primary">Add</button>
   </div>
 </form>

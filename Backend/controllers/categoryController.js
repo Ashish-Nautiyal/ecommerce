@@ -22,26 +22,26 @@ module.exports.addCategory = async (req, res) => {
         }
 
         await newCategory.save();
-        res.status(200).send({ success: true, data: newCategory });
+        return res.status(200).send({ success: true, data: newCategory });
     } catch (error) {
         console.log(error);
-        res.status(500).send({ success: false, message: error.message });
+        return res.status(500).send({ success: false, message: error.message });
     }
 };
 
 
 module.exports.getCategories = async (req, res) => {
-    try {     
-        const categories = await Category.find({parent_id:{$eq:null}});
+    try {
+        const categories = await Category.find({ parent_id: { $eq: null } });
         if (!categories.length > 0) {
-            res.status(200).json({ message: 'categories not found', success: false, data: categories,ip:ip });
+            res.status(200).json({ message: 'categories not found', success: false, data: categories, ip: ip });
         }
-        res.status(200).json({ message: 'categories data', success: true, data: categories });
+        return res.status(200).json({ message: 'categories data', success: true, data: categories });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ success: false, message: 'server error' });
+        return res.status(500).json({ success: false, message: 'server error' });
     }
-}; 
+};
 
 
 module.exports.getCategoryTree = async (req, res) => {
@@ -78,10 +78,10 @@ module.exports.getCategoryTree = async (req, res) => {
     }
     try {
         const categories = await getCategoriesTree();
-        res.status(200).send({ success: true, data: categories });
+        return res.status(200).send({ success: true, data: categories });
     } catch (error) {
-        console.log(error); 
-        res.status(500).send({ success: false, message: error.message });
+        console.log(error);
+        return res.status(500).send({ success: false, message: error.message });
     }
 };
 
@@ -89,10 +89,10 @@ module.exports.getCategoryTree = async (req, res) => {
 module.exports.getSubCategory = async (req, res) => {
     try {
         const subCategories = await Category.find({ parent_id: { $ne: null } });
-        res.status(200).send({ success: true, data: subCategories });
+        return res.status(200).send({ success: true, data: subCategories });
     } catch (error) {
         console.log(error);
-        res.status(500).send({ success: false, message: error.message });
+        return res.status(500).send({ success: false, message: error.message });
     }
 };
 
@@ -104,9 +104,20 @@ module.exports.getCategoryById = async (req, res) => {
             return res.status(200).json({ success: false, message: 'category id not found' });
         }
         const categories = await Category.find({ parent_id });
-        res.status(200).json({ success: true, data: categories });
+        return res.status(200).json({ success: true, data: categories });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ success: false, message: 'server error' });
+        return res.status(500).json({ success: false, message: 'server error' });
     }
 };     
+
+
+module.exports.categoryById = async (req, res) => {
+    try {
+        const category = await Category.findOne({_id:req.body.categoryId});
+        return res.status(200).send({ success: true, data: category });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).send({ success: false, message: error.message });
+    }
+};

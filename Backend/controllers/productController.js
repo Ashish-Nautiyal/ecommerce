@@ -19,10 +19,10 @@ module.exports.addProduct = async (req, res) => {
 
         // Save the new product to the database
         await product.save();
-        res.status(201).json({ message: 'Product added successfully' });
+        return res.status(201).json({ message: 'Product added successfully' });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 };
 
@@ -34,10 +34,10 @@ module.exports.getProducts = async (req, res) => {
         if (!products.length > 0) {
             return res.status(201).json({ message: 'Product not found', data: products });
         }
-        res.status(201).json({ message: 'Products data', data: products });
+        return res.status(201).json({ message: 'Products data', data: products });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 };
 
@@ -50,10 +50,10 @@ module.exports.getProductsByCatId = async (req, res) => {
             return res.status(200).json({ success: false, message: 'category_id not found' });
         }
         const products = await Product.find({ category_id });
-        res.status(200).json({ success: true, data: products });
+        return res.status(200).json({ success: true, data: products });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ success: false, message: 'server error' });
+        return res.status(500).json({ success: false, message: 'server error' });
     }
 };
 
@@ -63,12 +63,12 @@ module.exports.deleteProduct = async (req, res) => {
     try {
         let data = await Product.deleteOne({ _id: req.query.id });
         if (data.deletedCount > 0) {
-            res.status(201).json({ message: 'Product deleted' });
+            return res.status(201).json({ message: 'Product deleted' });
         } else {
-            res.status(201).json({ message: 'Product not found' });
+            return res.status(201).json({ message: 'Product not found' });
         }
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 };

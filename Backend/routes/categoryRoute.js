@@ -18,7 +18,9 @@ categoryRoute.post('/addCategory',upload.single('category_image'),categoryContro
 categoryRoute.get('/getCategory',categoryController.getCategories);
 categoryRoute.get('/getCategoryTree',categoryController.getCategoryTree);
 categoryRoute.get('/getSubCategories',categoryController.getSubCategory);
-categoryRoute.post('/getCategoriesById',categoryController.getCategoryById);
+categoryRoute.post('/getCategoriesById',require('express').json(),categoryController.getCategoryById);
+categoryRoute.post('/categoryById',require('express').json(),categoryController.categoryById);
+
  
 
 

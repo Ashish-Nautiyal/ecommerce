@@ -23,7 +23,7 @@ module.exports.addWishlist = async (req, res) => {
         res.status(200).json({ message: 'product added to wishLIst', data: newWishlist });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' })
+        res.status(500).json({ message: 'server error' });
     }
 }
 

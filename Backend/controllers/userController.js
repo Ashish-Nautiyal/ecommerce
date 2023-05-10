@@ -5,9 +5,9 @@ const accountSid = process.env.TWILIO_ACCOUNT_SID;
 const authToken = process.env.TWILIO_AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
 const WishList = require('../models/wishList');
+const Transaction = require('../models/transaction');
 
 const Secret_Key = process.env.STRIPE_SECRET_KEY;
-
 const stripe = require('stripe')(Secret_Key);
 
 
@@ -34,10 +34,10 @@ module.exports.signUp = async (req, res) => {
         await newUser.save();
 
         // Send a response indicating that the registration was successful
-        res.status(201).json({ message: 'User registered successfully', data: newUser });
+        return res.status(201).json({ message: 'User registered successfully', data: newUser });
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 };
 
@@ -62,10 +62,10 @@ module.exports.quickSignUp = async (req, res) => {
         await newUser.save();
 
         // Send a response indicating that the registration was successful
-        res.status(201).json({ message: 'User registered successfully', success: true, data: newUser });
+        return res.status(201).json({ message: 'User registered successfully', success: true, data: newUser });
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 };
 
@@ -97,7 +97,7 @@ module.exports.login = async (req, res) => {
         });
     } catch (error) {
         console.log(error.message);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 };
 
@@ -108,10 +108,10 @@ module.exports.updateProfile = async (req, res) => {
             return res.status(200).json({ message: 'Phone number required' });
         }
         await User.updateOne({ phone_number: req.body.phone_number }, { $set: req.body });
-        res.status(200).json({ message: 'data updated' });
+        return res.status(200).json({ message: 'data updated' });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 }
 
@@ -129,11 +129,11 @@ module.exports.sms = async (req, res) => {
             })
             .then((message) => {
                 console.log(message);
-                res.status(200).json({ message: 'message sent' });
+               return res.status(200).json({ message: 'message sent' });
             });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' });
+       return res.status(500).json({ message: 'server error' });
     }
 }
 
@@ -144,10 +144,10 @@ module.exports.updateIpToUser = async (req, res) => {
             return res.status(200).json({ message: 'user and ip required', success: false });
         }
         await WishList.updateOne({ user: req.body.ip }, { $set: { user: req.body.user } });
-        res.status(200).json({ message: 'ip updated with user id', success: true });
+        return res.status(200).json({ message: 'ip updated with user id', success: true });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 }
 
@@ -173,9 +173,9 @@ module.exports.payment = async (req, res) => {
         success_url: `${YOUR_DOMAIN}/user/success`,
         cancel_url: `${YOUR_DOMAIN}/user/cancel`,
     });
-    console.log('session',session);
-    console.log('bbb',req.body);
-    res.json({ url: session.url });
+    console.log('session', session);
+    console.log('bbb', req.body);
+    return res.json({ url: session.url });
 }
 
 
@@ -202,21 +202,51 @@ module.exports.Webhook = async (req, res) => {
             session = event.data.object;
             // Then define and call a function to handle the event checkout.session.async_payment_failed
             console.log('session1', session);
-            break;
-
+            return res.status(200).json({ message: 'failed' });
 
 
         case 'checkout.session.completed':
             session = event.data.object;
-            console.log('session2', session);
-            // Then define and call a function to handle the event checkout.session.async_payment_succeeded        
-            break;
-
+            let data = saveTransaction(session);
+            console.log('result', data);
+            if (data == 0) {
+                return res.status(200).json({ message: 'transaction not saved' });
+            } else if (data == 1) {
+                return res.status(200).json({ message: 'transaction saved' });
+            } else {
+                return res.status(200).json({ message: 'failed' });
+            }
+        // Then define and call a function to handle the event checkout.session.async_payment_succeeded  
 
         default:
             console.log(`Unhandled event type ${event.type}`);
+            return res.status(404).json({ message: 'event not found' });
     }
 
     // Return a 200 response to acknowledge receipt of the event
-    res.send('done');
-}  
+
+}
+
+
+async function saveTransaction(data) {
+    try {
+        console.log("Inside the function");
+        if (!data) {
+            return 0;
+        }
+        const newTransaction = new Transaction({
+            transaction_id: data.id,
+            name: data.customer_details.name,
+            email: data.customer_details.email,
+            total_amount: data.amount_total,
+            createdAt: data.created,
+            status: data.status
+        });
+        await newTransaction.save();
+        console.log('Transaction saved');
+        return 1;
+    } catch (error) {
+        console.log(error);
+        return -1;
+    }
+}

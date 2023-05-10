@@ -1,4 +1,4 @@
-<ng-container *ngIf="allVariant.length > 0;">
+<ng-container *ngIf="allVariant.length > 0;else thisOne">
     <mat-card class="example-card">
         <mat-card-header>
             <mat-card-title></mat-card-title>
@@ -24,9 +24,16 @@
                                     <img src="http://localhost:8088/uploads/product_variant_images/{{allVariant[variantIndex].variant_image[imageIndex]}}"
                                         alt="product image" height="250px" width="250px" />
                                 </button>
-                                <p><b>Name</b>&nbsp;&nbsp;<span>{{allVariant[0].name}}</span></p>
-                                <p><b>Price</b>&nbsp;&nbsp;<span>{{allVariant[0].price}}</span></p>
-                                <p> <b>Quantity</b>&nbsp;&nbsp;<span>{{allVariant[0].quantity}}</span></p>
+                                <p><b>Name</b>&nbsp;&nbsp;<span>{{allVariant[variantIndex].name}}</span></p>
+                                <p><b>Price</b>&nbsp;&nbsp;<span>{{allVariant[variantIndex].price}}</span></p>
+                                <div *ngIf="allVariant[variantIndex].quantity > 0; else thisOne">
+                                    <p><b>Available</b>&nbsp;&nbsp;<span>{{allVariant[variantIndex].quantity}}</span>
+                                    </p>
+                                </div>
+                                <ng-template #thisOne>
+                                    <p class="stock">Out of Stock</p>
+                                </ng-template>
+
                                 <p><b>Colour</b>&nbsp;&nbsp;
                                     <span *ngFor="let val of allVariant;let i=index">
                                         <img src="http://localhost:8088/uploads/product_variant_images/{{val.colour_image}}"
@@ -38,17 +45,29 @@
                             </div>
                         </td>
                     </tr>
-                    <tr>
+                    <tr *ngIf="allVariant[variantIndex].quantity > 0;else this1">
                         <td class="btn">
-                            <button (click)="addToCart(allVariant[variantIndex])">Add to cart</button>&nbsp;
+                            <button disabled (click)="addToCart(allVariant[variantIndex])">Add to cart</button>&nbsp;
                             <button (click)="addWishList(allVariant[variantIndex])">Add to wishlist</button>
                         </td>
                         <td class="btn">
                             <button (click)="buyNow(allVariant[variantIndex])">Buy now</button>
                         </td>
                     </tr>
+                    <ng-template #this1>
+                        <td class="btn1">
+                            <button disabled (click)="addToCart(allVariant[variantIndex])">Add to cart</button>&nbsp;
+                            <button disabled (click)="addWishList(allVariant[variantIndex])">Add to wishlist</button>
+                        </td>
+                        <td class="btn1">
+                            <button disabled (click)="buyNow(allVariant[variantIndex])">Buy now</button>
+                        </td>
+                    </ng-template>
                 </tbody>
             </table>
         </mat-card-content>
     </mat-card>
 </ng-container>
+<ng-template #thisOne>
+    <h1>Variants not found</h1>
+</ng-template>

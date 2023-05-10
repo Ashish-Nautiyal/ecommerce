@@ -2,7 +2,7 @@
     display: flex;
 }
 
-img{
+img {
     cursor: pointer;
 }
 
@@ -11,6 +11,7 @@ mat-sidenav {
     height: auto;
     border: 1px solid rgba(0, 0, 0, 0.5);
 }
+
 .btn button {
     background-color: cornflowerblue;
     color: white;
@@ -18,4 +19,39 @@ mat-sidenav {
     border-radius: 5px;
     height: 40px;
     cursor: pointer;
+    font-size: 16px;
+    font-weight: 100;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.btn1 button {
+    background-color: cornflowerblue;
+    border: 1px solid cornflowerblue;
+    border-radius: 5px;
+    height: 40px;
+    font-size: 16px;
+    font-weight: 100;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.stock {
+    color: red;
+    font-size: 20px;
+    font-weight: 100;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+p {
+    font-size: 18px;
+    font-weight: 100;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
+}
+
+h1 {
+    font-size: 30px;
+    font-weight: 100;
+    font-family: 'Times New Roman', Times, serif;
+    text-align: center;
 }

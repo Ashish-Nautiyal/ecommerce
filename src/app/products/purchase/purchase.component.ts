@@ -18,7 +18,6 @@ export class PurchaseComponent implements OnInit {
   constructor(private router: Router, private productService: ProductService, private orderService: OrderService) { }
 
   ngOnInit(): void {
-    // this.invokeStripe();
     this.getCurrentUser();
     this.returnTotal();
     this.productData = JSON.parse(localStorage.getItem('cart') || '');
@@ -83,25 +82,5 @@ export class PurchaseComponent implements OnInit {
       description: 'stripe payment',
       amount: amount * 100
     })
-  }
-
-
-  invokeStripe() {
-    if (!window.document.getElementById('stripe-script')) {
-      const script = window.document.createElement('script');
-      script.id = 'stripe-script';
-      script.type = 'text/javascript';
-      script.src = 'https://checkout.stripe.com/checkout.js';
-      script.onload = () => {
-        this.paymentHandler = (<any>window).StripeCheckout.configure({
-          key: 'pk_test_51N2pSMSEsz94il2uKSb0bh1sNX6EvL2otUrfDdXaqWocdbrLComG22aqGjXeDCpeH1ob0Wq0AXLCGOHnLFdTdEkF00EICybkLp',
-          locale: 'auto',
-          token: function (stripeToken: any) {
-            console.log(stripeToken);
-          },
-        });
-      };
-      window.document.body.appendChild(script);
-    }
   }
 }

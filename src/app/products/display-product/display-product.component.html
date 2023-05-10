@@ -1,4 +1,4 @@
-<ng-container *ngIf="products.length > 0;">
+<ng-container *ngIf="products.length > 0;else thisOne">
   <div *ngFor="let product of products;let i=index" style="display: inline-block; width: 23%; margin: 1%;">
     <mat-card class="example-card">
       <mat-card-header>
@@ -7,8 +7,8 @@
       <mat-card-content>
         <div style="text-align: center;">
           <div>
-              <img src="http://localhost:8088/uploads/product_images/{{product.product_image}}" alt="product image" height="250px"
-                width="250px" (click)="onSelectedProduct(product)" />
+            <img src="http://localhost:8088/uploads/product_images/{{product.product_image}}" alt="product image"
+              height="250px" width="250px" (click)="onSelectedProduct(product)" />
           </div>
           <p>{{product.name}}</p>
         </div>
@@ -16,3 +16,6 @@
     </mat-card>
   </div>
 </ng-container>
+<ng-template #thisOne>
+  <h1>Products not found</h1>
+</ng-template>

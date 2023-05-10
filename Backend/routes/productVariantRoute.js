@@ -23,4 +23,5 @@ variantRoute.post('/searchVariant',require('express').json(),variantController.s
 
 
 
+
 module.exports = variantRoute; 

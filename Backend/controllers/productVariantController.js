@@ -23,10 +23,10 @@ module.exports.addVariant = async (req, res) => {
             variant_image: productImages
         });
         await newVariant.save();
-        res.status(200).json({ message: 'variant added', success: true });
+        return res.status(200).json({ message: 'variant added', success: true });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 };
 
@@ -38,10 +38,10 @@ module.exports.getVariants = async (req, res) => {
         if (!variants.length > 0) {
             return res.status(201).json({ message: 'Variant not found', data: variants });
         }
-        res.status(201).json({ message: 'Variants data', data: variants });
+        return res.status(201).json({ message: 'Variants data', data: variants });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 };
 
@@ -52,10 +52,10 @@ module.exports.getVariantById = async (req, res) => {
         if (!variants.length > 0) {
             return res.status(201).json({ message: 'Variant not found', data: variants });
         }
-        res.status(201).json({ message: 'Variants data', data: variants });
+        return res.status(201).json({ message: 'Variants data', data: variants });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 };
 
@@ -67,10 +67,10 @@ module.exports.getVariantByProductId = async (req, res) => {
         if (!variants.length > 0) {
             return res.status(201).json({ message: 'Variant not found', data: variants });
         }
-        res.status(201).json({ message: 'Variants data', data: variants });
+        return res.status(201).json({ message: 'Variants data', data: variants });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 };
 
@@ -82,10 +82,10 @@ module.exports.getVariantSize = async (req, res) => {
         if (!attributes.length > 0) {
             return res.status(201).json({ message: 'attributes not found', data: attributes });
         }
-        res.status(201).json({ message: 'Attributes data', data: attributes });
+        return res.status(201).json({ message: 'Attributes data', data: attributes });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 }
 
@@ -97,10 +97,10 @@ module.exports.getVariantColours = async (req, res) => {
         if (!variantColours.length > 0) {
             return res.status(201).json({ message: 'Variant not found', data: variantColours });
         }
-        res.status(201).json({ message: 'Variants data', data: variantColours });
+        return res.status(201).json({ message: 'Variants data', data: variantColours });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 };
 
@@ -115,9 +115,9 @@ module.exports.searchVariant = async (req, res) => {
         const searchResult = await Variant.find({
             $or: [{ name: { $regex: searchQuery, $options: 'i' } }, { colour: { $regex: searchQuery, $options: 'i' } }]
         });
-        res.status(200).json({ message: 'search result', data: searchResult });
+        return res.status(200).json({ message: 'search result', data: searchResult });
     } catch (error) {
         console.log(error);
-        res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 }
