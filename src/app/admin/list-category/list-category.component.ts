@@ -9,8 +9,9 @@ import { CategoryService } from 'src/app/services/category.service';
 export class ListCategoryComponent implements OnInit {
 
   categories: any = [];
-  showForm: boolean = false;
+  form: boolean = false;
   categoryForm: any = {
+    _id: '',
     name: '',
     category_image: ''
   }
@@ -26,7 +27,7 @@ export class ListCategoryComponent implements OnInit {
   getCategories() {
     this.categoryService.getCategory().subscribe(
       (res) => {
-        this.categories = res.data;
+        this.categories = res.data; 
       }, (error) => {
         console.log(error);
       }
@@ -38,32 +39,49 @@ export class ListCategoryComponent implements OnInit {
     let categoryId = event.target.value;
     this.categoryService.CategoryById({ categoryId: categoryId }).subscribe(
       (res) => {
+        this.categoryForm._id = res.data._id;
         this.categoryForm.name = res.data.name;
         this.categoryForm.category_image = res.data.category_image;
       }, (error) => {
         console.log(error);
       }
     );
-    this.showForm = true;
+    this.showForm();
+  }
+
+
+  showForm() {
+    this.form = true;
   }
 
 
   hideForm() {
-    this.showForm = false;
+    this.form = false;
+    this.selectedImage = undefined;
+    this.getCategories();
   }
 
 
   onFileChange(event: any) {
-    this.selectedImage = event.target.files[0];
-    console.log('event', this.selectedImage);
+      this.selectedImage = event.target.files[0];
   }
 
 
   onSubmit() {
     const formData = new FormData();
-    formData.append('name',this.categoryForm.name);
-    formData.append('category_image',this.categoryForm.category_image);
-
-    
+    formData.append('_id', this.categoryForm._id);
+    formData.append('name', this.categoryForm.name);
+    if (this.selectedImage) {
+      formData.append('category_image', this.selectedImage);
+    } else {
+      formData.append('category_image', this.categoryForm.category_image);
+    }
+    this.categoryService.updateCategory(formData).subscribe(
+      (res) => {
+        this.hideForm();
+      }, (error) => {
+        console.log(error);
+      }
+    );
   }
 }

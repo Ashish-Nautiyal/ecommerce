@@ -55,9 +55,9 @@
                         </td>
                     </tr>
                     <ng-template #this1>
-                        <td class="btn1">
-                            <button disabled (click)="addToCart(allVariant[variantIndex])">Add to cart</button>&nbsp;
-                            <button disabled (click)="addWishList(allVariant[variantIndex])">Add to wishlist</button>
+                        <td class="btn">
+                            <button (click)="addToCart(allVariant[variantIndex])">Add to cart</button>&nbsp;
+                            <button (click)="addWishList(allVariant[variantIndex])">Add to wishlist</button>
                         </td>
                         <td class="btn1">
                             <button disabled (click)="buyNow(allVariant[variantIndex])">Buy now</button>

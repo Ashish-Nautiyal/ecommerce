@@ -28,6 +28,11 @@ export class ProductService {
   }
 
 
+  getProductByProductId(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'getProductByProductId', body);
+  }
+
+
   deleteProducts(body: any): Observable<any> {
     return this.http.delete<any>(environment.baseUrl + 'deleteProduct?id=' + body);
   }

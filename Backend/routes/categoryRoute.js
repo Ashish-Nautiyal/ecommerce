@@ -20,6 +20,8 @@ categoryRoute.get('/getCategoryTree',categoryController.getCategoryTree);
 categoryRoute.get('/getSubCategories',categoryController.getSubCategory);
 categoryRoute.post('/getCategoriesById',require('express').json(),categoryController.getCategoryById);
 categoryRoute.post('/categoryById',require('express').json(),categoryController.categoryById);
+categoryRoute.post('/updateCategory',upload.single('category_image'),require('express').json(),categoryController.updateCategory);
+
 
  
 

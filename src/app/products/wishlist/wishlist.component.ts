@@ -45,7 +45,7 @@ export class WishlistComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
 
@@ -53,10 +53,10 @@ export class WishlistComponent implements OnInit {
     let user_id = this.getUserId();
     this.wishListService.removeWishlist({ user: user_id, variant_id: val._id }).subscribe(
       (res) => {
-        this.getWishList();
+        this.getWishList();  
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
 }

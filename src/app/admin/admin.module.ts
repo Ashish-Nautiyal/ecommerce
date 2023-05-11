@@ -12,6 +12,10 @@ import { AddVariantComponent } from './add-variant/add-variant.component';
 import { AddSubcategoryComponent } from './add-subcategory/add-subcategory.component';
 import { AddVariantAttributeComponent } from './add-variant-attribute/add-variant-attribute.component';
 import { ListCategoryComponent } from './list-category/list-category.component';
+import { ListSubcategoryComponent } from './list-subcategory/list-subcategory.component';
+import { ListProductComponent } from './list-product/list-product.component';
+import { ListVariantComponent } from './list-variant/list-variant.component';
+import { ListAttributeComponent } from './list-attribute/list-attribute.component';
 
 
 @NgModule({
@@ -23,6 +27,10 @@ import { ListCategoryComponent } from './list-category/list-category.component';
     AddSubcategoryComponent,
     AddVariantAttributeComponent,
     ListCategoryComponent,
+    ListSubcategoryComponent,
+    ListProductComponent,
+    ListVariantComponent,
+    ListAttributeComponent,
   ],
   imports: [
     CommonModule,

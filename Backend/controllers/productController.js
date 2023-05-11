@@ -5,7 +5,7 @@ module.exports.addProduct = async (req, res) => {
 
     try {
         // Validate the request data
-        if (!name || !category_id || !subCategory_id || !description ) {
+        if (!name || !category_id || !subCategory_id || !description) {
             return res.status(400).json({ message: 'all fields are required' });
         }
         // Create a new Product object using the request body
@@ -57,6 +57,41 @@ module.exports.getProductsByCatId = async (req, res) => {
     }
 };
 
+
+
+module.exports.getProductsByProductId = async (req, res) => {
+    try {
+        const { _id } = req.body;
+        if (!_id) {
+            return res.status(200).json({ success: false, message: '_id not found' });
+        }
+        const products = await Product.findOne({ _id });
+        return res.status(200).json({ success: true, data: products });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ success: false, message: 'server error' });
+    }
+};
+
+
+
+module.exports.updateProduct = async (req, res) => {
+    try {
+        const { name, category_id, subCategory_id, description } = req.body;
+
+        if (!name || !category_id || !subCategory_id || !description) {
+            return res.status(200).json({ success: true, message:'all fields required' });
+        }
+
+        const products = await Product.updateOne({ _id: req.body._id },
+            { $set: { name, category_id, subCategory_id, description, product_image: req.file.product_image } }
+        );
+        return res.status(200).json({ success: true, data: products });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ success: false, message: 'server error' });
+    }
+};
 
 
 module.exports.deleteProduct = async (req, res) => {

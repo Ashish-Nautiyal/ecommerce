@@ -1,5 +1,6 @@
 const Wishlist = require('../models/wishList');
 const Variant = require('../models/productVariantModel');
+const wishList = require('../models/wishList');
 
 module.exports.addWishlist = async (req, res) => {
     try {
@@ -35,7 +36,7 @@ module.exports.getWishlist = async (req, res) => {
         }
         const wishList = await Wishlist.findOne({ user: req.body.user });
         if (!wishList) {
-            return res.status(200).json({ message: 'wishlist data not found' });
+            return res.status(200).json({ message: 'wishlist data not found',data:[] });
         }
         const wishListData = [];
         for (let i = 0; i < wishList.products.length; i++) {
@@ -52,10 +53,15 @@ module.exports.getWishlist = async (req, res) => {
 
 module.exports.removeWishlist = async (req, res) => {
     try {
+        console.log('body',req.body);
         if (!req.body.user || !req.body.variant_id) {
             return res.status(200).json({ message: 'all fields required' });
         }
         await Wishlist.updateOne({ user: req.body.user }, { $pull: { products: req.body.variant_id } });
+        let afterUpdate = await Wishlist.findOne({ user: req.body.user });
+        if (afterUpdate.products.length < 1) {
+            await wishList.deleteOne({ user: req.body.user });
+        }
         res.status(200).json({ message: 'wishlist item removed' });
     } catch (error) {
         console.log(error);

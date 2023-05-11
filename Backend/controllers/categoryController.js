@@ -109,15 +109,30 @@ module.exports.getCategoryById = async (req, res) => {
         console.log(error);
         return res.status(500).json({ success: false, message: 'server error' });
     }
-};     
+};
 
 
 module.exports.categoryById = async (req, res) => {
     try {
-        const category = await Category.findOne({_id:req.body.categoryId});
+        const category = await Category.findOne({ _id: req.body.categoryId });
         return res.status(200).send({ success: true, data: category });
     } catch (error) {
         console.log(error);
-        return res.status(500).send({ success: false, message: error.message });
+        return res.status(500).json({ success: false, message: 'server error' });
+    }
+};
+
+
+module.exports.updateCategory = async (req, res) => {
+    try {
+        console.log('update', req.body);
+        if (!req.body._id || !req.body.name) {
+            return res.status(200).send({ success: false, message: 'all fields required' });
+        }
+        await Category.updateOne({ _id: req.body._id }, { $set: { name: req.body.name, category_image: req.file.originalname } });
+        return res.status(200).send({ success: true, message: 'data updated' });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ success: false, message: 'server error' });
     }
 };

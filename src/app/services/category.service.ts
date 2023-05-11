@@ -39,4 +39,9 @@ export class CategoryService {
   CategoryById(body: any): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'categoryById', body);
   }
+
+
+  updateCategory(body:any): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'updateCategory', body);
+  }
 }

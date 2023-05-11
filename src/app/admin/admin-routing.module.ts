@@ -11,6 +11,7 @@ import { AddSubcategoryComponent } from './add-subcategory/add-subcategory.compo
 import { AddVariantAttributeComponent } from './add-variant-attribute/add-variant-attribute.component';
 import { DisplayCategoryComponent } from '../products/display-category/display-category.component';
 import { ListCategoryComponent } from './list-category/list-category.component';
+import { ListProductComponent } from './list-product/list-product.component';
 
 const appRoutes: Routes = [
     {
@@ -24,6 +25,7 @@ const appRoutes: Routes = [
                     { path: 'add-variant', component: AddVariantComponent, canActivate: [RoleGuard] },
                     { path: 'add-attribute', component: AddVariantAttributeComponent, canActivate: [RoleGuard] }, 
                     { path: 'listCategory', component: ListCategoryComponent, canActivate: [RoleGuard] },
+                    { path: 'listProduct', component: ListProductComponent, canActivate: [RoleGuard] },
                 ]
             },
         ]

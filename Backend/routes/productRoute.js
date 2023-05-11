@@ -19,6 +19,10 @@ productRoute.post('/addProduct', upload.single('product_image'), productControll
 productRoute.get('/getProducts', productController.getProducts);
 productRoute.delete('/deleteProduct', productController.deleteProduct);
 productRoute.post('/getProductByCatId',require('express').json(), productController.getProductsByCatId);
+productRoute.post('/getProductByProductId',require('express').json(), productController.getProductsByProductId);
+productRoute.post('/updateProduct',require('express').json(), productController.updateProduct);
+
+
 
 
 

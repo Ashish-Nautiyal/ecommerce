@@ -129,11 +129,11 @@ module.exports.sms = async (req, res) => {
             })
             .then((message) => {
                 console.log(message);
-               return res.status(200).json({ message: 'message sent' });
+                return res.status(200).json({ message: 'message sent' });
             });
     } catch (error) {
         console.log(error);
-       return res.status(500).json({ message: 'server error' });
+        return res.status(500).json({ message: 'server error' });
     }
 }
 
@@ -208,6 +208,7 @@ module.exports.Webhook = async (req, res) => {
         case 'checkout.session.completed':
             session = event.data.object;
             let data = saveTransaction(session);
+            
             console.log('result', data);
             if (data == 0) {
                 return res.status(200).json({ message: 'transaction not saved' });
@@ -222,9 +223,6 @@ module.exports.Webhook = async (req, res) => {
             console.log(`Unhandled event type ${event.type}`);
             return res.status(404).json({ message: 'event not found' });
     }
-
-    // Return a 200 response to acknowledge receipt of the event
-
 }
 
 
