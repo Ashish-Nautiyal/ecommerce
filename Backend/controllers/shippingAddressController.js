@@ -24,7 +24,6 @@ module.exports.addShippingAddress = async (req, res) => {
     }
 }
 
-
 module.exports.getShippingAddress = async (req, res) => {
     try {
         if (!req.body.user) {

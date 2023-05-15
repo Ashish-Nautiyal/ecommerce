@@ -1,5 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -9,17 +8,14 @@ import { Router } from '@angular/router';
 })
 export class GuestComponent implements OnInit {
 
-
   constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
-
   signIn() {
     this.router.navigate(['/user/quickSignUp']);
   }
-
 
   guest() {
     this.router.navigate(['/user/checkout']);

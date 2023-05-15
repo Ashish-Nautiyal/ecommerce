@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { environment } from 'src/app/enviroments/enviroment';
 import { VariantService } from 'src/app/services/variant.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { GuestComponent } from '../guest/guest.component';
 import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-product-detail',

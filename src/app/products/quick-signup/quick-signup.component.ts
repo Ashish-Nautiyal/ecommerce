@@ -22,7 +22,6 @@ export class QuickSignupComponent implements OnInit {
     });
   }
 
-
   onSubmit() {
     for (let i = 0; i < environment.data.length; i++) {
       if (environment.data[i].phone_number == this.quickSignUpForm.get('phone_number').value) {
@@ -46,7 +45,6 @@ export class QuickSignupComponent implements OnInit {
       } 
     }
   }
-
 
   ipToUserID(ip: any, user: any) {
     this.userService.ipToUserID({ ip: ip, user: user }).subscribe(

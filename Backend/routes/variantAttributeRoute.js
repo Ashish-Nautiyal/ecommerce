@@ -3,6 +3,4 @@ const variantAttributeController = require('../controllers/variantAttributeContr
 
 variantAttributeRoutes.post('/addAttribute', variantAttributeController.addVariantAttribute);
 
-
-
 module.exports = variantAttributeRoutes;

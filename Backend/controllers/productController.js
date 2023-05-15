@@ -26,8 +26,6 @@ module.exports.addProduct = async (req, res) => {
     }
 };
 
-
-
 module.exports.getProducts = async (req, res) => {
     try {
         const products = await Product.find();
@@ -40,8 +38,6 @@ module.exports.getProducts = async (req, res) => {
         return res.status(500).json({ message: 'server error' });
     }
 };
-
-
 
 module.exports.getProductsByCatId = async (req, res) => {
     try {
@@ -57,8 +53,6 @@ module.exports.getProductsByCatId = async (req, res) => {
     }
 };
 
-
-
 module.exports.getProductsByProductId = async (req, res) => {
     try {
         const { _id } = req.body;
@@ -73,26 +67,21 @@ module.exports.getProductsByProductId = async (req, res) => {
     }
 };
 
-
-
 module.exports.updateProduct = async (req, res) => {
     try {
-        const { name, category_id, subCategory_id, description } = req.body;
-
-        if (!name || !category_id || !subCategory_id || !description) {
-            return res.status(200).json({ success: true, message:'all fields required' });
+        console.log('body', req.body);
+        console.log('file', req.file);
+        if (req.file) {
+            await Product.updateOne({ _id: req.body._id }, { $set: { name: req.body.name, category_id: req.body.category_id, subCategory_id: req.body.subCategory_id, description: req.body.description, product_image: req.file.originalname } })
+        } else {
+            await Product.updateOne({ _id: req.body._id }, { $set: req.body });
         }
-
-        const products = await Product.updateOne({ _id: req.body._id },
-            { $set: { name, category_id, subCategory_id, description, product_image: req.file.product_image } }
-        );
-        return res.status(200).json({ success: true, data: products });
+        res.status(200).json({ message: 'ok', success: true });
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ success: false, message: 'server error' });
+        return res.status(500).json({ message: 'server error', success: false });
     }
 };
-
 
 module.exports.deleteProduct = async (req, res) => {
     try {

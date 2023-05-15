@@ -26,6 +26,10 @@ export class VariantService {
     return this.http.post<any>(environment.baseUrl + 'getVariantByProductId', body);
   }
 
+  updateVariant(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'updateVariant', body)
+  }
+
   getVariantColour(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'getVariantColours', body);
   }

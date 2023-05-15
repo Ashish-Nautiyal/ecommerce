@@ -10,9 +10,7 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-
 const upload = multer({ storage: storage });
-
 
 categoryRoute.post('/addCategory',upload.single('category_image'),categoryController.addCategory);
 categoryRoute.get('/getCategory',categoryController.getCategories);
@@ -21,9 +19,5 @@ categoryRoute.get('/getSubCategories',categoryController.getSubCategory);
 categoryRoute.post('/getCategoriesById',require('express').json(),categoryController.getCategoryById);
 categoryRoute.post('/categoryById',require('express').json(),categoryController.categoryById);
 categoryRoute.post('/updateCategory',upload.single('category_image'),require('express').json(),categoryController.updateCategory);
-
-
- 
-
 
 module.exports = categoryRoute;  

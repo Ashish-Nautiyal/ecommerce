@@ -12,6 +12,7 @@ import { AddVariantAttributeComponent } from './add-variant-attribute/add-varian
 import { DisplayCategoryComponent } from '../products/display-category/display-category.component';
 import { ListCategoryComponent } from './list-category/list-category.component';
 import { ListProductComponent } from './list-product/list-product.component';
+import { ListVariantComponent } from './list-variant/list-variant.component';
 
 const appRoutes: Routes = [
     {
@@ -26,6 +27,8 @@ const appRoutes: Routes = [
                     { path: 'add-attribute', component: AddVariantAttributeComponent, canActivate: [RoleGuard] }, 
                     { path: 'listCategory', component: ListCategoryComponent, canActivate: [RoleGuard] },
                     { path: 'listProduct', component: ListProductComponent, canActivate: [RoleGuard] },
+                    { path: 'listVariant', component: ListVariantComponent, canActivate: [RoleGuard] },
+
                 ]
             },
         ]

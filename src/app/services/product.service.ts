@@ -17,40 +17,35 @@ export class ProductService {
     return this.http.post<response>(environment.baseUrl + 'addProduct', body);
   }
 
-
   getProducts(): Observable<products> {
     return this.http.get<products>(environment.baseUrl + 'getProducts');
   }
-
 
   getProductByCatId(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'getProductByCatId', body);
   }
 
-
   getProductByProductId(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'getProductByProductId', body);
   }
 
+  updateProducts(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'updateProduct', body);
+  }
 
   deleteProducts(body: any): Observable<any> {
     return this.http.delete<any>(environment.baseUrl + 'deleteProduct?id=' + body);
   }
 
-
   makePayment(stripeToken: any): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'payment', stripeToken);
   }
-
 
   addShippingAddress(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'addShippingAddress', body);
   }
 
-
   getShippingAddress(body: object): Observable<products> {
     return this.http.post<products>(environment.baseUrl + 'getShippingAddress', body);
   }
-
-
 }

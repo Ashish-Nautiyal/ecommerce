@@ -1,15 +1,16 @@
 const User = require('../models/userModel');
-const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
-const accountSid = process.env.TWILIO_ACCOUNT_SID;
-const authToken = process.env.TWILIO_AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
 const WishList = require('../models/wishList');
 const Transaction = require('../models/transaction');
 
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+
+const accountSid = process.env.TWILIO_ACCOUNT_SID;
+const authToken = process.env.TWILIO_AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
+
 const Secret_Key = process.env.STRIPE_SECRET_KEY;
 const stripe = require('stripe')(Secret_Key);
-
 
 module.exports.signUp = async (req, res) => {
     try {
@@ -41,7 +42,6 @@ module.exports.signUp = async (req, res) => {
     }
 };
 
-
 module.exports.quickSignUp = async (req, res) => {
     try {
         const { phone_number } = req.body;
@@ -68,7 +68,6 @@ module.exports.quickSignUp = async (req, res) => {
         return res.status(500).json({ message: 'server error' });
     }
 };
-
 
 module.exports.login = async (req, res) => {
     try {
@@ -101,7 +100,6 @@ module.exports.login = async (req, res) => {
     }
 };
 
-
 module.exports.updateProfile = async (req, res) => {
     try {
         if (!req.body.phone_number) {
@@ -114,7 +112,6 @@ module.exports.updateProfile = async (req, res) => {
         return res.status(500).json({ message: 'server error' });
     }
 }
-
 
 module.exports.sms = async (req, res) => {
     try {
@@ -137,7 +134,6 @@ module.exports.sms = async (req, res) => {
     }
 }
 
-
 module.exports.updateIpToUser = async (req, res) => {
     try {
         if (!req.body.user || !req.body.ip) {
@@ -150,8 +146,6 @@ module.exports.updateIpToUser = async (req, res) => {
         return res.status(500).json({ message: 'server error' });
     }
 }
-
-
 
 module.exports.payment = async (req, res) => {
     const YOUR_DOMAIN = 'http://localhost:4200';
@@ -177,8 +171,6 @@ module.exports.payment = async (req, res) => {
     console.log('bbb', req.body);
     return res.json({ url: session.url });
 }
-
-
 
 module.exports.Webhook = async (req, res) => {
     let endpointSecret = "whsec_x9FNCgMRl8KIOmE9p291Ukq7dk16sxnX";
@@ -224,7 +216,6 @@ module.exports.Webhook = async (req, res) => {
             return res.status(404).json({ message: 'event not found' });
     }
 }
-
 
 async function saveTransaction(data) {
     try {

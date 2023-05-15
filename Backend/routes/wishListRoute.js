@@ -5,5 +5,4 @@ wishListRoute.post('/addWishlist', require('express').json(), wishListController
 wishListRoute.post('/getWishlist', require('express').json(), wishListController.getWishlist);
 wishListRoute.post('/removeWishlist', require('express').json(), wishListController.removeWishlist);
 
-
 module.exports = wishListRoute;

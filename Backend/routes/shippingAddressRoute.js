@@ -4,6 +4,4 @@ const shippingAddressController = require("../controllers/shippingAddressControl
 shippingAddressRoutes.post('/addShippingAddress',require('express').json(),shippingAddressController.addShippingAddress);
 shippingAddressRoutes.route('/getShippingAddress').post(shippingAddressController.getShippingAddress);
 
-
-
 module.exports = shippingAddressRoutes;

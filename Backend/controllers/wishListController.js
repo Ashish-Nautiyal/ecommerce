@@ -1,6 +1,5 @@
 const Wishlist = require('../models/wishList');
 const Variant = require('../models/productVariantModel');
-const wishList = require('../models/wishList');
 
 module.exports.addWishlist = async (req, res) => {
     try {

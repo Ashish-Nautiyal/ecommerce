@@ -1,10 +1,16 @@
+<div *ngIf="categories.length > 0;">
+    <select (change)="getProducts($event)" class="select">
+        <option value="">Choose category</option>
+        <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
+    </select>
+</div>
+
 <div *ngIf="Products.length > 0;">
-    <select (change)="onChange($event)" class="select">
+    <select (change)="onProductChange($event)" class="select">
         <option value="">Choose Product</option>
         <option *ngFor="let Product of Products" value="{{Product._id}}">{{Product.name}}</option>
     </select>
 </div>
-
 
 <form (submit)="onSubmit()" class="form-container" *ngIf="form == true">
     <div class="form-group">
@@ -15,18 +21,30 @@
     </div>
 
     <div class="form-group">
-        <label for="category_id">Category:</label>
-        <input type="text" id="category_id" [(ngModel)]="productForm.category_id" name="category_id" required>
-        <div *ngIf="productForm.category_id === '' || productForm.category_id === null || productForm.category_id === undefined"
-            class="invalid-feedback">Category_id is required.</div>
+        <label for="category">Category</label>
+        <select (change)="onCategoryChange($event)" id="category" name="category_id">
+            <option value="">select category</option>
+            <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
+        </select>
     </div>
 
-    <div class="form-group">
-        <label for="subCategory_id">SubCategory:</label>
-        <input type="text" id="subCategory_id" [(ngModel)]="productForm.subCategory_id" name="subCategory_id" required>
-        <div *ngIf="productForm.subCategory_id === '' || productForm.subCategory_id === null || productForm.subCategory_id === undefined"
-            class="invalid-feedback">SubCategory_id is required.</div>
-    </div>
+    <ng-container *ngIf="subCategories.length>0">
+        <div class="form-group">
+            <label for="Subcategory">Subcategory</label>
+            <select (change)="getSubcategories($event,-1)" id="Subcategory" name="subCategory_id">
+                <option value="">select subcategory</option>
+                <option *ngFor="let subCategory of subCategories" value="{{subCategory._id}}">{{subCategory.name}}
+                </option>
+            </select>
+            <div class="form-group" *ngFor="let subCat of subCategories1; let i=index">
+                <ng-container *ngIf="subCat.length>0">
+                    <select (change)="getSubcategories($event,i)" name="subCategory_id">
+                        <option *ngFor="let val of subCat" value="{{val._id}}">{{val.name}}</option>
+                    </select>
+                </ng-container>
+            </div>
+        </div>
+    </ng-container>
 
     <div class="form-group">
         <label for="description">Description:</label>

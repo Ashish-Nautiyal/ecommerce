@@ -12,12 +12,10 @@ import { ProductService } from 'src/app/services/product.service';
 export class AddProductComponent implements OnInit {
 
   productForm: any;
-  categories: any;
+  categories: any = [];
   subCategories: any = [];
   subCategories1: any = [];
   selectedProductFile: any;
-
-
 
   constructor(private productService: ProductService, private categoryService: CategoryService) { }
 
@@ -36,7 +34,6 @@ export class AddProductComponent implements OnInit {
     });
   }
 
-
   onFileSelect(event: any) {
     this.selectedProductFile = event.target.files[0];
   }
@@ -48,8 +45,6 @@ export class AddProductComponent implements OnInit {
     formData.append('subCategory_id', this.productForm.get('subCategory_id').value);
     formData.append('description', this.productForm.get('description').value);
     formData.append('product_image', this.selectedProductFile);
-
-
     this.productService.addProduct(formData).subscribe(
       (res) => {
         this.ngOnInit();
@@ -58,8 +53,6 @@ export class AddProductComponent implements OnInit {
       }
     );
   };
-
-
 
   getCategories() {
     this.categoryService.getCategory().subscribe(
@@ -70,8 +63,6 @@ export class AddProductComponent implements OnInit {
       }
     );
   };
-
-
 
   getSubcategories(event: any) {
     const id = event.target.value;
@@ -84,7 +75,7 @@ export class AddProductComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
   onChange(event: any, i: number) {
@@ -101,6 +92,6 @@ export class AddProductComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
 }

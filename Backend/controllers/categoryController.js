@@ -29,7 +29,6 @@ module.exports.addCategory = async (req, res) => {
     }
 };
 
-
 module.exports.getCategories = async (req, res) => {
     try {
         const categories = await Category.find({ parent_id: { $eq: null } });
@@ -42,7 +41,6 @@ module.exports.getCategories = async (req, res) => {
         return res.status(500).json({ success: false, message: 'server error' });
     }
 };
-
 
 module.exports.getCategoryTree = async (req, res) => {
     async function getCategoriesTree() {
@@ -85,7 +83,6 @@ module.exports.getCategoryTree = async (req, res) => {
     }
 };
 
-
 module.exports.getSubCategory = async (req, res) => {
     try {
         const subCategories = await Category.find({ parent_id: { $ne: null } });
@@ -96,12 +93,11 @@ module.exports.getSubCategory = async (req, res) => {
     }
 };
 
-
 module.exports.getCategoryById = async (req, res) => {
     try {
         const { parent_id } = req.body;
         if (!parent_id) {
-            return res.status(200).json({ success: false, message: 'category id not found' });
+            return res.status(200).json({ success: false, message: 'category id not found', data: [] });
         }
         const categories = await Category.find({ parent_id });
         return res.status(200).json({ success: true, data: categories });
@@ -110,7 +106,6 @@ module.exports.getCategoryById = async (req, res) => {
         return res.status(500).json({ success: false, message: 'server error' });
     }
 };
-
 
 module.exports.categoryById = async (req, res) => {
     try {
@@ -122,15 +117,18 @@ module.exports.categoryById = async (req, res) => {
     }
 };
 
-
 module.exports.updateCategory = async (req, res) => {
     try {
-        console.log('update', req.body);
-        if (!req.body._id || !req.body.name) {
-            return res.status(200).send({ success: false, message: 'all fields required' });
-        }
-        await Category.updateOne({ _id: req.body._id }, { $set: { name: req.body.name, category_image: req.file.originalname } });
-        return res.status(200).send({ success: true, message: 'data updated' });
+        console.log('body', req.body);
+        console.log('file', req.file);
+        console.log('files', req.files);
+
+        // if (!req.body._id || !req.body.name) {
+        //     return res.status(200).send({ success: false, message: 'all fields required' });
+        // }
+        // await Category.updateOne({ _id: req.body._id }, { $set: { name: req.body.name, category_image: req.file.originalname } });
+        // return res.status(200).send({ success: true, message: 'data updated' });
+        res.status(200).json({ message: 'ok' });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ success: false, message: 'server error' });

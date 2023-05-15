@@ -1,7 +1,6 @@
 const Variant = require("../models/productVariantModel");
 const variantAttribute = require('../models/variantAttributeModel');
 
-
 module.exports.addVariant = async (req, res) => {
     try {
         const { name, product_id, price, quantity, colour } = req.body;
@@ -30,8 +29,6 @@ module.exports.addVariant = async (req, res) => {
     }
 };
 
-
-
 module.exports.getVariants = async (req, res) => {
     try {
         const variants = await Variant.find();
@@ -45,12 +42,15 @@ module.exports.getVariants = async (req, res) => {
     }
 };
 
-
 module.exports.getVariantById = async (req, res) => {
     try {
-        const variants = await Variant.find({ _id: req.body.variant_id });
-        if (!variants.length > 0) {
-            return res.status(201).json({ message: 'Variant not found', data: variants });
+        const { _id } = req.body;
+        if (!_id) {
+            return res.status(200).json({ message: 'all fields required', data: {} });
+        }
+        const variants = await Variant.findOne({ _id });
+        if (!variants) {
+            return res.status(201).json({ message: 'Variant not found', data: {} });
         }
         return res.status(201).json({ message: 'Variants data', data: variants });
     } catch (error) {
@@ -58,8 +58,6 @@ module.exports.getVariantById = async (req, res) => {
         return res.status(500).json({ message: 'server error' });
     }
 };
-
-
 
 module.exports.getVariantByProductId = async (req, res) => {
     try {
@@ -74,7 +72,17 @@ module.exports.getVariantByProductId = async (req, res) => {
     }
 };
 
-
+module.exports.updateVariant = async (req, res) => {
+    try {
+        console.log('body', req.body);
+        console.log('file', req.file);
+        console.log('files', req.files);
+        res.status(200).json({ message: "ok" });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'server error' });
+    }
+};
 
 module.exports.getVariantSize = async (req, res) => {
     try {
@@ -89,8 +97,6 @@ module.exports.getVariantSize = async (req, res) => {
     }
 }
 
-
-
 module.exports.getVariantColours = async (req, res) => {
     try {
         const variantColours = await Variant.find({ product_id: req.body.id }, { colour_image: 1, product_id: 1 });
@@ -103,8 +109,6 @@ module.exports.getVariantColours = async (req, res) => {
         return res.status(500).json({ message: 'server error' });
     }
 };
-
-
 
 module.exports.searchVariant = async (req, res) => {
     try {

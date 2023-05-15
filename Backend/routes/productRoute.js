@@ -10,21 +10,13 @@ const storage = multer.diskStorage({
         cb(null, file.originalname);
     }
 });
-
 const upload = multer({ storage: storage });
 
-
-
-productRoute.post('/addProduct', upload.single('product_image'), productController.addProduct);
+productRoute.post('/addProduct', upload.single('product_image'), require('express').json(), productController.addProduct);
 productRoute.get('/getProducts', productController.getProducts);
-productRoute.delete('/deleteProduct', productController.deleteProduct);
-productRoute.post('/getProductByCatId',require('express').json(), productController.getProductsByCatId);
-productRoute.post('/getProductByProductId',require('express').json(), productController.getProductsByProductId);
-productRoute.post('/updateProduct',require('express').json(), productController.updateProduct);
-
-
-
-
-
+productRoute.delete('/deleteProduct', require('express').json(), productController.deleteProduct);
+productRoute.post('/getProductByCatId', require('express').json(), productController.getProductsByCatId);
+productRoute.post('/getProductByProductId', require('express').json(), productController.getProductsByProductId);
+productRoute.post('/updateProduct', upload.single('product_image'), require('express').json(), productController.updateProduct);
 
 module.exports = productRoute;

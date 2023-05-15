@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { OrderService } from 'src/app/services/order.service';
 import { ProductService } from 'src/app/services/product.service';
 
 @Component({
@@ -15,7 +14,7 @@ export class PurchaseComponent implements OnInit {
   productData: any;
   addressData: any;
   total: number = 0;
-  constructor(private router: Router, private productService: ProductService, private orderService: OrderService) { }
+  constructor(private router: Router, private productService: ProductService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -24,28 +23,24 @@ export class PurchaseComponent implements OnInit {
     this.addressData = JSON.parse(localStorage.getItem('address') || '');
   }
 
-
   getCurrentUser() {
     this.currentUser = localStorage.getItem('user');
   }
 
-
   buy() {
-    this.productService.makePayment({amount:2000}).subscribe(
+    this.productService.makePayment({ amount: 2000 }).subscribe(
       (res) => {
-        console.log('res',res);  
-        window.location.href = res.url;        
+        console.log('res', res);
+        window.location.href = res.url;
       }, (error) => {
-        console.log(error);          
+        console.log(error);
       }
     )
   }
 
-
   editBtn() {
     this.router.navigate(['/user/checkout'], { queryParams: { action: 'E' } });
   }
-
 
   returnTotal() {
     if (localStorage.getItem('cart')) {
@@ -55,7 +50,6 @@ export class PurchaseComponent implements OnInit {
       }
     }
   }
-
 
   makePayment(amount: number) {
     const paymentHandler = (<any>window).StripeCheckout.configure({
@@ -67,12 +61,12 @@ export class PurchaseComponent implements OnInit {
       },
     });
 
-    const paymentStripe = (stripeToken:any) => {
+    const paymentStripe = (stripeToken: any) => {
       this.productService.makePayment(stripeToken).subscribe(
         (res) => {
-          console.log(res);          
+          console.log(res);
         }, (error) => {
-          console.log(error);          
+          console.log(error);
         }
       )
     }
@@ -81,6 +75,6 @@ export class PurchaseComponent implements OnInit {
       name: 'Ashish',
       description: 'stripe payment',
       amount: amount * 100
-    })
+    });
   }
 }

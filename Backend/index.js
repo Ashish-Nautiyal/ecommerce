@@ -14,8 +14,6 @@ app.use(
 );
 const directory = path.join(__dirname, 'uploads');
 app.use('/uploads', express.static(directory));
-
-
 // app.use(express.json());
 app.use(cors());
 
@@ -50,7 +48,6 @@ app.use('/api', orderRoutes);
 //address routes
 const addressRoutes = require('./routes/shippingAddressRoute');
 app.use('/api', addressRoutes);
-
 
 http.listen(process.env.PORT, () => {
     console.log('server listen on port', process.env.PORT);
