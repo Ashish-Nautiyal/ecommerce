@@ -62,5 +62,4 @@ import { CancelComponent } from './cancel/cancel.component';
   ]
 })
 
-
 export class ProductsModule { }

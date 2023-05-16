@@ -1,0 +1,66 @@
+.select {
+    height: 40px;
+    border-radius: 10px;
+    width: 15%;
+    text-align: center;
+}
+.form-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .form-group {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+  }
+  
+  input[type="text"],
+  input[type="file"] {
+    display: block;
+    width: 98%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .invalid-feedback {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+  }
+  
+  button {
+    display: block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  button[type="button"] {
+    margin-left: 10px;
+    background-color: #ccc;
+    color: #000;
+  }
+  select {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}

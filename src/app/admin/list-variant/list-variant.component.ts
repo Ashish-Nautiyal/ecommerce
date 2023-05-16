@@ -102,6 +102,7 @@ export class ListVariantComponent implements OnInit {
   onSubmit() {
     console.log('variantForm', this.variantForm);
     const formData = new FormData();
+    formData.append('_id', this.variantForm._id);
     formData.append('name', this.variantForm.name);
     formData.append('product_id', this.variantForm.product_id);
     formData.append('price', this.variantForm.price);
@@ -113,7 +114,7 @@ export class ListVariantComponent implements OnInit {
       formData.append('colour_image', this.variantForm.colour_image);
     }
     if (this.selectedVariantImage) {
-      for(let i=0;i<this.selectedVariantImage.length;i++){
+      for (let i = 0; i < this.selectedVariantImage.length; i++) {
         formData.append('variant_image', this.selectedVariantImage[i]);
       }
     } else {

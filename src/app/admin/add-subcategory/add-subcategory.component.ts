@@ -34,9 +34,7 @@ export class AddSubcategoryComponent implements OnInit {
       parent_id: new FormControl('', Validators.required)
     });
   }
-
-
-
+  
   getCategories() {
     this.categoryService.getCategoryTree().subscribe(
       (res) => {
@@ -46,8 +44,6 @@ export class AddSubcategoryComponent implements OnInit {
       }
     );
   };
-
-
 
   onChange(event: any, i: number) {
     const id = event.target.value;
@@ -66,11 +62,8 @@ export class AddSubcategoryComponent implements OnInit {
     )
   }
 
-
-
   onSubmit() {
     console.log('submit', this.subCategoryForm.value);
-
     this.categoryService.addCategory(this.subCategoryForm.value).subscribe(
       (res) => {
         this.subCategories = [];
@@ -80,7 +73,6 @@ export class AddSubcategoryComponent implements OnInit {
       }
     );
   }
-
 
   getSelectedCategory(category: any) {
     this.selectedCategory = category;

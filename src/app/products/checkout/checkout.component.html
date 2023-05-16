@@ -27,6 +27,6 @@
 <ng-template #thisOne>
     <h1>purchaseData is empty</h1>
 </ng-template>
-<div class="address">
+<div *ngIf="currentUser != null">
     <app-shipping-address></app-shipping-address>
 </div>

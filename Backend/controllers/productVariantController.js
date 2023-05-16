@@ -74,10 +74,34 @@ module.exports.getVariantByProductId = async (req, res) => {
 
 module.exports.updateVariant = async (req, res) => {
     try {
-        console.log('body', req.body);
-        console.log('file', req.file);
-        console.log('files', req.files);
-        res.status(200).json({ message: "ok" });
+        if (!req.body.name || !req.body.product_id || !req.body.price || !req.body.quantity || !req.body.colour) {
+            return res.status(200).json({ message: "all fields required", success: false });
+        }
+        if (req.files.colour_image || req.files.variant_image) {
+            if (req.files.colour_image && req.files.variant_image) {
+                let productImages = [];
+                req.files.variant_image.map((image) => {
+                    productImages.push(image.originalname);
+                });
+                await Variant.updateOne({ _id: req.body._id },
+                    { $set: { name: req.body.name, product_id: req.body.product_id, price: req.body.price, quantity: req.body.quantity, colour: req.body.colour, colour_image: req.files.colour_image[0].originalname, variant_image: productImages } });
+            } else if (req.files.colour_image && !req.files.variant_image) {
+                req.body.variant_image = req.body.variant_image.split(',');
+                await Variant.updateOne({ _id: req.body._id },
+                    { $set: { name: req.body.name, product_id: req.body.product_id, price: req.body.price, quantity: req.body.quantity, colour: req.body.colour, colour_image: req.files.colour_image[0].originalname, variant_image: req.body.variant_image } });
+            } else {
+                let productImages = [];
+                req.files.variant_image.map((image) => {
+                    productImages.push(image.originalname);
+                });
+                await Variant.updateOne({ _id: req.body._id },
+                    { $set: { name: req.body.name, product_id: req.body.product_id, price: req.body.price, quantity: req.body.quantity, colour: req.body.colour, colour_image: req.body.colour_image, variant_image: productImages } });
+            }
+        } else {
+            req.body.variant_image = req.body.variant_image.split(',');
+            await Variant.updateOne({ _id: req.body._id }, { $set: req.body });
+        }
+        res.status(200).json({ message: "data updated", success: true });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'server error' });

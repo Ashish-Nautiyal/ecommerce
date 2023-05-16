@@ -40,9 +40,5 @@ export class VariantService {
 
   searchVariant(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'searchVariant', body);
-  }
-
-  addAttribute(body: object): Observable<any> {
-    return this.http.post<any>(environment.baseUrl + 'addAttribute', body);
-  }
+  }  
 }

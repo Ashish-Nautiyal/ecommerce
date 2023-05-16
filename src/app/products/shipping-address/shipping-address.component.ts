@@ -29,11 +29,9 @@ export class ShippingAddressComponent implements OnInit {
     this.Form();
   }
 
-
   getCurrentUser() {
     this.currentUser = localStorage.getItem('user');
   }
-
 
   Form() {
     this.addressForm = new FormGroup({
@@ -47,7 +45,6 @@ export class ShippingAddressComponent implements OnInit {
     });
   }
 
-
   onSubmit() {
     if (localStorage.getItem('cart')) {
       localStorage.setItem("address", JSON.stringify(this.addressForm.value));
@@ -55,5 +52,12 @@ export class ShippingAddressComponent implements OnInit {
     } else {
       this.router.navigate(['/user/displayCategory']);
     }
-  }
+    // this.productService.addShippingAddress(this.addressForm.value).subscribe(
+    //   (res) => {
+        
+    //   }, (error) => {
+    //     console.log(error);      
+    //   }
+    // );
+  } 
 }

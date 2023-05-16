@@ -21,6 +21,8 @@ import { SuccessComponent } from './products/success/success.component';
 import { WishlistComponent } from './products/wishlist/wishlist.component';
 import { HomeComponent } from './user/home/home.component';
 import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
+import { ProfileComponent } from './user/profile/profile.component';
+import { RoleGuard } from './guard/role.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -50,6 +52,7 @@ const routes: Routes = [
       { path: 'home', component: HomeComponent },
       { path: 'success', component: SuccessComponent },
       { path: 'cancel', component: CancelComponent },
+      { path: 'profile', component: ProfileComponent,canActivate:[RoleGuard] },
     ]
   },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },

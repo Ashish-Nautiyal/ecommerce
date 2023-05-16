@@ -69,14 +69,12 @@ module.exports.getProductsByProductId = async (req, res) => {
 
 module.exports.updateProduct = async (req, res) => {
     try {
-        console.log('body', req.body);
-        console.log('file', req.file);
         if (req.file) {
-            await Product.updateOne({ _id: req.body._id }, { $set: { name: req.body.name, category_id: req.body.category_id, subCategory_id: req.body.subCategory_id, description: req.body.description, product_image: req.file.originalname } })
+            await Product.updateOne({ _id: req.body._id }, { $set: { name: req.body.name, category_id: req.body.category_id, subCategory_id: req.body.subCategory_id, description: req.body.description, product_image: req.file.originalname } });
         } else {
             await Product.updateOne({ _id: req.body._id }, { $set: req.body });
         }
-        res.status(200).json({ message: 'ok', success: true });
+        res.status(200).json({ message: 'data updated', success: true });
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'server error', success: false });

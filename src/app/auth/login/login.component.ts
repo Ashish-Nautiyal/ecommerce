@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         if (token.role == 0) {
           this.router.navigate(['/admin/admin-dashboard']);
         } else {
-          this.router.navigate(['/user/display-product']);
+          this.router.navigate(['/user/displayCategory']);
         }
       }, (err) => {
         console.log(err);

@@ -12,12 +12,14 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-categoryRoute.post('/addCategory',upload.single('category_image'),categoryController.addCategory);
-categoryRoute.get('/getCategory',categoryController.getCategories);
-categoryRoute.get('/getCategoryTree',categoryController.getCategoryTree);
-categoryRoute.get('/getSubCategories',categoryController.getSubCategory);
-categoryRoute.post('/getCategoriesById',require('express').json(),categoryController.getCategoryById);
-categoryRoute.post('/categoryById',require('express').json(),categoryController.categoryById);
-categoryRoute.post('/updateCategory',upload.single('category_image'),require('express').json(),categoryController.updateCategory);
+categoryRoute.post('/addCategory', upload.single('category_image'), categoryController.addCategory);
+categoryRoute.get('/getCategory', categoryController.getCategories);
+categoryRoute.get('/getCategoryTree', categoryController.getCategoryTree);
+categoryRoute.get('/getSubCategories', categoryController.getSubCategory);
+categoryRoute.post('/getCategoriesById', require('express').json(), categoryController.getCategoryById);
+categoryRoute.post('/categoryById', require('express').json(), categoryController.categoryById);
+categoryRoute.post('/updateCategory', upload.single('category_image'), require('express').json(), categoryController.updateCategory);
+categoryRoute.post('/updateSubCategory', require('express').json(), categoryController.updateSubCategory);
+
 
 module.exports = categoryRoute;  

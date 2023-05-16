@@ -44,4 +44,8 @@ export class CategoryService {
   updateCategory(body:any): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'updateCategory', body);
   }
+
+  updateSubCategory(body:any): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'updateSubCategory', body);
+  }
 }

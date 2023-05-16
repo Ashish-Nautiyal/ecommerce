@@ -13,6 +13,8 @@ import { DisplayCategoryComponent } from '../products/display-category/display-c
 import { ListCategoryComponent } from './list-category/list-category.component';
 import { ListProductComponent } from './list-product/list-product.component';
 import { ListVariantComponent } from './list-variant/list-variant.component';
+import { ListAttributeComponent } from './list-attribute/list-attribute.component';
+import { ListSubcategoryComponent } from './list-subcategory/list-subcategory.component';
 
 const appRoutes: Routes = [
     {
@@ -26,9 +28,10 @@ const appRoutes: Routes = [
                     { path: 'add-variant', component: AddVariantComponent, canActivate: [RoleGuard] },
                     { path: 'add-attribute', component: AddVariantAttributeComponent, canActivate: [RoleGuard] }, 
                     { path: 'listCategory', component: ListCategoryComponent, canActivate: [RoleGuard] },
+                    { path: 'listSubCategory', component: ListSubcategoryComponent, canActivate: [RoleGuard] },
                     { path: 'listProduct', component: ListProductComponent, canActivate: [RoleGuard] },
                     { path: 'listVariant', component: ListVariantComponent, canActivate: [RoleGuard] },
-
+                    { path: 'listAttribute', component: ListAttributeComponent, canActivate: [RoleGuard] },
                 ]
             },
         ]

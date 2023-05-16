@@ -4,6 +4,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AuthModule } from './auth/auth.module';
+import { UserModule } from './user/user.module';
 import { AdminModule } from './admin/admin.module';
 import { ProductsModule } from './products/products.module';
 import { MaterialModule } from './material/material.module'
@@ -21,6 +22,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    UserModule,
     AdminModule,
     ProductsModule,
     HttpClientModule,

@@ -5,6 +5,4 @@ const variantAttributeSchema = new mongoose.Schema({
     size: { type: String },
 });
 
-
-
 module.exports = mongoose.model('Variant-Attribute', variantAttributeSchema);

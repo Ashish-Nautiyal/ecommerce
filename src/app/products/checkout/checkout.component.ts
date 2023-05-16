@@ -9,17 +9,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CheckoutComponent implements OnInit {
 
   purchaseData: any = [];
+  currentUser: any;
 
   constructor(private router: Router, private activateRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.getCurrentUser();
     this.getParam();
     this.purchaseData = JSON.parse(localStorage.getItem('cart') || '');
     if (!this.purchaseData) {
       this.router.navigate(['/user/displayCategory']);
     }
   }
-
 
   increaseQuantity(i: any) {
     let cart = JSON.parse(localStorage.getItem('cart') || '');
@@ -28,14 +29,12 @@ export class CheckoutComponent implements OnInit {
     this.ngOnInit();
   }
 
-
   decreaseQuantity(i: any) {
     let cart = JSON.parse(localStorage.getItem('cart') || '');
     cart[i].qty = cart[i].qty - 1;
     localStorage.setItem('cart', JSON.stringify(cart));
     this.ngOnInit();
   }
-
 
   removeProduct(i: any) {
     let cart = JSON.parse(localStorage.getItem('cart') || '');
@@ -49,8 +48,6 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-
-
   getParam() {
     let editAddress;
     this.activateRoute.queryParams.subscribe((params) => { editAddress = params['action']; });
@@ -58,5 +55,10 @@ export class CheckoutComponent implements OnInit {
       console.log('if');
       let cart = JSON.parse(localStorage.getItem('cart') || '');
     }
+  }
+
+  getCurrentUser() {
+    this.currentUser = localStorage.getItem('user');
+    console.log('currentUser',this.currentUser);    
   }
 }

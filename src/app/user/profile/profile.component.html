@@ -1,0 +1,19 @@
+<mat-card class="form-container" *ngIf="user">
+    <mat-card-header>
+        <h1>Profile</h1>
+    </mat-card-header>
+    <mat-card-content>
+        <p><b>Name</b>&nbsp;&nbsp;{{user.name}}</p>
+        <p><b>Address</b>&nbsp;&nbsp;{{user.address}}</p>
+        <p><b>Phone_number</b>&nbsp;&nbsp;{{user.phone_number}}</p>
+        <p><b>Email</b>&nbsp;&nbsp;{{user.email}}</p>
+        <p><b>Password</b>&nbsp;&nbsp;<a href="/user/profile">Change Password</a></p>
+        <h1>Add address</h1>
+        <div class="address">
+            <app-shipping-address></app-shipping-address>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <button (click)="editProfile()">Edit</button>
+    </mat-card-actions>
+</mat-card>

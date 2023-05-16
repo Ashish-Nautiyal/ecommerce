@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { VariantService } from '../../services/variant.service';
+import { AttributeService } from 'src/app/services/attribute.service';
 
 @Component({
   selector: 'app-add-variant-attribute',
@@ -11,13 +12,12 @@ export class AddVariantAttributeComponent implements OnInit {
   attributeForm: any
   variants: any = [];
 
-  constructor(private variantService: VariantService) { }
+  constructor(private variantService: VariantService , private attributeService: AttributeService) { }
 
   ngOnInit(): void {
     this.Form();
     this.getVariants();
   }
-
 
   Form() {
     this.attributeForm = new FormGroup({
@@ -25,7 +25,6 @@ export class AddVariantAttributeComponent implements OnInit {
       size: new FormControl('', Validators.required)
     });
   }
-
 
   getVariants() {
     this.variantService.getVariants().subscribe(
@@ -37,15 +36,13 @@ export class AddVariantAttributeComponent implements OnInit {
     )
   }
 
-
   onSubmit() {
     console.log(this.attributeForm.value);
-    this.variantService.addAttribute(this.attributeForm.value).subscribe(
+    this.attributeService.addAttribute(this.attributeForm.value).subscribe(
       (res) => {
         this.ngOnInit();
       }, (error) => {
         console.log(error);
-
       }
     )
   }

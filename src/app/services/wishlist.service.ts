@@ -10,16 +10,13 @@ export class WishlistService {
 
   constructor(private http: HttpClient) { }
 
-
   addWishlist(body: any): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'addWishlist', body);
   }
 
-
   getWishlist(body: any): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'getWishlist', body);
   }
-
 
   removeWishlist(body: any): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'removeWishlist', body);

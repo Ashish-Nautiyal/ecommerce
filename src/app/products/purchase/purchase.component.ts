@@ -14,6 +14,7 @@ export class PurchaseComponent implements OnInit {
   productData: any;
   addressData: any;
   total: number = 0;
+  
   constructor(private router: Router, private productService: ProductService) { }
 
   ngOnInit(): void {
@@ -28,7 +29,7 @@ export class PurchaseComponent implements OnInit {
   }
 
   buy() {
-    this.productService.makePayment({ amount: 2000 }).subscribe(
+    this.productService.makePayment({ amount: this.total }).subscribe(
       (res) => {
         console.log('res', res);
         window.location.href = res.url;
@@ -49,32 +50,5 @@ export class PurchaseComponent implements OnInit {
         this.total += cart[i].price * cart[i].qty;
       }
     }
-  }
-
-  makePayment(amount: number) {
-    const paymentHandler = (<any>window).StripeCheckout.configure({
-      key: 'pk_test_51N2pSMSEsz94il2uKSb0bh1sNX6EvL2otUrfDdXaqWocdbrLComG22aqGjXeDCpeH1ob0Wq0AXLCGOHnLFdTdEkF00EICybkLp',
-      locale: 'auto',
-      token: function (stripeToken: any) {
-        console.log(stripeToken);
-        paymentStripe(stripeToken);
-      },
-    });
-
-    const paymentStripe = (stripeToken: any) => {
-      this.productService.makePayment(stripeToken).subscribe(
-        (res) => {
-          console.log(res);
-        }, (error) => {
-          console.log(error);
-        }
-      )
-    }
-
-    paymentHandler.open({
-      name: 'Ashish',
-      description: 'stripe payment',
-      amount: amount * 100
-    });
   }
 }

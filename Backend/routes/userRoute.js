@@ -9,6 +9,7 @@ userRoute.post('/updateProfile',require('express').json(),userControlller.update
 userRoute.post('/ipToUser',require('express').json(),userControlller.updateIpToUser);
 userRoute.post('/payment',require('express').json(),userControlller.payment);
 userRoute.post('/webhook',require('express').raw({type: 'application/json'}),userControlller.Webhook);
+userRoute.post('/getProfile',require('express').json(),userControlller.getProfile);
 // userRoute.post('/saveTr',require('express').json(),userControlller.saveTransaction);
 
 module.exports = userRoute;     
