@@ -1,6 +1,6 @@
-<ng-container *ngIf="purchaseData.length > 0;else thisOne">
+<ng-container *ngIf="cart.length > 0;else thisOne">
     <h1><u>Checkout</u></h1>
-    <div *ngFor="let val of purchaseData;let i=index" style="display: inline-block; width: 20%; margin: 1%;">
+    <div *ngFor="let val of cart;let i=index" style="display: inline-block; width: 20%; margin: 1%;">
         <mat-card class="example-card">
             <mat-card-header>
                 <mat-card-title></mat-card-title>
@@ -27,6 +27,31 @@
 <ng-template #thisOne>
     <h1>purchaseData is empty</h1>
 </ng-template>
-<div *ngIf="currentUser != null">
-    <app-shipping-address></app-shipping-address>
+<div class="btn">
+    <button mat-raised-button color="primary">Back</button>&nbsp;
+    <button mat-raised-button color="primary" (click)="next()">Next</button>
 </div>
+
+<!-- <div *ngIf="currentUser; else thisOne">
+    <div>
+        <h1><u>Shipping Address</u></h1>
+        <div *ngFor="let address of shippingAddress;">
+            <input type="radio" name="address" />
+            <b>{{address.type}}</b>
+            <p>{{address.street | uppercase}} {{address.city | uppercase}} {{address.state | uppercase}}
+                {{address.country |
+                uppercase}}</p>
+            <p> {{address.pincode | uppercase}}</p>
+        </div>
+    </div>
+    <div>
+        <button mat-raised-button (click)="showAddressForm()"><mat-icon>add</mat-icon>Add address</button>&nbsp;
+        <button mat-raised-button *ngIf="shippingAddress.length > 0">Place your order</button>
+        <app-shipping-address (childEvent)="closeAddressForm($event)"
+            *ngIf="isChildComponentRendered"></app-shipping-address>
+    </div>
+</div>
+<ng-template #thisOne>
+    <h1><u>Shipping Address</u></h1>
+    <app-shipping-address (childEvent)="closeAddressForm($event)"></app-shipping-address>
+</ng-template> -->

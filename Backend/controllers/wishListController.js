@@ -27,7 +27,6 @@ module.exports.addWishlist = async (req, res) => {
     }
 }
 
-
 module.exports.getWishlist = async (req, res) => {
     try {
         if (!req.body.user) {
@@ -49,7 +48,6 @@ module.exports.getWishlist = async (req, res) => {
     }
 }
 
-
 module.exports.removeWishlist = async (req, res) => {
     try {
         console.log('body',req.body);
@@ -59,7 +57,7 @@ module.exports.removeWishlist = async (req, res) => {
         await Wishlist.updateOne({ user: req.body.user }, { $pull: { products: req.body.variant_id } });
         let afterUpdate = await Wishlist.findOne({ user: req.body.user });
         if (afterUpdate.products.length < 1) {
-            await wishList.deleteOne({ user: req.body.user });
+            await Wishlist.deleteOne({ user: req.body.user });
         }
         res.status(200).json({ message: 'wishlist item removed' });
     } catch (error) {

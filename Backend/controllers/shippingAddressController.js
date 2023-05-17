@@ -2,8 +2,8 @@ const ShippingAddress = require('../models/shippingAddress');
 
 module.exports.addShippingAddress = async (req, res) => {
     try {
-        const { user, country, state, city, street, pincode, phone_number } = req.body;
-        if (!user || !country || !state || !city || !street || !pincode || !phone_number) {
+        const { user, country, state, city, street, pincode, phone_number,type } = req.body;
+        if (!user || !country || !state || !city || !street || !pincode || !phone_number ||!type) {
             return res.status(200).json({ message: 'all fields required' });
         }
 
@@ -14,7 +14,8 @@ module.exports.addShippingAddress = async (req, res) => {
             city,
             street,
             pincode,
-            phone_number
+            phone_number,
+            type
         });
         newAddress.save();
         return res.status(200).json({ message: 'address saved', data: newAddress });

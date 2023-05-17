@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const shippingAddressSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.Mixed,
-        ref:'User'
+        ref: 'User'
     },
     country: {
         type: String,
@@ -28,7 +28,11 @@ const shippingAddressSchema = new mongoose.Schema({
     phone_number: {
         type: Number,
         required: true
-    }
+    },
+    type: { 
+        type: String, 
+        required: true
+     }
 });
 
 

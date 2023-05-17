@@ -11,6 +11,7 @@ export class ProfileComponent implements OnInit {
 
   currentUser: any;
   user: any;
+  isChildComponentRendered: boolean = false;
 
   constructor(private userService: UserService, private router: Router) { }
 
@@ -27,7 +28,6 @@ export class ProfileComponent implements OnInit {
     this.userService.getProfile({ _id: this.currentUser }).subscribe(
       (res) => {
         this.user = res.data;
-        console.log('res', this.user);
       }, (error) => {
         console.log(error);
       }
@@ -37,5 +37,19 @@ export class ProfileComponent implements OnInit {
   editProfile() {
     let userData: any = JSON.stringify(this.user);
     this.router.navigate(['/user/updateProfile'], { queryParams: { user: userData } });
+  }
+
+  showAddressForm() {
+    this.isChildComponentRendered = true;
+  }
+
+  closeAddressForm(event: any) {
+    if (this.currentUser) {
+      this.isChildComponentRendered = event;
+      this.getCurrentUser();
+      this.getProfile();
+    } else {
+      this.isChildComponentRendered = event;
+    }
   }
 }

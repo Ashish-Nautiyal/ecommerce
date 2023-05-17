@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderService } from 'src/app/services/order.service';
-import { ProductService } from 'src/app/services/product.service';
+import { ShippingAddressService } from 'src/app/services/shipping-address.service';
 
 @Component({
   selector: 'app-success',
@@ -10,17 +10,16 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class SuccessComponent implements OnInit {
 
-  constructor(private productService: ProductService, private orderService: OrderService, private router: Router) { }
+  constructor(private orderService: OrderService, private router: Router, private addressService: ShippingAddressService) { }
 
   ngOnInit(): void {
     this.orderSave();
   }
 
-
   orderSave() {
     if (localStorage.getItem('address')) {
       let address = JSON.parse(localStorage.getItem('address') || '');
-      this.productService.addShippingAddress(address).subscribe(
+      this.addressService.addShippingAddress(address).subscribe(
         (res) => {
           console.log('0', res);
           let product = JSON.parse(localStorage.getItem('cart') || '');

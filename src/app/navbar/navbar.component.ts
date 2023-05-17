@@ -18,17 +18,14 @@ export class NavbarComponent implements OnInit {
     this.getCurrentUser();
   }
 
-
   getCurrentUser() {
     this.currentUserRole = localStorage.getItem('role');
   }
-
 
   logOut() {
     localStorage.clear();
     this.getCurrentUser();
   }
-
 
   updateProfile() {
     this.router.navigate(['/user/updateProfile']);

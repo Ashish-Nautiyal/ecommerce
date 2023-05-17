@@ -47,7 +47,7 @@
                     </tr>
                     <tr *ngIf="allVariant[variantIndex].quantity > 0;else this1">
                         <td class="btn">
-                            <button disabled (click)="addToCart(allVariant[variantIndex])">Add to cart</button>&nbsp;
+                            <button (click)="addToCart(allVariant[variantIndex])">Add to cart</button>&nbsp;
                             <button (click)="addWishList(allVariant[variantIndex])">Add to wishlist</button>
                         </td>
                         <td class="btn">

@@ -8,12 +8,13 @@
         <p><b>Phone_number</b>&nbsp;&nbsp;{{user.phone_number}}</p>
         <p><b>Email</b>&nbsp;&nbsp;{{user.email}}</p>
         <p><b>Password</b>&nbsp;&nbsp;<a href="/user/profile">Change Password</a></p>
-        <h1>Add address</h1>
-        <div class="address">
-            <app-shipping-address></app-shipping-address>
+        <div>
+            <button mat-raised-button (click)="showAddressForm()"><mat-icon>add</mat-icon>Add address</button>&nbsp;
+            <app-shipping-address (childEvent)="closeAddressForm($event)"
+                *ngIf="isChildComponentRendered"></app-shipping-address>
         </div>
     </mat-card-content>
     <mat-card-actions>
-        <button (click)="editProfile()">Edit</button>
+        <button mat-raised-button (click)="editProfile()">Edit</button>
     </mat-card-actions>
 </mat-card>

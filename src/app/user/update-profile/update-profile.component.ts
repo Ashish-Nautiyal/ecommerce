@@ -21,7 +21,6 @@ export class UpdateProfileComponent implements OnInit {
         this.router.navigate(['/user/profile']);
       }
       this.user = JSON.parse(this.user);
-      console.log('user', this.user);
     });
   }
 

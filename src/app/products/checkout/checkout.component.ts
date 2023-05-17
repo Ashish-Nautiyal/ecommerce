@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ShippingAddressService } from 'src/app/services/shipping-address.service';
+
 
 @Component({
   selector: 'app-checkout',
@@ -8,16 +10,18 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CheckoutComponent implements OnInit {
 
-  purchaseData: any = [];
+  cart: any = [];
   currentUser: any;
+  // shippingAddress: any = [];
+  // isChildComponentRendered: boolean = false;
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute) { }
+  constructor(private router: Router, private addressService: ShippingAddressService) { }
 
   ngOnInit() {
-    this.getCurrentUser();
-    this.getParam();
-    this.purchaseData = JSON.parse(localStorage.getItem('cart') || '');
-    if (!this.purchaseData) {
+    // this.getCurrentUser();
+    // this.getShippingAddress();
+    this.cart = JSON.parse(localStorage.getItem('cart') || '');
+    if (!this.cart) {
       this.router.navigate(['/user/displayCategory']);
     }
   }
@@ -48,17 +52,43 @@ export class CheckoutComponent implements OnInit {
     }
   }
 
-  getParam() {
-    let editAddress;
-    this.activateRoute.queryParams.subscribe((params) => { editAddress = params['action']; });
-    if (editAddress) {
-      console.log('if');
-      let cart = JSON.parse(localStorage.getItem('cart') || '');
-    }
+  // getCurrentUser() {
+  //   this.currentUser = localStorage.getItem('user');
+  // }
+
+  // getShippingAddress() {
+  //   this.addressService.getShippingAddress({ user: this.currentUser }).subscribe(
+  //     (res) => {
+  //       this.shippingAddress = res.data;
+  //     }, (error) => {
+  //       console.log(error);
+  //     }
+  //   );
+  // }
+
+  // showAddressForm() {
+  //   this.isChildComponentRendered = true;
+  // }
+
+  // closeAddressForm(event: any) {
+  //   if (this.currentUser) {
+  //     this.isChildComponentRendered = event;
+  //     this.getCurrentUser();
+  //     this.getShippingAddress();
+  //   } else {
+  //     if (localStorage.getItem('address')) {
+  //       this.router.navigate(['/user/purchase']);
+  //     } else {
+  //       this.isChildComponentRendered = event;     
+  //     }
+  //   }
+  // }
+
+  back() {
+
   }
 
-  getCurrentUser() {
-    this.currentUser = localStorage.getItem('user');
-    console.log('currentUser',this.currentUser);    
+  next() {
+    this.router.navigate(['/user/shippingAddress']);
   }
 }

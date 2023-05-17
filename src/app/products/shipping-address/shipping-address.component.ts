@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { environment } from 'src/app/enviroments/enviroment';
-import { ProductService } from 'src/app/services/product.service';
+import { ShippingAddressService } from 'src/app/services/shipping-address.service';
 
 @Component({
   selector: 'app-shipping-address',
@@ -13,24 +13,29 @@ import { ProductService } from 'src/app/services/product.service';
 
 export class ShippingAddressComponent implements OnInit {
 
+  // @Output() childEvent = new EventEmitter();
   addressForm: any;
   currentUser: any;
   userId: any;
 
-  constructor(public dialog: MatDialog, private router: Router, private productService: ProductService) { }
+  constructor(public dialog: MatDialog, private router: Router, private addressService: ShippingAddressService) { }
 
   ngOnInit() {
     this.getCurrentUser();
-    if (this.currentUser) {
-      this.userId = this.currentUser;
-    } else {
-      this.userId = environment.data[2].ip;
-    }
+    this.getUserId();
     this.Form();
   }
 
   getCurrentUser() {
     this.currentUser = localStorage.getItem('user');
+  }
+
+  getUserId() {
+    if (this.currentUser) {
+      this.userId = this.currentUser;
+    } else {
+      this.userId = environment.data[2].ip;
+    }
   }
 
   Form() {
@@ -42,22 +47,30 @@ export class ShippingAddressComponent implements OnInit {
       street: new FormControl('', Validators.required),
       pincode: new FormControl('', Validators.required),
       phone_number: new FormControl('', Validators.required),
+      type: new FormControl('', Validators.required),
     });
   }
 
   onSubmit() {
-    if (localStorage.getItem('cart')) {
-      localStorage.setItem("address", JSON.stringify(this.addressForm.value));
-      this.router.navigate(['/user/purchase']);
+    if (this.currentUser) {
+      this.addressService.addShippingAddress(this.addressForm.value).subscribe(
+        (res) => {
+          // let form = false;
+          // this.childEvent.emit(form);
+        }, (error) => {
+          console.log(error);
+        }
+      );
     } else {
-      this.router.navigate(['/user/displayCategory']);
+      localStorage.setItem('address', JSON.stringify(this.addressForm.value));
+      // let form = false;
+      // this.childEvent.emit(form);
+      // this.Form();
     }
-    // this.productService.addShippingAddress(this.addressForm.value).subscribe(
-    //   (res) => {
-        
-    //   }, (error) => {
-    //     console.log(error);      
-    //   }
-    // );
-  } 
+  }
+
+  cancel() {
+    // let form = false;
+    // this.childEvent.emit(form);
+  }
 }
