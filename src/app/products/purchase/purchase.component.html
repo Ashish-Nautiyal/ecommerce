@@ -1,25 +1,44 @@
-<div *ngFor="let product of productData" style="display: inline-block; width: 20%; margin: 1%;">
-    <button>
-        <img src="http://localhost:8088/uploads/product_variant_images/{{product.variant_image[0]}}" alt="product image"
-            height="250px" width="250px" />
-    </button>
-    <p><b>Name</b>&nbsp;&nbsp;<span>{{product.name}}</span></p>
-    <p><b>Price</b>&nbsp;&nbsp;<span>{{product.price}}</span></p>
-    <p> <b>Quantity</b>&nbsp;&nbsp;{{product.qty}}
-    <p><b>Colour</b>&nbsp;&nbsp;
-        <img src="http://localhost:8088/uploads/product_variant_images/{{product.colour_image}}" alt="product image"
-            height="10px" width="30px" />
-    </p>
+<div style="margin-top: -20px;">
+    <div *ngFor="let product of cart" style="display: inline-block; width: 20%; margin: 1%;">
+        <button>
+            <img src="http://localhost:8088/uploads/product_variant_images/{{product.variant_image[0]}}"
+                alt="product image" height="250px" width="250px" />
+        </button>
+        <p><b>Name</b>&nbsp;&nbsp;<span>{{product.name}}</span></p>
+        <p><b>Price</b>&nbsp;&nbsp;<span>{{product.price}}</span></p>
+        <p> <b>Quantity</b>&nbsp;&nbsp;{{product.qty}}
+        <p><b>Colour</b>&nbsp;&nbsp;
+            <img src="http://localhost:8088/uploads/product_variant_images/{{product.colour_image}}" alt="product image"
+                height="10px" width="30px" />
+        </p>
+    </div>
+    <div>
+        <button mat-raised-button (click)="editProduct()" color="primary">Edit Product</button>
+    </div>
 </div>
-<div class="order">
-    <b>Your Total</b>
-    <p>{{total | currency: 'INR'}}</p>
-    <p>{{productData.price | currency: 'INR'}}</p>
-    <b>Shipping Address</b>
-    <p>{{addressData.street}}&nbsp;{{addressData.city}}&nbsp;{{addressData.state}}&nbsp;{{addressData.country}}&nbsp;{{addressData.pincode}}
-    </p>
-    <b>Phone</b>
-    <p>{{addressData.phone_number}}</p>
-    <button class="buyBtn" (click)="editBtn()">Edit</button>&nbsp;
-    <button class="buyBtn" (click)="buy()">Buy</button>
+<div style="margin-top: 50px;">
+    <ng-container *ngIf="shippingAddress.length > 0">
+        <h1>Shipping Address</h1>
+        <mat-card style="display: inline-block; width: 20%; margin: 1%;">
+            <mat-card-content>
+                <b>{{shippingAddress[0].type}}</b>
+                <p>{{shippingAddress[0].street | uppercase}} {{shippingAddress[0].city | uppercase}}
+                    {{shippingAddress[0].state | uppercase}}
+                    {{shippingAddress[0].country |
+                    uppercase}}</p>
+                <p> {{shippingAddress[0].pincode | uppercase}}</p>
+            </mat-card-content>
+        </mat-card>
+        <div>
+            <button mat-raised-button (click)="back()" color="primary">Change Address</button>
+        </div>
+    </ng-container>
+</div>
+<div style="margin-top: 50px;">
+    <h1>Your Total</h1>
+    <h2>{{total | currency: 'INR'}}</h2>
+</div>
+<div class="btn">
+    <button mat-raised-button color="primary" (click)="back()">Back</button>&nbsp;
+    <button mat-raised-button color="primary">Buy now</button>
 </div>

@@ -19,6 +19,7 @@ import { CheckoutComponent } from './checkout/checkout.component';
 import { ShippingAddressComponent } from './shipping-address/shipping-address.component';
 import { SuccessComponent } from './success/success.component';
 import { CancelComponent } from './cancel/cancel.component';
+import { UpdateShippingAddressComponent } from './update-shipping-address/update-shipping-address.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { CancelComponent } from './cancel/cancel.component';
     ShippingAddressComponent,
     SuccessComponent,
     CancelComponent,
+    UpdateShippingAddressComponent,
   ],
   imports: [
     CommonModule,
@@ -59,6 +61,9 @@ import { CancelComponent } from './cancel/cancel.component';
     QuickSignupComponent,
     CheckoutComponent,
     ShippingAddressComponent,
+    SuccessComponent,
+    CancelComponent,
+    UpdateShippingAddressComponent,
   ]
 })
 

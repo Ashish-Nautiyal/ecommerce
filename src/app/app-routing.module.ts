@@ -23,6 +23,7 @@ import { HomeComponent } from './user/home/home.component';
 import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
 import { ProfileComponent } from './user/profile/profile.component';
 import { RoleGuard } from './guard/role.guard';
+import { UpdateShippingAddressComponent } from './products/update-shipping-address/update-shipping-address.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -53,6 +54,7 @@ const routes: Routes = [
       { path: 'success', component: SuccessComponent },
       { path: 'cancel', component: CancelComponent },
       { path: 'profile', component: ProfileComponent,canActivate:[RoleGuard] },
+      { path: 'updateShippingAddress', component: UpdateShippingAddressComponent},
     ]
   },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },

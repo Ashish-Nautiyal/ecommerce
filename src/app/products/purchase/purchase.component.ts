@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ProductService } from 'src/app/services/product.service';
+import { ShippingAddressService } from 'src/app/services/shipping-address.service';
 
 @Component({
   selector: 'app-purchase',
@@ -9,41 +10,69 @@ import { ProductService } from 'src/app/services/product.service';
 })
 export class PurchaseComponent implements OnInit {
 
-  paymentHandler: any = null;
   currentUser: any;
-  productData: any;
-  addressData: any;
+  cart: any = [];
+  shippingAddress: any = [];
   total: number = 0;
-  
-  constructor(private router: Router, private productService: ProductService) { }
+
+  constructor(private router: Router, private productService: ProductService, private addressService: ShippingAddressService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
-    this.returnTotal();
-    this.productData = JSON.parse(localStorage.getItem('cart') || '');
-    this.addressData = JSON.parse(localStorage.getItem('address') || '');
+    this.getCart();
+    this.getShippingAddress();
+    this.returnTotalAmount();
   }
 
   getCurrentUser() {
     this.currentUser = localStorage.getItem('user');
   }
 
-  buy() {
+  getCart() {
+    if (localStorage.getItem('cart')) {
+      this.cart = JSON.parse(localStorage.getItem('cart') || '');
+    }
+  }
+
+  getShippingAddress() {
+    if (this.currentUser) {
+      this.addressService.getdefaultAddress({ user: this.currentUser }).subscribe(
+        (res) => {
+          this.shippingAddress = res.data;
+          console.log('address1', this.shippingAddress);
+        }, (error) => {
+          console.log(error);
+        }
+      );
+    } else {
+      if (localStorage.getItem('address')) {
+        let array = [];
+        array.push(JSON.parse(localStorage.getItem('address') || ''));
+        this.shippingAddress = array;
+        console.log('address2', this.shippingAddress);
+      }
+    }
+  }
+
+  back() {
+    this.router.navigate(['/user/shippingAddress'])
+  }
+
+  buyNow() {
     this.productService.makePayment({ amount: this.total }).subscribe(
       (res) => {
-        console.log('res', res);
         window.location.href = res.url;
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
-  editBtn() {
-    this.router.navigate(['/user/checkout'], { queryParams: { action: 'E' } });
+  editProduct() {
+    this.router.navigate(['/user/checkout']);
   }
 
-  returnTotal() {
+  returnTotalAmount() {
     if (localStorage.getItem('cart')) {
       let cart = JSON.parse(localStorage.getItem('cart') || '');
       for (let i = 0; i < cart.length; i++) {

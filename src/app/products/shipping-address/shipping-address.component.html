@@ -1,6 +1,23 @@
-<div >
-    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="login-form">
-        <h1> Shipping address</h1>
+<div>
+    <h1><u>Shipping Address</u></h1>
+    <mat-card *ngFor="let address of shippingAddress;" style="display: inline-block; width: 20%; margin: 1%;">
+        <mat-card-content>
+            <input type="radio" name="address" (change)="setDefaultAddress(address)" />
+            <b>{{address.type}}</b>
+            <p>{{address.street | uppercase}} {{address.city | uppercase}} {{address.state | uppercase}}
+                {{address.country |
+                uppercase}}</p>
+            <p> {{address.pincode | uppercase}}</p>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-raised-button color="primary" (click)="editAddress(address._id)">Edit</button>&nbsp;
+            <button mat-raised-button color="primary" (click)="deleteAddress(address._id)">Delete</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+<div>
+    <button (click)="showForm()" mat-raised-button *ngIf="currentUser"><mat-icon>add</mat-icon>Add address</button>
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="login-form" *ngIf="form">
         <input type="hidden" formControlName="user" [value]="userId" class="form-control">
         <div class="form-group">
             <label for="country">Country</label>
@@ -86,11 +103,11 @@
         </div>
         <div class="form-group">
             <button type="submit" [disabled]="addressForm.invalid" class="btn btn-primary">Add</button>&nbsp;
-            <button (click)="cancel()" type="button" class="btn btn-primary">Cancel</button>
+            <button (click)="hideForm()" type="button" class="btn btn-primary" *ngIf="currentUser">Cancel</button>
         </div>
     </form>
 </div>
 <div class="btns">
-    <button mat-raised-button color="primary">Back</button>&nbsp;
-    <button mat-raised-button color="primary" (click)="next()">Next</button>
+    <button [disabled]="shippingAddress.length<1" mat-raised-button color="primary" (click)="back()">Back</button>&nbsp;
+    <button [disabled]="shippingAddress.length<1" mat-raised-button color="primary" (click)="next()">Next</button>
 </div>

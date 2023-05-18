@@ -29,10 +29,15 @@ const shippingAddressSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    type: { 
-        type: String, 
+    type: {
+        type: String,
         required: true
-     }
+    },
+    default: {
+        type: Boolean,
+        required: true,
+        default: false
+    }
 });
 
 
