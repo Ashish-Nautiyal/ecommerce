@@ -73,4 +73,8 @@ export class ShippingAddressComponent implements OnInit {
     // let form = false;
     // this.childEvent.emit(form);
   }
+
+  next(){
+    
+  }
 }
