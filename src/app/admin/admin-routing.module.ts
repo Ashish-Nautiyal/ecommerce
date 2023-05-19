@@ -26,7 +26,7 @@ const appRoutes: Routes = [
                     { path: 'add-sub-category', component: AddSubcategoryComponent, canActivate: [RoleGuard] },
                     { path: 'add-product', component: AddProductComponent, canActivate: [RoleGuard] },
                     { path: 'add-variant', component: AddVariantComponent, canActivate: [RoleGuard] },
-                    { path: 'add-attribute', component: AddVariantAttributeComponent, canActivate: [RoleGuard] }, 
+                    { path: 'add-attribute', component: AddVariantAttributeComponent, canActivate: [RoleGuard] },
                     { path: 'listCategory', component: ListCategoryComponent, canActivate: [RoleGuard] },
                     { path: 'listSubCategory', component: ListSubcategoryComponent, canActivate: [RoleGuard] },
                     { path: 'listProduct', component: ListProductComponent, canActivate: [RoleGuard] },

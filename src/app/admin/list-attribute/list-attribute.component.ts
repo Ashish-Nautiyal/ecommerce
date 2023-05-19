@@ -16,7 +16,7 @@ export class ListAttributeComponent implements OnInit {
   variants: any = [];
   attributes: any = [];
 
-  form: boolean = false;
+  showForm: boolean = false;
   attributeForm = {
     _id: '',
     variant_id: '',
@@ -39,7 +39,7 @@ export class ListAttributeComponent implements OnInit {
     );
   }
 
-  getProducts(event: any) {
+  onChangeCategory(event: any) {
     const _id = event.target.value;
     this.productService.getProductByCatId({ category_id: _id }).subscribe(
       (res) => {
@@ -50,7 +50,7 @@ export class ListAttributeComponent implements OnInit {
     );
   }
 
-  getVariants(event: any) {
+  onChangeProduct(event: any) {
     const _id = event.target.value;
     this.variantService.getVariantByProductId({ product_id: _id }).subscribe(
       (res) => {
@@ -61,7 +61,7 @@ export class ListAttributeComponent implements OnInit {
     );
   }
 
-  getAttributes(event: any) {
+  onChangeVariant(event: any) {
     const _id = event.target.value;
     this.attributeService.getAttributeByVariantId({ _id: _id }).subscribe(
       (res) => {
@@ -77,19 +77,19 @@ export class ListAttributeComponent implements OnInit {
     this.attributeService.getAttributeById({ _id: _id }).subscribe(
       (res) => {
         this.attributeForm = res.data;
-        this.showForm();
+        this.showAttributeForm();
       }, (error) => {
         console.log(error);
       }
     );
   }
 
-  showForm() {
-    this.form = true;
+  showAttributeForm() {
+    this.showForm = true;
   }
 
   hideForm() {
-    this.form = false;
+    this.showForm = false;
     this.products = [];
     this.variants = [];
     this.attributes = [];

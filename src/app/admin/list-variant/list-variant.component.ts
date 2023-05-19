@@ -14,7 +14,7 @@ export class ListVariantComponent implements OnInit {
   products: any = [];
   variants: any = [];
 
-  form: boolean = false;
+  showForm: boolean = false;
   variantForm: any = {
     _id: '',
     name: '',
@@ -44,7 +44,7 @@ export class ListVariantComponent implements OnInit {
     );
   }
 
-  getProducts(event: any) {
+  onChangeCategory(event: any) {
     const _id = event.target.value;
     this.productService.getProductByCatId({ category_id: _id }).subscribe(
       (res) => {
@@ -55,7 +55,7 @@ export class ListVariantComponent implements OnInit {
     );
   }
 
-  getVariants(event: any) {
+  onChangeProduct(event: any) {
     const _id = event.target.value;
     this.variantService.getVariantByProductId({ product_id: _id }).subscribe(
       (res) => {
@@ -66,28 +66,28 @@ export class ListVariantComponent implements OnInit {
     );
   }
 
-  onVariantChange(event: any) {
+  onChangeVariant(event: any) {
     const _id = event.target.value;
     console.log();
     this.variantService.getVariantsById({ _id: _id }).subscribe(
       (res) => {
         this.variantForm = res.data;
-        this.showForm();
+        this.showVariantForm();
       }, (error) => {
         console.log(error);
       }
     );
   }
 
-  showForm() {
-    this.form = true;
+  showVariantForm() {
+    this.showForm = true;
   }
 
   hideForm() {
-    this.form = false;
-    this.getCategories();
+    this.showForm = false;
     this.products = [];
     this.variants = [];
+    this.getCategories();
   }
 
   onFileChange(event: any) {
@@ -96,11 +96,9 @@ export class ListVariantComponent implements OnInit {
 
   onVariantFileChange(event: any) {
     this.selectedVariantImage = event.target.files;
-    console.log('selectedVariantImage', this.selectedVariantImage);
   }
 
   onSubmit() {
-    console.log('variantForm', this.variantForm);
     const formData = new FormData();
     formData.append('_id', this.variantForm._id);
     formData.append('name', this.variantForm.name);
@@ -122,7 +120,7 @@ export class ListVariantComponent implements OnInit {
     }
     this.variantService.updateVariant(formData).subscribe(
       (res) => {
-
+        this.hideForm();
       }, (error) => {
         console.log(error);
       }

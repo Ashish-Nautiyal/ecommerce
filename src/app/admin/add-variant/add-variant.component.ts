@@ -19,12 +19,11 @@ export class AddVariantComponent implements OnInit {
   constructor(private productService: ProductService, private variantService: VariantService) { }
 
   ngOnInit(): void {
+    this.getVariantForm();
     this.getProducts();
-    this.Form();
   }
 
-
-  Form() {
+  getVariantForm() {
     this.variantForm = new FormGroup({
       product_id: new FormControl('', Validators.required),
       name: new FormControl('', Validators.required),
@@ -36,7 +35,6 @@ export class AddVariantComponent implements OnInit {
     });
   }
 
-
   getProducts() {
     this.productService.getProducts().subscribe(
       (res) => {
@@ -44,21 +42,16 @@ export class AddVariantComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
-
 
   onSelectColourFile(event: any) {
-    const file = event.target.files[0];
-    this.selectedColourFile = file;
+    this.selectedColourFile = event.target.files[0];
   }
 
-
-  onSelectProductFile(event: any) { 
-    const files = event.target.files;
-    this.selectedProductFile = files;
+  onSelectProductFile(event: any) {
+    this.selectedProductFile = event.target.files;
   };
-
 
   onSubmit() {
     const formData = new FormData();
@@ -68,10 +61,10 @@ export class AddVariantComponent implements OnInit {
     formData.append('quantity', this.variantForm.get('quantity').value);
     formData.append('colour', this.variantForm.get('colour').value);
     formData.append('colour_image', this.selectedColourFile);
-    for(let i=0;i<this.selectedProductFile.length;i++){
+    for (let i = 0; i < this.selectedProductFile.length; i++) {
       formData.append('variant_image', this.selectedProductFile[i]);
     }
-
+    
     this.variantService.addVariant(formData).subscribe(
       (res) => {
         this.ngOnInit();

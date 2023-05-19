@@ -1,12 +1,12 @@
 <div *ngIf="categories.length > 0;">
-  <select (change)="onChange($event)" class="select">
+  <select (change)="onChangeCategory($event)" class="select">
     <option value="">Choose category</option>
     <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
   </select>
 </div>
 
 
-<form (submit)="onSubmit()" class="form-container" *ngIf="form == true">
+<form (submit)="onSubmit()" class="form-container" *ngIf="showForm == true">
   <div class="form-group">
     <label for="name">Name:</label>
     <input type="text" id="name" [(ngModel)]="categoryForm.name" name="name" required>
@@ -19,7 +19,7 @@
     <input type="file" id="category_image" name="category_image" (change)="onFileChange($event)" required>
   </div>
 
-  <div *ngIf="selectedImage == undefined;else thisOne">
+  <div *ngIf="categoryImage == undefined;else thisOne">
     <img src="http://localhost:8088/uploads/category_images/{{categoryForm.category_image}}"
       style="height: 300px; width:500px" />
   </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -21,7 +22,9 @@ export class ProfileComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.currentUser = localStorage.getItem('user');
+    const helper = new JwtHelperService();
+    const token = helper.decodeToken(localStorage.getItem('token') || '');
+    this.currentUser = token.user;    
   }
 
   getProfile() {

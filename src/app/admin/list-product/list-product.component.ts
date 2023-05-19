@@ -14,7 +14,7 @@ export class ListProductComponent {
   subCategories1: any = [];
   Products: any = [];
 
-  form: boolean = false;
+  showForm: boolean = false;
   productForm: any = {
     _id: '',
     name: '',
@@ -52,21 +52,20 @@ export class ListProductComponent {
     );
   }
 
-  onProductChange(event: any) {
+  onChangeProduct(event: any) {
     let productId = event.target.value;
     this.productService.getProductByProductId({ _id: productId }).subscribe(
       (res) => {
         this.productForm = res.data;
+        this.showProductForm();
       }, (error) => {
         console.log(error);
       }
     );
-    this.showForm();
   }
 
-  onCategoryChange(event: any) {
+  onChangeCategory(event: any) {
     this.productForm.category_id = event.target.value;
-    console.log('oncataegorySelect', this.productForm.category_id);
     this.categoryService.getCategoryById({ parent_id: this.productForm.category_id }).subscribe(
       (res) => {
         this.subCategories1 = [];
@@ -77,9 +76,8 @@ export class ListProductComponent {
     );
   }
 
-  getSubcategories(event: any, i: number) {
+  onChangeSubcategory(event: any, i: number) {
     this.productForm.subCategory_id = event.target.value;
-    console.log('onSubcategorySelect', this.productForm.subCategory_id);
     if (i == -1) {
       this.subCategories1 = [];
     }
@@ -94,13 +92,13 @@ export class ListProductComponent {
       }
     );
   }
-  
-  showForm() {
-    this.form = true;
+
+  showProductForm() {
+    this.showForm = true;
   }
 
   hideForm() {
-    this.form = false;
+    this.showForm = false;
     this.selectedImage = undefined;
     this.Products = [];
     this.getCategories();
@@ -108,7 +106,6 @@ export class ListProductComponent {
 
   onFileChange(event: any) {
     this.selectedImage = event.target.files[0];
-    console.log('selectedImage', this.selectedImage);
   }
 
   onSubmit() {

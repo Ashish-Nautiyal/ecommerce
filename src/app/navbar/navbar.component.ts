@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-navbar',
@@ -9,7 +10,6 @@ import { Router } from '@angular/router';
 
 export class NavbarComponent implements OnInit {
 
-  currentUserEmail: any;
   currentUserRole: any;
 
   constructor(private router: Router) { }
@@ -19,7 +19,11 @@ export class NavbarComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.currentUserRole = localStorage.getItem('role');
+    const helper = new JwtHelperService();
+    const token = helper.decodeToken(localStorage.getItem('token') || '');
+    if (token) {
+      this.currentUserRole = token.role;
+    }
   }
 
   logOut() {

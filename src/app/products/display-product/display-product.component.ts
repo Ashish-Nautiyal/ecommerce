@@ -12,7 +12,6 @@ export class DisplayProductComponent implements OnInit {
   products: any = [];
   category_id: any;
 
-
   constructor(private router: Router, private productService: ProductService, private activateRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
@@ -21,7 +20,6 @@ export class DisplayProductComponent implements OnInit {
       this.getProductsByCategory();
     }
   };
-
 
   getProductsByCategory() {
     this.productService.getProductByCatId({ category_id: this.category_id }).subscribe(
@@ -32,7 +30,6 @@ export class DisplayProductComponent implements OnInit {
       }
     )
   }
-
 
   onSelectedProduct(event: any) {
     this.router.navigate(['/user/productDetail'], { queryParams: { product_id: event._id } });

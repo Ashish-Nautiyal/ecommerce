@@ -18,7 +18,6 @@ export class DisplayCategoryComponent implements OnInit {
     this.getCategories();    
   }
 
-
   getCategories() {
     this.categoryService.getCategory().subscribe(
       (res) => {
@@ -28,7 +27,6 @@ export class DisplayCategoryComponent implements OnInit {
       }
     );
   };
-
 
   onSelectedCategory(event: any) {
     this.router.navigate(['/user/display-product'], { queryParams: { category_id: event._id } });

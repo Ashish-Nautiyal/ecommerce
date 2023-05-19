@@ -12,7 +12,6 @@ import { AuthService } from 'src/app/services/auth.service';
 export class SignUpComponent implements OnInit {
 
   signUpForm: any;
-  message!: string;
 
   constructor(private authService: AuthService, private router: Router) { }
 

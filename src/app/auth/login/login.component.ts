@@ -12,17 +12,19 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class LoginComponent implements OnInit {
 
   loginForm: any;
-  message!: string;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.getLoginForm();
+  };
+
+  getLoginForm() {
     this.loginForm = new FormGroup({
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', Validators.required)
     });
-  };
-
+  }
 
   onSubmit() {
     localStorage.clear();
@@ -30,8 +32,7 @@ export class LoginComponent implements OnInit {
       (res) => {
         const helper = new JwtHelperService();
         const token = helper.decodeToken(res.data.token);
-        localStorage.setItem('user', token.user);
-        localStorage.setItem('role', token.role);
+        localStorage.setItem('token', res.data.token);
         if (token.role == 0) {
           this.router.navigate(['/admin/admin-dashboard']);
         } else {

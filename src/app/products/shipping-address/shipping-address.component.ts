@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/app/enviroments/enviroment';
 import { ShippingAddressService } from 'src/app/services/shipping-address.service';
 
@@ -32,7 +33,9 @@ export class ShippingAddressComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.currentUser = localStorage.getItem('user');
+    const helper = new JwtHelperService();
+    const token = helper.decodeToken(localStorage.getItem('token') || '');
+    this.currentUser = token.user;    
   }
 
   getUserId() {
@@ -51,7 +54,7 @@ export class ShippingAddressComponent implements OnInit {
       city: new FormControl('', Validators.required),
       street: new FormControl('', Validators.required),
       pincode: new FormControl('', Validators.required),
-      phone_number: new FormControl('', Validators.required),
+      phone_number: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")]),
       type: new FormControl('', Validators.required),
     });
   }
@@ -106,6 +109,10 @@ export class ShippingAddressComponent implements OnInit {
 
   deleteAddress(event: any) {
     if (this.currentUser) {
+      let wantDelete = confirm('Are you sure?');
+      if (!wantDelete) {
+        return;
+      }
       this.addressService.deleteShippingAddress(event).subscribe(
         (res) => {
           this.getShippingAddress();

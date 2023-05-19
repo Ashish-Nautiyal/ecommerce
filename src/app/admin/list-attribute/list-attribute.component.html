@@ -1,19 +1,19 @@
 <div *ngIf="categories.length > 0;">
-    <select (change)="getProducts($event)" class="select">
+    <select (change)="onChangeCategory($event)" class="select">
         <option value="">Choose category</option>
         <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
     </select>
 </div>
 
 <div *ngIf="products.length > 0;">
-    <select (change)="getVariants($event)" class="select">
+    <select (change)="onChangeProduct($event)" class="select">
         <option value="">Choose product</option>
         <option *ngFor="let product of products" value="{{product._id}}">{{product.name}}</option>
     </select>
 </div>
 
 <div *ngIf="variants.length > 0;">
-    <select (change)="getAttributes($event)" class="select">
+    <select (change)="onChangeVariant($event)" class="select">
         <option value="">Choose variant</option>
         <option *ngFor="let variant of variants" value="{{variant._id}}">{{variant.name}}</option>
     </select>
@@ -26,7 +26,7 @@
     </select>
 </div>
 
-<form (submit)="onSubmit()" class="form-container" *ngIf="form == true">
+<form (submit)="onSubmit()" class="form-container" *ngIf="showForm == true">
     <div class="form-group">
         <label for="variant_id">Variant:</label>
         <input type="text" id="variant_id" [(ngModel)]="attributeForm.variant_id" name="variant_id" required>

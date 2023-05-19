@@ -6,13 +6,13 @@
 </div>
 
 <div *ngIf="Products.length > 0;">
-    <select (change)="onProductChange($event)" class="select">
+    <select (change)="onChangeProduct($event)" class="select">
         <option value="">Choose Product</option>
         <option *ngFor="let Product of Products" value="{{Product._id}}">{{Product.name}}</option>
     </select>
 </div>
 
-<form (submit)="onSubmit()" class="form-container" *ngIf="form == true">
+<form (submit)="onSubmit()" class="form-container" *ngIf="showForm == true">
     <div class="form-group">
         <label for="name">Name:</label>
         <input type="text" id="name" [(ngModel)]="productForm.name" name="name" required>
@@ -22,7 +22,7 @@
 
     <div class="form-group">
         <label for="category">Category</label>
-        <select (change)="onCategoryChange($event)" id="category" name="category_id">
+        <select (change)="onChangeCategory($event)" id="category" name="category_id">
             <option value="">select category</option>
             <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
         </select>
@@ -31,14 +31,14 @@
     <ng-container *ngIf="subCategories.length>0">
         <div class="form-group">
             <label for="Subcategory">Subcategory</label>
-            <select (change)="getSubcategories($event,-1)" id="Subcategory" name="subCategory_id">
+            <select (change)="onChangeSubcategory($event,-1)" id="Subcategory" name="subCategory_id">
                 <option value="">select subcategory</option>
                 <option *ngFor="let subCategory of subCategories" value="{{subCategory._id}}">{{subCategory.name}}
                 </option>
             </select>
             <div class="form-group" *ngFor="let subCat of subCategories1; let i=index">
                 <ng-container *ngIf="subCat.length>0">
-                    <select (change)="getSubcategories($event,i)" name="subCategory_id">
+                    <select (change)="onChangeSubcategory($event,i)" name="subCategory_id">
                         <option *ngFor="let val of subCat" value="{{val._id}}">{{val.name}}</option>
                     </select>
                 </ng-container>

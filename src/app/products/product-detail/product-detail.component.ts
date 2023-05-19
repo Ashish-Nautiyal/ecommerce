@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { environment } from 'src/app/enviroments/enviroment';
 import { VariantService } from 'src/app/services/variant.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
 import { GuestComponent } from '../guest/guest.component';
 import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
-import { filter } from 'rxjs';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-product-detail',
@@ -32,11 +32,11 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-
   getCurrentUser() {
-    this.currentUser = localStorage.getItem('user');
+    const helper = new JwtHelperService();
+    const token = helper.decodeToken(localStorage.getItem('token') || '');
+    this.currentUser = token.user;    
   }
-
 
   getUserId() {
     let user_id;
@@ -48,13 +48,11 @@ export class ProductDetailComponent implements OnInit {
     return user_id;
   }
 
-
   getQueryParams() {
     this.activateRoute.queryParams.subscribe(params => {
       this.product_id = params['product_id'];
     });
   }
-
 
   openDialog(variantIndex: any): void {
     this.dialog.open(ImageDialogComponent, {
@@ -64,14 +62,12 @@ export class ProductDetailComponent implements OnInit {
     });
   }
 
-
   openDialogForGuest(): void {
     this.dialog.open(GuestComponent, {
       width: '400px',
       height: '200px'
     });
   }
-
 
   getVariantByProduct() {
     this.variantService.getVariantByProductId({ product_id: this.product_id }).subscribe(
@@ -83,16 +79,13 @@ export class ProductDetailComponent implements OnInit {
     );
   }
 
-
   changeImage(i: any) {
     this.imageIndex = i;
   }
 
-
   onSelectColour(i: any) {
     this.variantIndex = i;
   }
-
 
   addToCart(val: any) {
     let user_id = this.getUserId();
@@ -123,7 +116,6 @@ export class ProductDetailComponent implements OnInit {
     this.router.navigate(['/user/addToCart']);
   }
 
-
   addWishList(val: any) {
     let user_id = this.getUserId();
     this.wishListService.addWishlist({ user: user_id, varinat_id: val._id }).subscribe(
@@ -134,7 +126,6 @@ export class ProductDetailComponent implements OnInit {
       }
     );
   }
-
 
   buyNow(val: any) {
     let user_id = this.getUserId();

@@ -48,7 +48,7 @@ export class CheckoutComponent implements OnInit {
   }
 
   back() {
-
+    this.router.navigate(['/user/displayCategory']);
   }
 
   next() {

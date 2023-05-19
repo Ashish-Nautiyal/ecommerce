@@ -11,7 +11,7 @@ export class ListSubcategoryComponent implements OnInit {
   categories: any = [];
   subCategories: any = [];
 
-  form: boolean = false;
+  showForm: boolean = false;
   subcategoryForm: any = {
     _id: '',
     name: '',
@@ -32,14 +32,23 @@ export class ListSubcategoryComponent implements OnInit {
         console.log(error);
       }
     );
-  };
+  }
 
-  onChange(event: any, i: number) {
+  onChangeCategory(event: any, i: number) {
     const id = event.target.value;
     if (i == -1) {
-      this.form = false;
+      this.showForm = false;
       this.subCategories = [];
-    }
+    } else {
+      this.categoryService.CategoryById({ categoryId: id }).subscribe(
+        (res) => {
+          this.subcategoryForm = res.data;
+          this.showSubcategoryForm();
+        }, (error) => {
+          console.log(error);
+        }
+      );
+    }    
     this.subCategories.splice(i + 1);
     this.categoryService.getCategoryById({ parent_id: id }).subscribe(
       (res) => {
@@ -50,24 +59,14 @@ export class ListSubcategoryComponent implements OnInit {
         console.log(error);
       }
     );
-    if (i != -1) {
-      this.categoryService.CategoryById({ categoryId: id }).subscribe(
-        (res) => {
-          this.subcategoryForm = res.data;
-          this.showForm();
-        }, (error) => {
-          console.log(error);
-        }
-      );
-    }
   }
 
-  showForm() {
-    this.form = true;
+  showSubcategoryForm() {
+    this.showForm = true;
   }
 
   hideForm() {
-    this.form = false;
+    this.showForm = false;
     this.subCategories = [];
     this.getCategories();
   }
@@ -79,6 +78,6 @@ export class ListSubcategoryComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
 }

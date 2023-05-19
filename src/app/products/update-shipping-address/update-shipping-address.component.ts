@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ShippingAddressService } from 'src/app/services/shipping-address.service';
 
 @Component({
@@ -31,7 +32,9 @@ export class UpdateShippingAddressComponent implements OnInit {
   }
 
   getCurrentUser() {
-    this.currentUser = localStorage.getItem('user');
+    const helper = new JwtHelperService();
+    const token = helper.decodeToken(localStorage.getItem('token') || '');
+    this.currentUser = token.user;    
   }
 
   getAddress() {

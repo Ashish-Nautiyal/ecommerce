@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/app/enviroments/enviroment';
 import { WishlistService } from 'src/app/services/wishlist.service';
 
@@ -18,11 +19,11 @@ export class WishlistComponent implements OnInit {
     this.getWishList();
   }
 
-
   getCurrentUser() {
-    this.currentUser = localStorage.getItem('user');
+    const helper = new JwtHelperService();
+    const token = helper.decodeToken(localStorage.getItem('token') || '');
+    this.currentUser = token.user;
   }
-
 
   getUserId() {
     let user_id;
@@ -33,7 +34,6 @@ export class WishlistComponent implements OnInit {
     }
     return user_id;
   }
-
 
   getWishList() {
     let user_id = this.getUserId();
@@ -48,12 +48,11 @@ export class WishlistComponent implements OnInit {
     );
   }
 
-
   removeWishlist(val: any) {
     let user_id = this.getUserId();
     this.wishListService.removeWishlist({ user: user_id, variant_id: val._id }).subscribe(
       (res) => {
-        this.getWishList();  
+        this.getWishList();
       }, (error) => {
         console.log(error);
       }

@@ -14,7 +14,7 @@
 
     <div class="form-group">
         <label for="name">Category</label>
-        <select (change)="getSubcategories($event)" formControlName="category_id">
+        <select (change)="onChangeCategory($event)" formControlName="category_id">
             <option value="">select category</option>
             <option *ngFor="let category of categories" value="{{category._id}}">{{category.name}}</option>
         </select>
@@ -23,13 +23,13 @@
     <ng-container *ngIf="subCategories.length>0">
         <div class="form-group">
         <label for="name">Subcategory</label>
-            <select (change)="onChange($event,-1)" formControlName="subCategory_id">
+            <select (change)="onChangeSubCategory($event,-1)" formControlName="subCategory_id">
                 <option *ngFor="let subCategory of subCategories" value="{{subCategory._id}}">{{subCategory.name}}
                 </option>
             </select>
             <div class="form-group" *ngFor="let subCat of subCategories1; let i=index">
                 <ng-container *ngIf="subCat.length>0">
-                    <select (change)="onChange($event,i)" formControlName="subCategory_id">
+                    <select (change)="onChangeSubCategory($event,i)" formControlName="subCategory_id">
                         <option *ngFor="let val of subCat" value="{{val._id}}">{{val.name}}</option>
                     </select>
                 </ng-container>

@@ -2,39 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CategoryService } from 'src/app/services/category.service';
 
-
-
 @Component({
   selector: 'app-add-subcategory',
   templateUrl: './add-subcategory.component.html',
   styleUrls: ['./add-subcategory.component.scss']
 })
 
-
 export class AddSubcategoryComponent implements OnInit {
 
   subCategoryForm: any;
   categories: any;
   subCategories: any = [];
-  selectedCategory: any;
 
-  constructor(private categoryService: CategoryService) {
-    this.getCategories();
-  }
-
+  constructor(private categoryService: CategoryService) { }
 
   ngOnInit(): void {
+    this.getSubCategoryForm();
     this.getCategories();
-    this.Form();
   }
 
-  Form() {
+  getSubCategoryForm() {
     this.subCategoryForm = new FormGroup({
       name: new FormControl('', Validators.required),
       parent_id: new FormControl('', Validators.required)
     });
   }
-  
+
   getCategories() {
     this.categoryService.getCategoryTree().subscribe(
       (res) => {
@@ -59,22 +52,17 @@ export class AddSubcategoryComponent implements OnInit {
       }, (error) => {
         console.log(error);
       }
-    )
+    );
   }
 
   onSubmit() {
-    console.log('submit', this.subCategoryForm.value);
     this.categoryService.addCategory(this.subCategoryForm.value).subscribe(
       (res) => {
         this.subCategories = [];
-        this.ngOnInit();
+        this.getSubCategoryForm();
       }, (error) => {
         console.log(error);
       }
     );
-  }
-
-  getSelectedCategory(category: any) {
-    this.selectedCategory = category;
   }
 }

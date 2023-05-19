@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Component({
   selector: 'app-add-to-cart',
@@ -20,11 +21,13 @@ export class AddToCartComponent implements OnInit {
     this.returnTotal();
   }
 
-
   getCurrentUser() {
-    this.currentUser = localStorage.getItem('user');
+    const helper = new JwtHelperService();
+    const token = helper.decodeToken(localStorage.getItem('token') || '');
+    console.log('token',token);
+    
+    this.currentUser = token.user;    
   }
-
 
   getCartData() {
     if (localStorage.getItem('cart')) {

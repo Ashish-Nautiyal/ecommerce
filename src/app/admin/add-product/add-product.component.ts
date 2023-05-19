@@ -20,11 +20,11 @@ export class AddProductComponent implements OnInit {
   constructor(private productService: ProductService, private categoryService: CategoryService) { }
 
   ngOnInit(): void {
+    this.getProductForm();
     this.getCategories();
-    this.Form();
   };
 
-  Form() {
+  getProductForm() {
     this.productForm = new FormGroup({
       name: new FormControl('', Validators.required),
       category_id: new FormControl('', Validators.required),
@@ -34,8 +34,49 @@ export class AddProductComponent implements OnInit {
     });
   }
 
+  getCategories() {
+    this.categoryService.getCategory().subscribe(
+      (res) => {
+        this.categories = res.data;
+      }, (error) => {
+        console.log(error);
+      }
+    );
+  };
+
   onFileSelect(event: any) {
     this.selectedProductFile = event.target.files[0];
+  }
+
+  onChangeCategory(event: any) {
+    const id = event.target.value;
+    this.categoryService.getCategoryById({ parent_id: id }).subscribe(
+      (res) => {
+        this.subCategories1 = [];
+        if (res.data.length > 0) {
+          this.subCategories = res.data;
+        }
+      }, (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  onChangeSubCategory(event: any, i: number) {
+    const id = event.target.value;
+    if (i == -1) {
+      this.subCategories1 = [];
+    }
+    this.subCategories1.splice(i + 1);
+    this.categoryService.getCategoryById({ parent_id: id }).subscribe(
+      (res) => {
+        if (res.data.length > 0) {
+          this.subCategories1.push(res.data);
+        }
+      }, (error) => {
+        console.log(error);
+      }
+    );
   }
 
   onSubmit() {
@@ -53,45 +94,4 @@ export class AddProductComponent implements OnInit {
       }
     );
   };
-
-  getCategories() {
-    this.categoryService.getCategory().subscribe(
-      (res) => {
-        this.categories = res.data;
-      }, (error) => {
-        console.log(error);
-      }
-    );
-  };
-
-  getSubcategories(event: any) {
-    const id = event.target.value;
-    this.categoryService.getCategoryById({ parent_id: id }).subscribe(
-      (res) => {
-        if (this.subCategories1.length > 0) {
-          this.subCategories1 = [];
-        }
-        this.subCategories = res.data;
-      }, (error) => {
-        console.log(error);
-      }
-    );
-  }
-
-  onChange(event: any, i: number) {
-    const id = event.target.value;
-    if (i == -1) {
-      this.subCategories1 = [];
-    }
-    this.subCategories1.splice(i + 1);
-    this.categoryService.getCategoryById({ parent_id: id }).subscribe(
-      (res) => {
-        if (res.data.length > 0) {
-          this.subCategories1.push(res.data);
-        }
-      }, (error) => {
-        console.log(error);
-      }
-    );
-  }
 }
