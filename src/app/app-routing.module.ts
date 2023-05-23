@@ -11,19 +11,20 @@ import { DisplayCategoryComponent } from './products/display-category/display-ca
 import { DisplayProductComponent } from './products/display-product/display-product.component';
 import { GuestComponent } from './products/guest/guest.component';
 import { ImageDialogComponent } from './products/image-dialog/image-dialog.component';
-import { OrderDetailComponent } from './products/order-detail/order-detail.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { PurchaseComponent } from './products/purchase/purchase.component';
 import { QuickSignupComponent } from './products/quick-signup/quick-signup.component';
 import { SearchResultComponent } from './products/search-result/search-result.component';
 import { ShippingAddressComponent } from './products/shipping-address/shipping-address.component';
 import { SuccessComponent } from './products/success/success.component';
-import { WishlistComponent } from './products/wishlist/wishlist.component';
 import { HomeComponent } from './user/home/home.component';
 import { UpdateProfileComponent } from './user/update-profile/update-profile.component';
 import { ProfileComponent } from './user/profile/profile.component';
-import { RoleGuard } from './guard/role.guard';
 import { UpdateShippingAddressComponent } from './products/update-shipping-address/update-shipping-address.component';
+import { AddShippingAddressComponent } from './user/add-shipping-address/add-shipping-address.component';
+import { MyOrdersComponent } from './user/my-orders/my-orders.component';
+import { MyWishlistComponent } from './user/my-wishlist/my-wishlist.component';
+import { IsLoginGuard } from './guard/is-login.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
@@ -36,25 +37,27 @@ const routes: Routes = [
   },
   {
     path: 'user', component: NavbarComponent, children: [
+      { path: 'quickSignUp', component: QuickSignupComponent },
+      { path: 'addToCart', component: AddToCartComponent },
+      { path: 'guest', component: GuestComponent },
+      { path: 'imageDialog', component: ImageDialogComponent },
       { path: 'displayCategory', component: DisplayCategoryComponent },
       { path: 'display-product', component: DisplayProductComponent },
       { path: 'productDetail', component: ProductDetailComponent },
-      { path: 'imageDialog', component: ImageDialogComponent },
-      { path: 'searchResult', component: SearchResultComponent },
-      { path: 'addToCart', component: AddToCartComponent },
-      { path: 'wishList', component: WishlistComponent },
       { path: 'purchase', component: PurchaseComponent },
-      { path: 'guest', component: GuestComponent },
-      { path: 'quickSignUp', component: QuickSignupComponent },
-      { path: 'updateProfile', component: UpdateProfileComponent },
-      { path: 'shippingAddress', component: ShippingAddressComponent },
       { path: 'checkout', component: CheckoutComponent },
-      { path: 'order', component: OrderDetailComponent },
-      { path: 'home', component: HomeComponent },
+      { path: 'shippingAddress', component: ShippingAddressComponent },
+      { path: 'updateShippingAddress', component: UpdateShippingAddressComponent },
       { path: 'success', component: SuccessComponent },
       { path: 'cancel', component: CancelComponent },
-      { path: 'profile', component: ProfileComponent,canActivate:[RoleGuard] },
-      { path: 'updateShippingAddress', component: UpdateShippingAddressComponent},
+      { path: 'searchResult', component: SearchResultComponent },
+      
+      { path: 'home', component: HomeComponent },
+      { path: 'profile', component: ProfileComponent, canActivate: [IsLoginGuard] },
+      { path: 'updateProfile', component: UpdateProfileComponent, canActivate: [IsLoginGuard] },
+      { path: 'addShippingAddress', component: AddShippingAddressComponent, canActivate: [IsLoginGuard] },
+      { path: 'myOrder', component: MyOrdersComponent, canActivate: [IsLoginGuard] },
+      { path: 'myWishlist', component: MyWishlistComponent, canActivate: [IsLoginGuard] },
     ]
   },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },

@@ -7,6 +7,7 @@ import { WishlistService } from 'src/app/services/wishlist.service';
 import { GuestComponent } from '../guest/guest.component';
 import { ImageDialogComponent } from '../image-dialog/image-dialog.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -22,20 +23,20 @@ export class ProductDetailComponent implements OnInit {
   imageIndex: number = 0;
   variantIndex: number = 0;
 
-  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute, private wishListService: WishlistService, private router: Router) { }
+  constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute, private wishListService: WishlistService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
     this.getQueryParams();
-    if (this.product_id != undefined) {
-      this.getVariantByProduct();
-    }
   }
 
   getCurrentUser() {
     const helper = new JwtHelperService();
-    const token = helper.decodeToken(localStorage.getItem('token') || '');
-    this.currentUser = token.user;    
+    const token: any = this.authService.getAuthToken();
+    const decoded = helper.decodeToken(token);
+    if (decoded) {
+      this.currentUser = decoded.user;
+    }
   }
 
   getUserId() {
@@ -50,7 +51,12 @@ export class ProductDetailComponent implements OnInit {
 
   getQueryParams() {
     this.activateRoute.queryParams.subscribe(params => {
-      this.product_id = params['product_id'];
+      if (params['product_id']) {
+        this.product_id = params['product_id'];
+        this.getVariantByProduct();
+      } else {
+        console.log('no way');
+      }
     });
   }
 
@@ -101,7 +107,7 @@ export class ProductDetailComponent implements OnInit {
       if (!found) {
         cart.push(val);
         localStorage.setItem('cart', JSON.stringify(cart));
-      }else{
+      } else {
         var index = 0;
         for (var i = 0; i < cart.length; i++) {
           if (cart[i]._id == val._id) {

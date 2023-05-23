@@ -17,8 +17,12 @@ export class QuickSignupComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.getQuickSignUpForm();
+  }
+
+  getQuickSignUpForm() {
     this.quickSignUpForm = new FormGroup({
-      phone_number: new FormControl('', Validators.required)
+      phone_number: new FormControl('', [Validators.required, Validators.pattern("^((\\+91-?)|0)?[0-9]{10}$")])
     });
   }
 
@@ -42,7 +46,7 @@ export class QuickSignupComponent implements OnInit {
           }
         );
         break;
-      } 
+      }
     }
   }
 

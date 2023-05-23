@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -12,9 +13,8 @@ export class ProfileComponent implements OnInit {
 
   currentUser: any;
   user: any;
-  isChildComponentRendered: boolean = false;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -23,8 +23,11 @@ export class ProfileComponent implements OnInit {
 
   getCurrentUser() {
     const helper = new JwtHelperService();
-    const token = helper.decodeToken(localStorage.getItem('token') || '');
-    this.currentUser = token.user;    
+    const token: any = this.authService.getAuthToken();
+    const decoded = helper.decodeToken(token);
+    if (decoded) {
+      this.currentUser = decoded.user;
+    }
   }
 
   getProfile() {
@@ -32,27 +35,12 @@ export class ProfileComponent implements OnInit {
       (res) => {
         this.user = res.data;
       }, (error) => {
-        console.log(error);
+        console.log(error.error.message);
       }
     );
   }
 
   editProfile() {
-    let userData: any = JSON.stringify(this.user);
-    this.router.navigate(['/user/updateProfile'], { queryParams: { user: userData } });
-  }
-
-  showAddressForm() {
-    this.isChildComponentRendered = true;
-  }
-
-  closeAddressForm(event: any) {
-    if (this.currentUser) {
-      this.isChildComponentRendered = event;
-      this.getCurrentUser();
-      this.getProfile();
-    } else {
-      this.isChildComponentRendered = event;
-    }
+    this.router.navigate(['/user/updateProfile'], { queryParams: { user: this.user._id } });
   }
 }

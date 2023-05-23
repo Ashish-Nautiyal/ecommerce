@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { WishlistComponent } from './wishlist.component';
+import { MyWishlistComponent } from './my-wishlist.component';
 
-describe('WishlistComponent', () => {
-  let component: WishlistComponent;
-  let fixture: ComponentFixture<WishlistComponent>;
+describe('MyWishlistComponent', () => {
+  let component: MyWishlistComponent;
+  let fixture: ComponentFixture<MyWishlistComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ WishlistComponent ]
+      declarations: [ MyWishlistComponent ]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(WishlistComponent);
+    fixture = TestBed.createComponent(MyWishlistComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

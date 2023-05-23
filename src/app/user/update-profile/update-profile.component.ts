@@ -15,19 +15,27 @@ export class UpdateProfileComponent implements OnInit {
   constructor(private activateRoute: ActivatedRoute, private router: Router, private userService: UserService) { }
 
   ngOnInit(): void {
+    this.getUserInfo();
+  }
+
+  getUserInfo() {
     this.activateRoute.queryParams.subscribe((params) => {
-      this.user = params['user'];
-      if (!this.user) {
-        this.router.navigate(['/user/profile']);
+      if (params['user']) {
+        let id = params['user'];
+        this.userService.getProfile({ _id: id }).subscribe(
+          res => this.user = res.data,
+          error => console.log(error.message)
+        );
+      } else {
+        this.cancel();
       }
-      this.user = JSON.parse(this.user);
     });
   }
 
   onSubmit() {
     this.userService.updateProfile(this.user).subscribe(
       (res) => {
-       this.cancel();      
+        this.cancel();
       }, (error) => {
         console.log(error);
       }

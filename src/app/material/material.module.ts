@@ -12,7 +12,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatGridListModule } from '@angular/material/grid-list';
-
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   exports: [
@@ -28,9 +28,9 @@ import { MatGridListModule } from '@angular/material/grid-list';
     MatExpansionModule,
     MatRadioModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatSnackBarModule
   ]
 })
-
 
 export class MaterialModule { }

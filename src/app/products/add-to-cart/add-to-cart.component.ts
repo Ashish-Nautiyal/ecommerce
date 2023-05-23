@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-add-to-cart',
@@ -13,7 +14,7 @@ export class AddToCartComponent implements OnInit {
   cart: any = [];
   total: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -23,10 +24,11 @@ export class AddToCartComponent implements OnInit {
 
   getCurrentUser() {
     const helper = new JwtHelperService();
-    const token = helper.decodeToken(localStorage.getItem('token') || '');
-    console.log('token',token);
-    
-    this.currentUser = token.user;    
+    const token: any = this.authService.getAuthToken();
+    const decoded = helper.decodeToken(token);
+    if (decoded) {
+      this.currentUser = decoded.user;
+    }
   }
 
   getCartData() {
@@ -37,24 +39,21 @@ export class AddToCartComponent implements OnInit {
     }
   }
 
-
   increaseCart(i: any) {
     let cart = JSON.parse(localStorage.getItem('cart') || '');
     cart[i].qty = cart[i].qty + 1;
     localStorage.setItem('cart', JSON.stringify(cart));
     this.returnTotal();
-    this.getCartData();    
+    this.getCartData();
   }
-
 
   decreaseCart(i: any) {
     let cart = JSON.parse(localStorage.getItem('cart') || '');
     cart[i].qty = cart[i].qty - 1;
     localStorage.setItem('cart', JSON.stringify(cart));
     this.returnTotal();
-    this.getCartData();    
+    this.getCartData();
   }
-
 
   removeCart(val: any) {
     let cart = JSON.parse(localStorage.getItem('cart') || '');
@@ -76,18 +75,16 @@ export class AddToCartComponent implements OnInit {
     }
   }
 
-
   returnTotal() {
-    if(localStorage.getItem('cart')){
-    let cart = JSON.parse(localStorage.getItem('cart') || '');   
-      this.total =0;
+    if (localStorage.getItem('cart')) {
+      let cart = JSON.parse(localStorage.getItem('cart') || '');
+      this.total = 0;
       for (let i = 0; i < cart.length; i++) {
         this.total += cart[i].price * cart[i].qty;
       }
-    } 
+    }
   }
 
-  
   proceedToBuy() {
     this.router.navigate(['/user/checkout']);
   }

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { environment } from 'src/app/enviroments/enviroment';
 import { CategoryService } from 'src/app/services/category.service';
 
 @Component({

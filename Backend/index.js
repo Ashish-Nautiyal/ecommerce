@@ -17,6 +17,10 @@ app.use('/uploads', express.static(directory));
 // app.use(express.json());
 app.use(cors());
 
+//auth routes
+const authRoutes = require('./routes/authRoutes');
+app.use('/api', authRoutes);
+
 //user routes
 const userRoutes = require('./routes/userRoute');
 app.use('/api', userRoutes);

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { HomeComponent } from '../user/home/home.component';
 
 @Component({
   selector: 'app-navbar',
@@ -12,7 +14,7 @@ export class NavbarComponent implements OnInit {
 
   currentUserRole: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -28,10 +30,18 @@ export class NavbarComponent implements OnInit {
 
   logOut() {
     localStorage.clear();
-    this.getCurrentUser();
+    this.router.navigate(['/auth/login']);
   }
 
   updateProfile() {
     this.router.navigate(['/user/updateProfile']);
+  }
+
+  openDialog(): void {
+    this.dialog.open(HomeComponent, {
+      width: '250px',
+      height: '300px',
+      position: { right: '20px', top: '50px' }
+    });
   }
 }

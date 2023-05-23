@@ -1,21 +1,20 @@
 <div class="nav-bar">
     <mat-toolbar color="primary">
         <a routerLink="/user/displayCategory"><img src="../../assets/images/logo1.png" alt="logo" height="50px"
-                width="200px" /></a>
-        <a *ngIf="currentUserRole == 0" routerLink="/admin/admin-dashboard" mat-button>Admin Dashboard</a>
-        <a routerLink="/user/displayCategory" mat-button>Products</a>
+                width="200px" /></a>&nbsp;
+        <a *ngIf="currentUserRole == 0" routerLink="/admin/admin-dashboard" routerLinkActive="active" mat-button>Admin Dashboard</a>&nbsp;
+        <a routerLink="/user/displayCategory" routerLinkActive="active" mat-button>Products</a>
 
         <div class="spacer"></div>
         <div *ngIf="currentUserRole == null">
-            <a routerLink="/auth/sign-up" mat-button>Signup</a>
-            <a routerLink="/auth/login" mat-button>Login</a>
+            <a routerLink="/auth/sign-up" routerLinkActive="active" mat-button>Signup</a>&nbsp;
+            <a routerLink="/auth/login" routerLinkActive="active" mat-button>Login</a>&nbsp;
         </div>
-        <a *ngIf="currentUserRole != null" routerLink="/auth/login" mat-button (click)="logOut()">Logout</a>
+        <a *ngIf="currentUserRole != null" mat-button (click)="logOut()">Logout</a>&nbsp;
         <a routerLink="/user/addToCart">
             <mat-icon>shopping_cart</mat-icon>
-        </a>
-        <a routerLink="/user/wishList" mat-button>wishlist</a>
-        <a routerLink="/user/profile">
+        </a>&nbsp;
+        <a (click)="openDialog()">
             <mat-icon>account_circle</mat-icon>
         </a>
     </mat-toolbar>

@@ -50,7 +50,7 @@ export class ListProductComponent {
         console.log(error);
       }
     );
-  }
+  };
 
   onChangeProduct(event: any) {
     let productId = event.target.value;
@@ -62,7 +62,7 @@ export class ListProductComponent {
         console.log(error);
       }
     );
-  }
+  };
 
   onChangeCategory(event: any) {
     this.productForm.category_id = event.target.value;
@@ -74,7 +74,7 @@ export class ListProductComponent {
         console.log(error);
       }
     );
-  }
+  };
 
   onChangeSubcategory(event: any, i: number) {
     this.productForm.subCategory_id = event.target.value;
@@ -91,22 +91,22 @@ export class ListProductComponent {
         console.log(error);
       }
     );
-  }
+  };
 
   showProductForm() {
     this.showForm = true;
-  }
+  };
 
   hideForm() {
     this.showForm = false;
     this.selectedImage = undefined;
     this.Products = [];
     this.getCategories();
-  }
+  };
 
   onFileChange(event: any) {
     this.selectedImage = event.target.files[0];
-  }
+  };
 
   onSubmit() {
     console.log('submit', this.productForm);
@@ -128,5 +128,5 @@ export class ListProductComponent {
         console.log(error);
       }
     );
-  }
+  };
 }

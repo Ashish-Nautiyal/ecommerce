@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ShippingAddressService } from 'src/app/services/shipping-address.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -15,9 +14,14 @@ export class CheckoutComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-    this.cart = JSON.parse(localStorage.getItem('cart') || '');
-    if (!this.cart) {
-      this.router.navigate(['/user/displayCategory']);
+    this.getCart();
+  }
+
+  getCart() {
+    if (localStorage.getItem('cart')) {
+      this.cart = JSON.parse(localStorage.getItem('cart') || '');
+    } else {
+      this.back();
     }
   }
 

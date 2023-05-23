@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from 'src/app/services/auth.service';
 import { ShippingAddressService } from 'src/app/services/shipping-address.service';
 
 @Component({
@@ -24,7 +24,7 @@ export class UpdateShippingAddressComponent implements OnInit {
     type: ''
   };
 
-  constructor(private router: Router, private activateRoute: ActivatedRoute, private addressService: ShippingAddressService) { }
+  constructor(private router: Router, private activateRoute: ActivatedRoute, private addressService: ShippingAddressService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -33,36 +33,40 @@ export class UpdateShippingAddressComponent implements OnInit {
 
   getCurrentUser() {
     const helper = new JwtHelperService();
-    const token = helper.decodeToken(localStorage.getItem('token') || '');
-    this.currentUser = token.user;    
+    const token: any = this.authService.getAuthToken();
+    const decoded = helper.decodeToken(token);
+    if (decoded) {
+      this.currentUser = decoded.user;
+    }
   }
 
   getAddress() {
-    let id;
-    let action;
     this.activateRoute.queryParams.subscribe(
       (params) => {
-        id = params['id'];
-        action = params['action'];
+        if (params['id']) {
+          let id = params['id'];
+          this.addressService.getShippingAddressById({ _id: id }).subscribe(
+            (res) => {
+              this.address = res.data;
+            }, (error) => {
+              console.log(error);
+            }
+          );
+        }
+
+        if (params['action']) {
+          if (localStorage.getItem('address')) {
+            this.address = JSON.parse(localStorage.getItem('address') || '');
+          } else {
+            this.cancel();
+          }
+        }
+
+        if (!params['id'] && !params['action']) {
+          this.cancel();
+        }
       }
     );
-    if (id) {
-      this.addressService.getShippingAddressById({ _id: id }).subscribe(
-        (res) => {
-          this.address = res.data;
-        }, (error) => {
-          console.log(error);
-        }
-      );
-    } else if (action) {
-      if (localStorage.getItem('address')) {
-        this.address = JSON.parse(localStorage.getItem('address') || '');
-      } else {
-        this.cancel();
-      }
-    } else {
-      this.cancel();
-    }
   }
 
   updateAddress() {

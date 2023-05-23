@@ -44,3 +44,16 @@ module.exports.saveOrder = async (req, res) => {
         return res.status(500).json({ message: 'server error' });
     }
 }
+
+module.exports.getOrderById = async (req, res) => {
+    try {
+        if (!req.body.user) {
+            return res.status(200).json({ message: 'user required' });
+        }
+        const order = await Order.findOne({ user: req.body.user });
+        return res.status(200).json({ message: 'my order data', data: order });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'server error' });
+    }
+}

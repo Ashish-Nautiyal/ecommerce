@@ -1,4 +1,4 @@
-<ng-container *ngIf="products.length > 0;else thisOne">
+<ng-container *ngIf="products.length > 0;else elseBlock">
   <div *ngFor="let product of products;let i=index" style="display: inline-block; width: 23%; margin: 1%;">
     <mat-card class="example-card">
       <mat-card-header>
@@ -16,6 +16,6 @@
     </mat-card>
   </div>
 </ng-container>
-<ng-template #thisOne>
+<ng-template #elseBlock>
   <h1>Products not found</h1>
 </ng-template>

@@ -16,8 +16,8 @@
     </mat-card>
 </div>
 <div>
-    <button (click)="showForm()" mat-raised-button *ngIf="currentUser"><mat-icon>add</mat-icon>Add address</button>
-    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="login-form" *ngIf="form">
+    <button (click)="showAddressForm()" mat-raised-button *ngIf="currentUser"><mat-icon>add</mat-icon>Add address</button>
+    <form [formGroup]="addressForm" (ngSubmit)="onSubmit()" class="login-form" *ngIf="showForm">
         <input type="hidden" formControlName="user" [value]="userId" class="form-control">
         <div class="form-group">
             <label for="country">Country</label>

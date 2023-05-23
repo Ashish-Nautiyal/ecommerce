@@ -2,36 +2,38 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AddCategoryComponent } from './add-category/add-category.component';
+import { AddSubcategoryComponent } from './add-subcategory/add-subcategory.component';
 import { AddProductComponent } from './add-product/add-product.component';
+import { AddVariantComponent } from './add-variant/add-variant.component';
+import { AddVariantAttributeComponent } from './add-variant-attribute/add-variant-attribute.component';
+
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { NavbarComponent } from '../navbar/navbar.component';
-import { AddVariantComponent } from './add-variant/add-variant.component';
 import { RoleGuard } from '../guard/role.guard';
-import { AddSubcategoryComponent } from './add-subcategory/add-subcategory.component';
-import { AddVariantAttributeComponent } from './add-variant-attribute/add-variant-attribute.component';
 import { DisplayCategoryComponent } from '../products/display-category/display-category.component';
+
 import { ListCategoryComponent } from './list-category/list-category.component';
+import { ListSubcategoryComponent } from './list-subcategory/list-subcategory.component';
 import { ListProductComponent } from './list-product/list-product.component';
 import { ListVariantComponent } from './list-variant/list-variant.component';
 import { ListAttributeComponent } from './list-attribute/list-attribute.component';
-import { ListSubcategoryComponent } from './list-subcategory/list-subcategory.component';
 
 const appRoutes: Routes = [
     {
-        path: '', component: NavbarComponent, children: [
+        path: '', component: NavbarComponent, canActivate: [RoleGuard], children: [
             {
                 path: 'admin-dashboard', component: AdminDashboardComponent, children: [
-                    { path: '', component: DisplayCategoryComponent, canActivate: [RoleGuard] },
-                    { path: 'add-category', component: AddCategoryComponent, canActivate: [RoleGuard] },
-                    { path: 'add-sub-category', component: AddSubcategoryComponent, canActivate: [RoleGuard] },
-                    { path: 'add-product', component: AddProductComponent, canActivate: [RoleGuard] },
-                    { path: 'add-variant', component: AddVariantComponent, canActivate: [RoleGuard] },
-                    { path: 'add-attribute', component: AddVariantAttributeComponent, canActivate: [RoleGuard] },
-                    { path: 'listCategory', component: ListCategoryComponent, canActivate: [RoleGuard] },
-                    { path: 'listSubCategory', component: ListSubcategoryComponent, canActivate: [RoleGuard] },
-                    { path: 'listProduct', component: ListProductComponent, canActivate: [RoleGuard] },
-                    { path: 'listVariant', component: ListVariantComponent, canActivate: [RoleGuard] },
-                    { path: 'listAttribute', component: ListAttributeComponent, canActivate: [RoleGuard] },
+                    { path: '', component: DisplayCategoryComponent },
+                    { path: 'add-category', component: AddCategoryComponent },
+                    { path: 'add-sub-category', component: AddSubcategoryComponent },
+                    { path: 'add-product', component: AddProductComponent },
+                    { path: 'add-variant', component: AddVariantComponent },
+                    { path: 'add-attribute', component: AddVariantAttributeComponent },
+                    { path: 'listCategory', component: ListCategoryComponent },
+                    { path: 'listSubCategory', component: ListSubcategoryComponent },
+                    { path: 'listProduct', component: ListProductComponent },
+                    { path: 'listVariant', component: ListVariantComponent },
+                    { path: 'listAttribute', component: ListAttributeComponent },
                 ]
             },
         ]

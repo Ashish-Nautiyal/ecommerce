@@ -14,12 +14,10 @@ export class ImageDialogComponent implements OnInit {
 
   constructor(@Inject(MAT_DIALOG_DATA) public variantData: any) { }
 
-
   ngOnInit(): void {
     this.variantIndex = this.variantData.variantIndex;
     this.data = this.variantData.data;
   }
-
 
   changeImage(index: number) {
     this.imageIndex = index;

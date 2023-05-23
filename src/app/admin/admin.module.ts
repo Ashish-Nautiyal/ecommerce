@@ -47,6 +47,10 @@ import { ListAttributeComponent } from './list-attribute/list-attribute.componen
     AddSubcategoryComponent,
     AddVariantAttributeComponent,
     ListCategoryComponent,
+    ListSubcategoryComponent,
+    ListProductComponent,
+    ListVariantComponent,
+    ListAttributeComponent    
   ]
 })
 

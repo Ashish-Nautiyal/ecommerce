@@ -17,7 +17,7 @@ export class ShippingAddressComponent implements OnInit {
   addressForm: any;
   currentUser: any;
   userId: any;
-  form: boolean = false;
+  showForm: boolean = false;
   shippingAddress: any = [];
 
   constructor(public dialog: MatDialog, private router: Router, private addressService: ShippingAddressService) { }
@@ -25,17 +25,19 @@ export class ShippingAddressComponent implements OnInit {
   ngOnInit() {
     this.getCurrentUser();
     this.getUserId();
-    this.getForm();
+    this.getAddressForm();
     this.getShippingAddress();
     if (!this.currentUser && this.shippingAddress.length < 1) {
-      this.form = true;
+      this.showForm = true;
     }
   }
 
   getCurrentUser() {
     const helper = new JwtHelperService();
     const token = helper.decodeToken(localStorage.getItem('token') || '');
-    this.currentUser = token.user;    
+    if (token) {
+      this.currentUser = token.user;
+    }
   }
 
   getUserId() {
@@ -46,7 +48,7 @@ export class ShippingAddressComponent implements OnInit {
     }
   }
 
-  getForm() {
+  getAddressForm() {
     this.addressForm = new FormGroup({
       user: new FormControl(this.userId, Validators.required),
       country: new FormControl('', Validators.required),
@@ -63,7 +65,6 @@ export class ShippingAddressComponent implements OnInit {
     if (this.currentUser) {
       this.addressService.addShippingAddress(this.addressForm.value).subscribe(
         (res) => {
-          console.log('address', this.addressForm.value);
           this.hideForm();
           this.getShippingAddress();
         }, (error) => {
@@ -123,17 +124,17 @@ export class ShippingAddressComponent implements OnInit {
     } else {
       localStorage.removeItem('address');
       this.getShippingAddress();
-      this.form = true;
+      this.showForm = true;
     }
   }
 
-  showForm() {
-    this.getForm();
-    this.form = true;
+  showAddressForm() {
+    this.getAddressForm();
+    this.showForm = true;
   }
 
   hideForm() {
-    this.form = false;
+    this.showForm = false;
   }
 
   back() {

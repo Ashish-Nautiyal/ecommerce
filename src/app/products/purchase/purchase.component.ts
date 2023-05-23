@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
 import { ShippingAddressService } from 'src/app/services/shipping-address.service';
 
@@ -16,7 +17,7 @@ export class PurchaseComponent implements OnInit {
   shippingAddress: any = [];
   total: number = 0;
 
-  constructor(private router: Router, private productService: ProductService, private addressService: ShippingAddressService) { }
+  constructor(private router: Router, private productService: ProductService, private addressService: ShippingAddressService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -27,8 +28,11 @@ export class PurchaseComponent implements OnInit {
 
   getCurrentUser() {
     const helper = new JwtHelperService();
-    const token = helper.decodeToken(localStorage.getItem('token') || '');
-    this.currentUser = token.user;    
+    const token: any = this.authService.getAuthToken();
+    const decoded = helper.decodeToken(token);
+    if (decoded) {
+      this.currentUser = decoded.user;
+    }
   }
 
   getCart() {
@@ -42,7 +46,6 @@ export class PurchaseComponent implements OnInit {
       this.addressService.getdefaultAddress({ user: this.currentUser }).subscribe(
         (res) => {
           this.shippingAddress = res.data;
-          console.log('address1', this.shippingAddress);
         }, (error) => {
           console.log(error);
         }
@@ -52,7 +55,6 @@ export class PurchaseComponent implements OnInit {
         let array = [];
         array.push(JSON.parse(localStorage.getItem('address') || ''));
         this.shippingAddress = array;
-        console.log('address2', this.shippingAddress);
       }
     }
   }

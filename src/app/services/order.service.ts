@@ -14,6 +14,7 @@ export class OrderService {
     return this.http.post<any>(environment.baseUrl + 'saveOrder', body);
   }
 
-
-  
+  getOrder(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'getOrder', body);
+  }
 }

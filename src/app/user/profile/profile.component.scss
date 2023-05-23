@@ -4,28 +4,4 @@
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-}button {
-    display: block;
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-button:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-}
-
-button[type="button"] {
-    margin-left: 10px;
-    background-color: #ccc;
-    color: #000;
-}
-a{
-    color: blue;
-    text-decoration: none;
 }

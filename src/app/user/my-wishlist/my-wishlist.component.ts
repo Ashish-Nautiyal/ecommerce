@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/app/enviroments/enviroment';
+import { AuthService } from 'src/app/services/auth.service';
 import { WishlistService } from 'src/app/services/wishlist.service';
 
 @Component({
-  selector: 'app-wishlist',
-  templateUrl: './wishlist.component.html',
-  styleUrls: ['./wishlist.component.scss']
+  selector: 'app-my-wishlist',
+  templateUrl: './my-wishlist.component.html',
+  styleUrls: ['./my-wishlist.component.scss']
 })
-export class WishlistComponent implements OnInit {
+export class MyWishlistComponent {
 
   currentUser: any;
   wishList: any = [];
-  constructor(private wishListService: WishlistService) { }
+
+  constructor(private wishListService: WishlistService, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -21,8 +23,11 @@ export class WishlistComponent implements OnInit {
 
   getCurrentUser() {
     const helper = new JwtHelperService();
-    const token = helper.decodeToken(localStorage.getItem('token') || '');
-    this.currentUser = token.user;
+    const token: any = this.authService.getAuthToken();
+    const decoded = helper.decodeToken(token);
+    if (decoded) {
+      this.currentUser = decoded.user;
+    }
   }
 
   getUserId() {

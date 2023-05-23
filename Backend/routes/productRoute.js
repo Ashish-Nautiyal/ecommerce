@@ -16,7 +16,7 @@ const upload = multer({ storage: storage });
 productRoute.post('/addProduct', auth, upload.single('product_image'), require('express').json(), productController.addProduct);
 productRoute.get('/getProducts', auth, productController.getProducts);
 productRoute.delete('/deleteProduct', auth, require('express').json(), productController.deleteProduct);
-productRoute.post('/getProductByCatId', auth, require('express').json(), productController.getProductsByCatId);
+productRoute.post('/getProductByCatId', require('express').json(), productController.getProductsByCatId);
 productRoute.post('/getProductByProductId', auth, require('express').json(), productController.getProductsByProductId);
 productRoute.post('/updateProduct', auth, upload.single('product_image'), require('express').json(), productController.updateProduct);
 

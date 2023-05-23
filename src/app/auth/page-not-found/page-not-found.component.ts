@@ -11,6 +11,6 @@ export class PageNotFoundComponent {
   constructor(private router: Router) { }
 
   goBack() {
-    this.router.navigate(['/user/display-product']);
+    this.router.navigate(['/user/displayCategory']);
   }
 }
