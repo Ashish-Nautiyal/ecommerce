@@ -30,3 +30,13 @@ module.exports.updateProfile = async (req, res) => {
         return res.status(500).json({ message: 'server error' });
     }
 }
+
+module.exports.getAllUser = async (req, res) => {
+    try {
+       const allUsers = await User.find({});
+       return res.status(200).json({message:'All users',data:allUsers})
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message:'Internal server error'});
+    }
+}

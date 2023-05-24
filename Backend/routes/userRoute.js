@@ -1,8 +1,10 @@
+const express = require('express');
 const userControlller = require('../controllers/userController');
-const userRoute = require('express').Router();
+const userRoute = express.Router();
 const auth = require('../middleWare/authMiddleWare');
 
-userRoute.post('/getProfile', auth, require('express').json(), userControlller.getProfile);
-userRoute.post('/updateProfile', auth, require('express').json(), userControlller.updateProfile);
+userRoute.post('/getProfile', auth, express.json(), userControlller.getProfile);
+userRoute.post('/updateProfile', auth, express.json(), userControlller.updateProfile);
+userRoute.route('/getAllUsers').get(express.json(), userControlller.getAllUser);
 
 module.exports = userRoute;     

@@ -17,6 +17,8 @@ import { ListSubcategoryComponent } from './list-subcategory/list-subcategory.co
 import { ListProductComponent } from './list-product/list-product.component';
 import { ListVariantComponent } from './list-variant/list-variant.component';
 import { ListAttributeComponent } from './list-attribute/list-attribute.component';
+import { PromocodeComponent } from './promocode/promocode.component';
+import { GivePromocodeComponent } from './give-promocode/give-promocode.component';
 
 const appRoutes: Routes = [
     {
@@ -34,6 +36,8 @@ const appRoutes: Routes = [
                     { path: 'listProduct', component: ListProductComponent },
                     { path: 'listVariant', component: ListVariantComponent },
                     { path: 'listAttribute', component: ListAttributeComponent },
+                    { path: 'promocode', component: PromocodeComponent },
+                    { path: 'givePromocode', component: GivePromocodeComponent },
                 ]
             },
         ]

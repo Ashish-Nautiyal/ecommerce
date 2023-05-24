@@ -1,4 +1,4 @@
-<form (submit)="onSubmit()" class="update-form ">
+<form (ngSubmit)="onSubmit()" class="update-form" *ngIf="user">
     <input type="hidden" id="name" [(ngModel)]="user._id" name="name" required>
 
     <div class="form-group">

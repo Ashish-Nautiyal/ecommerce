@@ -1,5 +1,6 @@
+const express = require('express');
 const productController = require('../controllers/productController');
-const productRoute = require('express').Router();
+const productRoute = express.Router();
 const auth = require('../middleWare/authMiddleWare');
 
 const multer = require('multer');
@@ -13,11 +14,11 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-productRoute.post('/addProduct', auth, upload.single('product_image'), require('express').json(), productController.addProduct);
+productRoute.post('/addProduct', auth, upload.single('product_image'), express.json(), productController.addProduct);
 productRoute.get('/getProducts', auth, productController.getProducts);
-productRoute.delete('/deleteProduct', auth, require('express').json(), productController.deleteProduct);
-productRoute.post('/getProductByCatId', require('express').json(), productController.getProductsByCatId);
-productRoute.post('/getProductByProductId', auth, require('express').json(), productController.getProductsByProductId);
-productRoute.post('/updateProduct', auth, upload.single('product_image'), require('express').json(), productController.updateProduct);
+productRoute.delete('/deleteProduct', auth, express.json(), productController.deleteProduct);
+productRoute.post('/getProductByCatId', express.json(), productController.getProductsByCatId);
+productRoute.post('/getProductByProductId', auth, express.json(), productController.getProductsByProductId);
+productRoute.post('/updateProduct', auth, upload.single('product_image'), express.json(), productController.updateProduct);
 
 module.exports = productRoute;

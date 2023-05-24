@@ -1,5 +1,6 @@
+const express = require('express');
 const categoryController = require('../controllers/categoryController');
-const categoryRoute = require('express').Router();
+const categoryRoute = express.Router();
 const auth = require('../middleWare/authMiddleWare');
 
 const multer = require('multer');
@@ -13,14 +14,13 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-categoryRoute.post('/addCategory', auth, upload.single('category_image'), require('express').json(), categoryController.addCategory);
+categoryRoute.post('/addCategory', auth, upload.single('category_image'), express.json(), categoryController.addCategory);
 categoryRoute.get('/getCategory', categoryController.getCategories);
 categoryRoute.get('/getCategoryTree', auth, categoryController.getCategoryTree);
 categoryRoute.get('/getSubCategories', auth, categoryController.getSubCategory);
-categoryRoute.post('/getCategoriesById', auth, require('express').json(), categoryController.getCategoryById);
-categoryRoute.post('/categoryById', auth, require('express').json(), categoryController.categoryById);
-categoryRoute.post('/updateCategory', auth, upload.single('category_image'), require('express').json(), categoryController.updateCategory);
-categoryRoute.post('/updateSubCategory', auth, require('express').json(), categoryController.updateSubCategory);
-
+categoryRoute.post('/getCategoriesById', auth, express.json(), categoryController.getCategoryById);
+categoryRoute.post('/categoryById', auth, express.json(), categoryController.categoryById);
+categoryRoute.post('/updateCategory', auth, upload.single('category_image'), express.json(), categoryController.updateCategory);
+categoryRoute.post('/updateSubCategory', auth, express.json(), categoryController.updateSubCategory);
 
 module.exports = categoryRoute;  

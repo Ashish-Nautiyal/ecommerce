@@ -51,7 +51,7 @@ export class QuickSignupComponent implements OnInit {
   }
 
   ipToUserID(ip: any, user: any) {
-    this.userService.ipToUserID({ ip: ip, user: user }).subscribe(
+    this.authService.ipToUserID({ ip: ip, user: user }).subscribe(
       (res) => {
         this.router.navigate(['/user/checkout']);
       }, (error) => {

@@ -1,7 +1,9 @@
-<h1>My Order</h1>
-<div *ngIf="myOrder">
-    <div *ngFor="let order of myOrder.products">
-        {{order.variant_id}}
-        <p>Price {{order.price | currency:'INR'}}</p>
+<div class="container">
+    <h1>My Order</h1>
+    <div *ngIf="myOrder">
+        <div *ngFor="let order of myOrder.products">
+            {{order.variant_id}}
+            <p>Price {{order.price | currency:'INR'}}</p>
+        </div>
     </div>
 </div>

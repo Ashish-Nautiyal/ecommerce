@@ -16,6 +16,8 @@ import { ListSubcategoryComponent } from './list-subcategory/list-subcategory.co
 import { ListProductComponent } from './list-product/list-product.component';
 import { ListVariantComponent } from './list-variant/list-variant.component';
 import { ListAttributeComponent } from './list-attribute/list-attribute.component';
+import { PromocodeComponent } from './promocode/promocode.component';
+import { GivePromocodeComponent } from './give-promocode/give-promocode.component';
 
 
 @NgModule({
@@ -31,6 +33,8 @@ import { ListAttributeComponent } from './list-attribute/list-attribute.componen
     ListProductComponent,
     ListVariantComponent,
     ListAttributeComponent,
+    PromocodeComponent,
+    GivePromocodeComponent,
   ],
   imports: [
     CommonModule,

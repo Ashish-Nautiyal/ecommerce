@@ -27,4 +27,8 @@ export class AuthService {
     const token = localStorage.getItem('token');
     return token;
   }
+
+  ipToUserID(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'ipToUser', body);
+  } 
 }

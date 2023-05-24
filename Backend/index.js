@@ -53,6 +53,10 @@ app.use('/api', orderRoutes);
 const addressRoutes = require('./routes/shippingAddressRoute');
 app.use('/api', addressRoutes);
 
+//promocode routes
+const promoCodeRoutes = require('./routes/promocodeRoute');
+app.use('/api', promoCodeRoutes);
+
 http.listen(process.env.PORT, () => {
     console.log('server listen on port', process.env.PORT);
 });         

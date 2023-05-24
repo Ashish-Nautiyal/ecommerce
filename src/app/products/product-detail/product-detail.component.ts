@@ -126,7 +126,7 @@ export class ProductDetailComponent implements OnInit {
     let user_id = this.getUserId();
     this.wishListService.addWishlist({ user: user_id, varinat_id: val._id }).subscribe(
       (res) => {
-        this.router.navigate(['/user/wishList']);
+        this.router.navigate(['/user/myWishlist']);
       }, (error) => {
         console.log(error);
       }

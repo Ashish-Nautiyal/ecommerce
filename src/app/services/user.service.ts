@@ -18,7 +18,7 @@ export class UserService {
     return this.http.post<any>(environment.baseUrl + 'updateProfile', body)
   }
 
-  ipToUserID(body: object): Observable<any> {
-    return this.http.post<any>(environment.baseUrl + 'ipToUser', body);
-  }  
+  getAllUsers(): Observable<any> {
+    return this.http.get(environment.baseUrl + 'getAllUsers');
+  }
 }

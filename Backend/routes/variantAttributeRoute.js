@@ -1,10 +1,11 @@
-const variantAttributeRoutes = require('express').Router();
+const express = require('express');
+const variantAttributeRoutes = express.Router();
 const variantAttributeController = require('../controllers/variantAttributeController');
 const auth = require('../middleWare/authMiddleWare');
 
-variantAttributeRoutes.post('/addAttribute', auth, require('express').json(), variantAttributeController.addVariantAttribute);
-variantAttributeRoutes.post('/getAttributeByVariantId', auth, require('express').json(), variantAttributeController.getAttributeByVariantId);
-variantAttributeRoutes.post('/getAttributeById', auth, require('express').json(), variantAttributeController.getAttributeById);
-variantAttributeRoutes.post('/updateAttribute', auth, require('express').json(), variantAttributeController.updateAttribute);
+variantAttributeRoutes.post('/addAttribute', auth, express.json(), variantAttributeController.addVariantAttribute);
+variantAttributeRoutes.post('/getAttributeByVariantId', auth, express.json(), variantAttributeController.getAttributeByVariantId);
+variantAttributeRoutes.post('/getAttributeById', auth, express.json(), variantAttributeController.getAttributeById);
+variantAttributeRoutes.post('/updateAttribute', auth, express.json(), variantAttributeController.updateAttribute);
 
 module.exports = variantAttributeRoutes;
