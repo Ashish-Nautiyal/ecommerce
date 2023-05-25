@@ -1,18 +1,3 @@
-<!-- <button mat-button color="primary" (click)="generatePromoCode()">Generate Promocode</button>
-<div class="container">
-    <mat-card>
-        <mat-card-content>
-            <div *ngFor="let user of users" class="card">
-                    <input type="checkbox" name="chk[]" value="{{user._id}}" (change)="onSelectUsers($event)" />
-                <p><b>Address</b>&nbsp;&nbsp;{{user.address}}</p>
-                <p><b>Email</b>&nbsp;&nbsp;{{user.email}}</p>
-            </div>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-button (click)="assignPromocode()" color="primary">Assign Promocode</button>
-        </mat-card-actions>
-    </mat-card>
-</div> -->
 <form [formGroup]="promocodeForm" (ngSubmit)="onSubmit()" class="promocode-form">
     <h1>Add Promocode</h1>
     <div class="form-group">
@@ -39,7 +24,7 @@
     </div>
     <div class="form-group">
         <label for="discount">Discount in %</label>
-        <input (keydown)="key($event)" [disabled]="status==true"  type="text" id="discount" formControlName="discount" class="form-control">
+        <input type="text" id="discount" formControlName="discount" class="form-control">
         <span
             *ngIf="promocodeForm.get('discount').invalid && (promocodeForm.get('discount').dirty || promocodeForm.get('discount').touched)"
             class="error">

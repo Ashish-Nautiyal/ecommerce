@@ -36,11 +36,42 @@
 </div>
 <div style="margin-top: 50px;">
     <div class="container">
-        <input type="text" name="promocode" placeholder="Enter promocode" />&nbsp;
-        <button mat-raised-button color="primary">Apply Promocode</button>
+        <form (ngSubmit)="applyPromocode()">
+            <input type="text" name="promocode" placeholder="Enter promocode" [(ngModel)]="promocode" />&nbsp;
+            <button type="submit" mat-raised-button color="primary">Apply Promocode</button>
+        </form>
     </div>
-    <h1>Your Total</h1>
-    <h2>{{total | currency: 'INR'}}</h2>
+</div>
+<div>
+    <table>
+        <thead>
+            <tr>
+                <th>Final Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Sub-total</td>
+                <td>{{subTotal | currency: 'INR'}}</td>
+            </tr>
+            <tr *ngIf="discount">
+                <td>Discount</td>
+                <td>{{discount}}%</td>
+            </tr>
+            <tr *ngIf="discount">
+                <td>Total Discount</td>
+                <td>{{total | currency: 'INR'}}</td>
+            </tr>
+            <tr *ngIf="discount">
+                <td>Total</td>
+                <td>{{subTotal - total | currency: 'INR'}}</td>
+            </tr>
+            <tr *ngIf="!discount">
+                <td>Total</td>
+                <td>{{subTotal | currency: 'INR'}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <div class="btn">
     <button mat-raised-button color="primary" (click)="back()">Back</button>&nbsp;

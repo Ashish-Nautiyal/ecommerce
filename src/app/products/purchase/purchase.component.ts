@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { AuthService } from 'src/app/services/auth.service';
 import { ProductService } from 'src/app/services/product.service';
+import { PromocodeService } from 'src/app/services/promocode.service';
 import { ShippingAddressService } from 'src/app/services/shipping-address.service';
 
 @Component({
@@ -16,8 +17,11 @@ export class PurchaseComponent implements OnInit {
   cart: any = [];
   shippingAddress: any = [];
   total: number = 0;
+  subTotal: number = 0;
+  promocode: any;
+  discount: any;
 
-  constructor(private router: Router, private productService: ProductService, private addressService: ShippingAddressService, private authService: AuthService) { }
+  constructor(private router: Router, private productService: ProductService, private addressService: ShippingAddressService, private authService: AuthService, private promocodeService: PromocodeService) { }
 
   ngOnInit(): void {
     this.getCurrentUser();
@@ -64,7 +68,7 @@ export class PurchaseComponent implements OnInit {
   }
 
   buyNow() {
-    this.productService.makePayment({ amount: this.total }).subscribe(
+    this.productService.makePayment({ amount: this.subTotal }).subscribe(
       (res) => {
         window.location.href = res.url;
       }, (error) => {
@@ -81,8 +85,19 @@ export class PurchaseComponent implements OnInit {
     if (localStorage.getItem('cart')) {
       let cart = JSON.parse(localStorage.getItem('cart') || '');
       for (let i = 0; i < cart.length; i++) {
-        this.total += cart[i].price * cart[i].qty;
+        this.subTotal += cart[i].price * cart[i].qty;
       }
     }
+  }
+
+  applyPromocode() {
+    this.promocodeService.applyPromocode({ user: this.currentUser, promocode: this.promocode }).subscribe(
+      res => {
+        if (res.data) {
+          this.discount = res.data;
+          this.total = (this.subTotal * this.discount) / 100;
+        }
+      }, error => console.log(error)
+    )
   }
 }

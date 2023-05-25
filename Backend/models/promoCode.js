@@ -7,14 +7,15 @@ const promoCodeSchema = new mongoose.Schema({
     },
     promoCode: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     discount: {
         type: Number,
         required: true
     },
     expiry_date: {
-        type: Date,
+        type: String,
         required: true
     }
 });

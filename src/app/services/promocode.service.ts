@@ -13,4 +13,16 @@ export class PromocodeService {
   savePromocode(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'savePromocode', body);
   }
+
+  getPromocodes(): Observable<any> {
+    return this.http.get<any>(environment.baseUrl + 'getPromocodes');
+  }
+
+  assignPromocode(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'assignPromocode', body);
+  }
+
+  applyPromocode(body: object): Observable<any> {
+    return this.http.post<any>(environment.baseUrl + 'applyPromocode', body);
+  }
 }
