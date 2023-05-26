@@ -40,18 +40,13 @@ module.exports.assignPromocodes = async (req, res) => {
         }
 
         const userExist = await AssignPromocode.findOne({ user });
-        console.log('user', userExist);
         if (userExist) {
-            console.log('if here');
             if (userExist.promocode.includes(promocode)) {
-                console.log('exist');
                 return res.status(200).json({ message: 'Already assigned.' });
             } else {
-                console.log('not exist');
                 await AssignPromocode.updateOne({ _id: userExist._id }, { $push: { promocode } });
             }
         } else {
-            console.log('else here');
             const newAssignPromo = new AssignPromocode({
                 user,
                 promocode
@@ -71,21 +66,39 @@ module.exports.applyPromocode = async (req, res) => {
         if (!user || !promocode) {
             return res.status(200).json({ message: 'All fields required.' });
         }
-        const promocodeExist = await Promocode.findOne({ promoCode: promocode });
-        console.log('promo', promocodeExist);
         const userExist = await AssignPromocode.findOne({ user });
-        console.log('user', userExist);
-        if (userExist && promocodeExist) {
-            if (userExist.promocode.includes(promocodeExist._id)) {
-                return res.status(200).json({ message: 'Promocode found', data: promocodeExist.discount });
+        if (userExist) {
+            const promocodeExist = await Promocode.findOne({ promoCode: promocode });
+            if (promocodeExist) {
+                if (userExist.promocode.includes(promocodeExist._id)) {
+                    return res.status(200).json({ message: 'Promocode found.', data: promocodeExist.discount });
+                } else {
+                    return res.status(200).json({ message: 'you dont have promocode.' });
+                }
             } else {
-                return res.status(200).json({ message: 'Promocode not found' });
+                return res.status(200).json({ message: 'Promocode not found.' });
             }
         } else {
-            return res.status(200).json({ message: 'User or Promocode not found' });
+            return res.status(200).json({ message: 'You dont have promocode.' });
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({ message: 'Internal server error' });
+        return res.status(500).json({ message: 'Internal server error.' });
+    }
+}
+
+module.exports.deletePromocode = async (req, res) => {
+    try {
+        const { _id } = req.query;
+        console.log('query', _id);
+
+        if (!_id) {
+            return res.status(200).json({ message: 'promocode required.' });
+        }
+        await Promocode.deleteOne({ _id });
+        return res.status(200).json({ message: 'promocode deleted successfully.' });
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({ message: 'Internal server error.' });
     }
 }

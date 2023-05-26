@@ -14,7 +14,7 @@ export class DisplayCategoryComponent implements OnInit {
   constructor(private categoryService: CategoryService, private router: Router) { }
 
   ngOnInit(): void {
-    this.getCategories();    
+    this.getCategories();
   }
 
   getCategories() {

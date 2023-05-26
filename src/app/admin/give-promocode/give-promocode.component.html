@@ -8,7 +8,6 @@
                     <th>Promocode</th>
                     <th>Discount(%)</th>
                     <th>Status</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -16,12 +15,13 @@
                     <td>{{promocode.title}}</td>
                     <td>{{promocode.promoCode}}</td>
                     <td>{{promocode.discount}}</td>
-                    <td>{{promocode.status}}</td>
                     <td>
-                        <button *ngIf="promocode.status == 'Active'"
-                            [ngClass]="{'editBtn' : promocode.status == 'Active' }" color="primary">Edit</button>
-                        <button *ngIf="promocode.status == 'Expired'"
-                            [ngClass]="{'delBtn' : promocode.status == 'Expired' }" color="primary" (click)="deletePromocode()">Delete</button>
+                        {{promocode.status}}
+                        <mat-icon *ngIf="promocode.status == 'Active'"
+                            [ngClass]="{'editBtn' : promocode.status == 'Active' }">done</mat-icon>
+                        <mat-icon *ngIf="promocode.status == 'Expired'"
+                            [ngClass]="{'delBtn' : promocode.status == 'Expired' }"
+                            (click)="deletePromocode(promocode._id)">clear</mat-icon>
                     </td>
                 </tr>
             </tbody>
@@ -48,8 +48,7 @@
                 </select>
             </div>
             <div class="btn-group">
-                <button type="submit"
-                    [disabled]="assignPromocodeForm.promocode=='' || assignPromocodeForm.user==''"
+                <button type="submit" [disabled]="assignPromocodeForm.promocode=='' || assignPromocodeForm.user==''"
                     class="submiBtn" color="primary">Submit</button>
                 <button type="button" class="cancelBtn" color="primary" (click)="cancel()">Cancel</button>
             </div>

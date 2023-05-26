@@ -1,10 +1,15 @@
-<ng-container *ngIf="categories.length > 0;else elseBlock">
-    <div *ngFor="let category of categories" style="display: inline-block; width: 23%; margin: 1%;text-align: center;">
-        <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}" alt="category image" width="150px"
-            height="150px" (click)="onSelectedCategory(category)" />
-    <p>{{category.name}}</p>
+<!-- <div class="banner_image">
+    <img src="../../../assets/images/banner_image.jpg" alt="banner image" />
+</div> -->
+<div class="category-container">
+    <ng-container *ngIf="categories.length > 0; else elseBlock">
+        <div *ngFor="let category of categories" class="category-item">
+            <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}" alt="category image"
+                class="category-image" (click)="onSelectedCategory(category)" />
+            <p class="category-name">{{category.name}}</p>
+        </div>
+    </ng-container>
+    <ng-template #elseBlock>
+        <h1 class="not-found">Category not found !!!</h1>
+    </ng-template>
 </div>
-</ng-container>
-<ng-template #elseBlock>
-<h1>Category not found !!!</h1>
-</ng-template>

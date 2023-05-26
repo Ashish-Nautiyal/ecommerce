@@ -1,5 +1,5 @@
-<div style="margin-top: -20px;">
-    <div *ngFor="let product of cart" style="display: inline-block; width: 20%; margin: 1%;">
+<div style="display: inline-block; width: 20%; margin: 1%;">
+    <div *ngFor="let product of cart" >
         <button>
             <img src="http://localhost:8088/uploads/product_variant_images/{{product.variant_image[0]}}"
                 alt="product image" height="250px" width="250px" />
@@ -12,11 +12,11 @@
                 height="10px" width="30px" />
         </p>
     </div>
-    <div>
+    <div class="edit-product-button">
         <button mat-raised-button (click)="editProduct()" color="primary">Edit Product</button>
     </div>
 </div>
-<div style="margin-top: 50px;">
+<div class="container-address" style="margin-top: 50px;">
     <ng-container *ngIf="shippingAddress.length > 0">
         <h1>Shipping Address</h1>
         <mat-card style="display: inline-block; width: 20%; margin: 1%;">

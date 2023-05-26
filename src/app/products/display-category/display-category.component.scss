@@ -1,13 +1,38 @@
-img {
+.banner_image img {
+    width: 1600px;
+    height: 350px;
+    width: 100%;
+    margin: auto;
+}
+
+.category-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+.category-item {
+    display: inline-block;
+    width: 23%;
+    margin: 1%;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.category-image {
+    width: 350px;
+    height: 200px;
+    object-fit: cover;
     cursor: pointer;
 }
 
-p {
-    font-size: 20px;
-    font-weight: 100;
-    font-family: 'Times New Roman', Times, serif;
+.category-name {
+    margin-top: 10px;
+    font-size: 16px;
 }
 
-h1{
+.not-found {
     text-align: center;
 }

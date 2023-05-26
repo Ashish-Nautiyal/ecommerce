@@ -8,7 +8,6 @@ import { AddVariantComponent } from './add-variant/add-variant.component';
 import { AddVariantAttributeComponent } from './add-variant-attribute/add-variant-attribute.component';
 
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
-import { NavbarComponent } from '../navbar/navbar.component';
 import { RoleGuard } from '../guard/role.guard';
 import { DisplayCategoryComponent } from '../products/display-category/display-category.component';
 
@@ -22,7 +21,7 @@ import { GivePromocodeComponent } from './give-promocode/give-promocode.componen
 
 const appRoutes: Routes = [
     {
-        path: '', component: NavbarComponent, canActivate: [RoleGuard], children: [
+        path: '', canActivate: [RoleGuard], children: [
             {
                 path: 'admin-dashboard', component: AdminDashboardComponent, children: [
                     { path: '', component: DisplayCategoryComponent },

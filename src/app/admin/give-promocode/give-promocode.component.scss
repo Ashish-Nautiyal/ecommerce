@@ -81,31 +81,11 @@ td {
 }
 
 .editBtn {
-    height: 35px;
-    width: 80px;
-    border: 1px solid cornflowerblue;
-    border-radius: 10px;
-    color: white;
-    background-color: cornflowerblue;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Times New Roman', Times, serif;
+    color: green;
 }
 
 .delBtn {
-    height: 35px;
-    width: 80px;
-    border: 1px solid rgb(235, 89, 89);
-    border-radius: 10px;
-    color: white;
-    background-color: rgb(235, 89, 89);
-    padding-top: 5px;
-    padding-bottom: 5px;
-    font-size: 16px;
-    font-weight: 600;
-    font-family: 'Times New Roman', Times, serif;
+    color: red;
 }
 
 .cancelBtn {

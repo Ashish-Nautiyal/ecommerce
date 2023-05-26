@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import { PageNotFoundComponent } from './auth/page-not-found/page-not-found.component';
 import { SignUpComponent } from './auth/sign-up/sign-up.component';
-import { NavbarComponent } from './navbar/navbar.component';
 import { AddToCartComponent } from './products/add-to-cart/add-to-cart.component';
 import { CancelComponent } from './products/cancel/cancel.component';
 import { CheckoutComponent } from './products/checkout/checkout.component';
@@ -29,14 +28,14 @@ import { IsLoginGuard } from './guard/is-login.guard';
 const routes: Routes = [
   { path: '', redirectTo: 'auth', pathMatch: 'full' },
   {
-    path: 'auth', component: NavbarComponent, children: [
+    path: 'auth', children: [
       { path: '', redirectTo: 'login', pathMatch: 'full' },
       { path: 'sign-up', component: SignUpComponent },
       { path: 'login', component: LoginComponent }
     ]
   },
   {
-    path: 'user', component: NavbarComponent, children: [
+    path: 'user', children: [
       { path: 'quickSignUp', component: QuickSignupComponent },
       { path: 'addToCart', component: AddToCartComponent },
       { path: 'guest', component: GuestComponent },
@@ -68,4 +67,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { } 

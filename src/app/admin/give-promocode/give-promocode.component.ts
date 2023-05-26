@@ -30,8 +30,10 @@ export class GivePromocodeComponent implements OnInit {
       res => {
         this.promoCodes = res.data;
         let date = new Date();
+        console.log('date', date);
         for (let i = 0; i < this.promoCodes.length; i++) {
           let date1 = new Date(this.promoCodes[i].expiry_date);
+          console.log('date1', date1);
           if (date > date1) {
             this.promoCodes[i].status = 'Expired';
           } else {
@@ -70,7 +72,15 @@ export class GivePromocodeComponent implements OnInit {
     this.assignPromocodeForm.user = '';
   }
 
-  deletePromocode() {
-
+  deletePromocode(id: any) {
+    let del = confirm('Are you sure?');
+    if (!del) {
+      return;
+    }
+    this.promocodeService.deletePromocode(id).subscribe(
+      res => {
+        this.getPromocodes();
+      }, error => console.log(error)
+    );
   }
 }

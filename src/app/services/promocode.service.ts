@@ -25,4 +25,8 @@ export class PromocodeService {
   applyPromocode(body: object): Observable<any> {
     return this.http.post<any>(environment.baseUrl + 'applyPromocode', body);
   }
+
+  deletePromocode(body: any): Observable<any> {
+    return this.http.delete<any>(environment.baseUrl + 'deletePromocode?_id=' + body);
+  }
 }
