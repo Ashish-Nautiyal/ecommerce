@@ -18,6 +18,8 @@ import { ListVariantComponent } from './list-variant/list-variant.component';
 import { ListAttributeComponent } from './list-attribute/list-attribute.component';
 import { PromocodeComponent } from './promocode/promocode.component';
 import { GivePromocodeComponent } from './give-promocode/give-promocode.component';
+import { TaxComponent } from './tax/tax.component';
+import { ApplyTaxComponent } from './apply-tax/apply-tax.component';
 
 
 @NgModule({
@@ -35,6 +37,8 @@ import { GivePromocodeComponent } from './give-promocode/give-promocode.componen
     ListAttributeComponent,
     PromocodeComponent,
     GivePromocodeComponent,
+    TaxComponent,
+    ApplyTaxComponent,
   ],
   imports: [
     CommonModule,

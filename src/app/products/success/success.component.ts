@@ -74,7 +74,7 @@ export class SuccessComponent implements OnInit {
         let address = JSON.parse(localStorage.getItem('address') || '');
         this.addressService.addShippingAddress(address).subscribe(
           res => {
-            
+          
           }, error =>
           console.log(error)
         );

@@ -1,5 +1,5 @@
 <div style="display: inline-block; width: 20%; margin: 1%;">
-    <div *ngFor="let product of cart" >
+    <div *ngFor="let product of cart">
         <button>
             <img src="http://localhost:8088/uploads/product_variant_images/{{product.variant_image[0]}}"
                 alt="product image" height="250px" width="250px" />
@@ -54,22 +54,26 @@
                 <td>Sub-total</td>
                 <td>{{subTotal | currency: 'INR'}}</td>
             </tr>
-            <tr *ngIf="discount">
-                <td>Discount</td>
-                <td>{{discount}}%</td>
+            <tr>
+                <td>Tax</td>
+                <td>{{taxes | currency: 'INR'}}</td>
             </tr>
-            <tr *ngIf="discount">
-                <td>Total Discount</td>
-                <td>{{total | currency: 'INR'}}</td>
-            </tr>
-            <tr *ngIf="discount">
-                <td>Total</td>
-                <td>{{subTotal - total | currency: 'INR'}}</td>
-            </tr>
-            <tr *ngIf="!discount">
-                <td>Total</td>
-                <td>{{subTotal | currency: 'INR'}}</td>
-            </tr>
+            <ng-container *ngIf="discount;else elseBlock">
+                <tr>
+                    <td>Discount</td>
+                    <td>{{discount | currency: 'INR'}}</td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td>{{total | currency: 'INR'}}</td>
+                </tr>
+            </ng-container>
+            <ng-template #elseBlock>
+                <tr>
+                    <td>Total</td>
+                    <td>{{total | currency: 'INR'}}</td>
+                </tr>
+            </ng-template>
         </tbody>
     </table>
 </div>

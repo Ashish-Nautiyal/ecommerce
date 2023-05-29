@@ -4,11 +4,9 @@ module.exports.addProduct = async (req, res) => {
     const { name, category_id, subCategory_id, description } = req.body;
 
     try {
-        // Validate the request data
         if (!name || !category_id || !subCategory_id || !description) {
             return res.status(400).json({ message: 'all fields are required' });
         }
-        // Create a new Product object using the request body
         const product = new Product({
             name: req.body.name,
             category_id: req.body.category_id,
@@ -16,8 +14,6 @@ module.exports.addProduct = async (req, res) => {
             description: req.body.description,
             product_image: req.file.originalname
         });
-
-        // Save the new product to the database
         await product.save();
         return res.status(201).json({ message: 'Product added successfully' });
     } catch (error) {

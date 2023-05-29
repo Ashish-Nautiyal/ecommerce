@@ -57,6 +57,10 @@ app.use('/api', addressRoutes);
 const promoCodeRoutes = require('./routes/promocodeRoute');
 app.use('/api', promoCodeRoutes);
 
+//tax routes
+const taxRoutes = require('./routes/taxRoute');
+app.use('/api', taxRoutes);
+
 http.listen(process.env.PORT, () => {
     console.log('server listen on port', process.env.PORT);
 });         

@@ -1,5 +1,7 @@
 const Variant = require("../models/productVariantModel");
 const variantAttribute = require('../models/variantAttributeModel');
+const AssignTax = require('../models/assignTaxes');
+const Tax = require('../models/taxes');
 
 module.exports.addVariant = async (req, res) => {
     try {
@@ -61,11 +63,21 @@ module.exports.getVariantById = async (req, res) => {
 
 module.exports.getVariantByProductId = async (req, res) => {
     try {
-        const variants = await Variant.find({ product_id: req.body.product_id });
+        var tax;
+        var variants = await Variant.find({ product_id: req.body.product_id });
         if (!variants.length > 0) {
             return res.status(201).json({ message: 'Variant not found', data: variants });
         }
-        return res.status(201).json({ message: 'Variants data', data: variants });
+
+        const taxes = await AssignTax.find({ product: req.body.product_id });
+        if (taxes.length > 0) {
+            tax = await Tax.findOne({ _id: taxes[0].tax });
+        }
+        if (tax) {
+            return res.status(201).json({ message: 'Variants data', data: variants, tax: tax });
+        } else {
+            return res.status(201).json({ message: 'Variants data', data: variants, tax: {tax:0} });
+        }
     } catch (error) {
         console.log(error);
         return res.status(500).json({ message: 'server error' });

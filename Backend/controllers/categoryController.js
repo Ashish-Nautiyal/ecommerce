@@ -3,7 +3,6 @@ const Category = require("../models/categoryModel");
 module.exports.addCategory = async (req, res) => {
   try {
     const { name, parent_id } = req.body;
-    console.log("body", req.body);
     if (!name) {
       return res.status(200).send({ message: "all fields are required" });
     }

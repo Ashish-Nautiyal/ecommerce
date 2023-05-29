@@ -16,8 +16,10 @@ export class PurchaseComponent implements OnInit {
   currentUser: any;
   cart: any = [];
   shippingAddress: any = [];
-  total: number = 0;
+
   subTotal: number = 0;
+  total: number = 0;
+  taxes: number = 0;
   promocode: any;
   discount: any;
 
@@ -27,7 +29,7 @@ export class PurchaseComponent implements OnInit {
     this.getCurrentUser();
     this.getCart();
     this.getShippingAddress();
-    this.returnTotalAmount();
+    this.returnSubTotalAmount();
   }
 
   getCurrentUser() {
@@ -64,7 +66,7 @@ export class PurchaseComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate(['/user/shippingAddress'])
+    this.router.navigate(['/user/shippingAddress']);
   }
 
   buyNow() {
@@ -81,23 +83,35 @@ export class PurchaseComponent implements OnInit {
     this.router.navigate(['/user/checkout']);
   }
 
-  returnTotalAmount() {
+  returnSubTotalAmount() {
     if (localStorage.getItem('cart')) {
       let cart = JSON.parse(localStorage.getItem('cart') || '');
       for (let i = 0; i < cart.length; i++) {
         this.subTotal += cart[i].price * cart[i].qty;
+
+        let taxAmount = (cart[i].price * cart[i].tax) / 100;
+        this.taxes += taxAmount * cart[i].qty;
       }
+      this.total = this.subTotal + this.taxes;
     }
   }
 
   applyPromocode() {
-    this.promocodeService.applyPromocode({ user: this.currentUser, promocode: this.promocode }).subscribe(
-      res => {
-        if (res.data) {
-          this.discount = res.data;
-          this.total = (this.subTotal * this.discount) / 100;
-        }
-      }, error => console.log(error)
-    )
+    if (this.currentUser) {
+      this.promocodeService.applyPromocode({ user: this.currentUser, promocode: this.promocode }).subscribe(
+        res => {
+          console.log('res', res);
+          if (res.data) {
+            console.log('total', this.total);
+            this.discount = (this.total * res.data) / 100;
+            console.log('total1', this.total);
+            console.log('discount', this.discount);
+
+            this.total = this.total - this.discount;
+            console.log('total2', this.total);
+          }
+        }, error => console.log(error)
+      );
+    }
   }
 }

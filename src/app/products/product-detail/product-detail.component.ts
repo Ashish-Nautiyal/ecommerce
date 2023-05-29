@@ -22,6 +22,7 @@ export class ProductDetailComponent implements OnInit {
   allVariant: any = [];
   imageIndex: number = 0;
   variantIndex: number = 0;
+  tax: any;
 
   constructor(public dialog: MatDialog, private variantService: VariantService, private activateRoute: ActivatedRoute, private wishListService: WishlistService, private router: Router, private authService: AuthService) { }
 
@@ -79,6 +80,7 @@ export class ProductDetailComponent implements OnInit {
     this.variantService.getVariantByProductId({ product_id: this.product_id }).subscribe(
       (res) => {
         this.allVariant = res.data;
+        this.tax = res.tax;
       }, (error) => {
         console.log(error);
       }
@@ -97,6 +99,9 @@ export class ProductDetailComponent implements OnInit {
     let user_id = this.getUserId();
     val.user = user_id;
     val.qty = 1;
+    val.tax = this.tax.tax;
+    console.log('val',val);
+    
     if (!localStorage.getItem('cart')) {
       let cart = [];
       cart.push(val);
