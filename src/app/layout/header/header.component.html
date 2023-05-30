@@ -1,23 +1,15 @@
-<div class="navbar">
-    <nav>
-        <a routerLink="/user/displayCategory"><img src="../../assets/images/logo1.png" alt="logo" height="50px"
-                width="200px" /></a>
-        <a *ngIf="currentUserRole == 0" routerLink="/admin/admin-dashboard" routerLinkActive="active" mat-button>Admin
-            Dashboard</a>
-        <a routerLink="/user/displayCategory" routerLinkActive="active" mat-button>Products</a>
-        <span class="spacer"></span>
-        <span *ngIf="currentUserRole == null;else logout">
-            <a routerLink="/auth/sign-up" routerLinkActive="active" mat-button>Signup</a>
-            <a routerLink="/auth/login" routerLinkActive="active" mat-button>Login</a>
-        </span>
-        <ng-template #logout>
-            <a mat-button (click)="logOut()">Logout</a>
-        </ng-template>
-        <a routerLink="/user/addToCart">
-            <mat-icon>shopping_cart</mat-icon>
-        </a>
-        <a (click)="openDialog()">
-            <mat-icon>account_circle</mat-icon>
-        </a>
-    </nav>
+<div class="container">
+    <div class="logo">
+        <img routerLink="/user/displayCategory" src="../../../assets//images/logo.png" alt="logo" />
+    </div>
+    <div class="menu">
+        <button routerLink="/user/displayCategory" routerLinkActive="active" mat-button>Home</button>
+        <button *ngIf="role=='0'" routerLink="/admin/admin-dashboard" routerLinkActive="active" mat-button>Admin Dashboard</button>
+        <button *ngIf="role=='-1'" routerLink="/auth/sign-up" routerLinkActive="active" mat-button>Sign Up</button>
+        <button *ngIf="role=='-1'" routerLink="/auth/login" routerLinkActive="active" mat-button>Login</button>
+        <button *ngIf="role != '-1'" (click)="logOut()" routerLinkActive="active" mat-button>Logout</button>
+        <button routerLink="/user/addToCart" mat-button>cart</button>
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <button *ngIf="role" (click)="openDialog()" routerLinkActive="active" mat-button>Profile</button>
+    </div>
 </div>

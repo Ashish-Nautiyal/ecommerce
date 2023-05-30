@@ -11,7 +11,7 @@ import { HomeComponent } from 'src/app/user/home/home.component';
 })
 export class HeaderComponent {
 
-  currentUserRole: any;
+  role: any;
 
   constructor(private router: Router, private dialog: MatDialog) { }
 
@@ -23,7 +23,9 @@ export class HeaderComponent {
     const helper = new JwtHelperService();
     const token = helper.decodeToken(localStorage.getItem('token') || '');
     if (token) {
-      this.currentUserRole = token.role;
+      this.role = token.role;
+    } else {
+      this.role = -1;
     }
   }
 

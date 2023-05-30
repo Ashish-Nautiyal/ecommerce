@@ -50,13 +50,13 @@ const routes: Routes = [
       { path: 'success', component: SuccessComponent },
       { path: 'cancel', component: CancelComponent },
       { path: 'searchResult', component: SearchResultComponent },
-      
+
       { path: 'home', component: HomeComponent },
       { path: 'profile', component: ProfileComponent, canActivate: [IsLoginGuard] },
       { path: 'updateProfile', component: UpdateProfileComponent, canActivate: [IsLoginGuard] },
       { path: 'addShippingAddress', component: AddShippingAddressComponent, canActivate: [IsLoginGuard] },
       { path: 'myOrder', component: MyOrdersComponent, canActivate: [IsLoginGuard] },
-      { path: 'myWishlist', component: MyWishlistComponent, canActivate: [IsLoginGuard] },
+      { path: 'myWishlist', component: MyWishlistComponent },
     ]
   },
   { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },

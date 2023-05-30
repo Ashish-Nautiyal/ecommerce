@@ -89,7 +89,7 @@ export class PurchaseComponent implements OnInit {
       for (let i = 0; i < cart.length; i++) {
         this.subTotal += cart[i].price * cart[i].qty;
 
-        let taxAmount = (cart[i].price * cart[i].tax) / 100;
+        let taxAmount = (cart[i].price * cart[i].tax) / 100;        
         this.taxes += taxAmount * cart[i].qty;
       }
       this.total = this.subTotal + this.taxes;

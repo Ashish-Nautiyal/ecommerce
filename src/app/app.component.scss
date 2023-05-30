@@ -5,26 +5,16 @@
   flex-direction: column;
 }
 
-.header {
-  padding: 15px;
-  flex-shrink: 0;
-  flex-grow: 0;
-  background: cornflowerblue;
-}
+// .header {
+//   padding: 15px;
+//   flex-shrink: 0;
+//   flex-grow: 0;
+//   background: cornflowerblue;
+// }
 
 .content {
   flex-shrink: 1;
   flex-grow: 1;
   position: relative;
-  margin-top: 20px;
   margin-bottom: 20px;
-}
-
-.footer {
-  flex-shrink: 0;
-  flex-grow: 0;
-  background: cornflowerblue;
-  color: white;
-  text-align: center;
-  padding: 15px;
 }

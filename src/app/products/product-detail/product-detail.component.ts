@@ -81,6 +81,8 @@ export class ProductDetailComponent implements OnInit {
       (res) => {
         this.allVariant = res.data;
         this.tax = res.tax;
+        console.log('tax',this.tax);
+        
       }, (error) => {
         console.log(error);
       }

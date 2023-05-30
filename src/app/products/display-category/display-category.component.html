@@ -1,15 +1,78 @@
-<!-- <div class="banner_image">
-    <img src="../../../assets/images/banner_image.jpg" alt="banner image" />
-</div> -->
-<div class="category-container">
+<div class="container">
+    <div class="banner_image">
+        <img src="../../../assets/images/banner_image.jpg" alt="banner_image" />
+    </div>
     <ng-container *ngIf="categories.length > 0; else elseBlock">
-        <div *ngFor="let category of categories" class="category-item">
-            <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}" alt="category image"
-                class="category-image" (click)="onSelectedCategory(category)" />
-            <p class="category-name">{{category.name}}</p>
+        <h1>Categories</h1>
+        <div class="category_container">
+            <div class="catgory_list" *ngFor="let category of categories">
+                <div class="category_image">
+                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
+                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
+                </div>
+                <div class="category_name">
+                    <p>{{category.name}}</p>
+                </div>
+            </div>
+            <div class="catgory_list" *ngFor="let category of categories">
+                <div class="category_image">
+                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
+                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
+                </div>
+                <div class="category_name">
+                    <p>{{category.name}}</p>
+                </div>
+            </div>
+            <div class="catgory_list" *ngFor="let category of categories">
+                <div class="category_image">
+                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
+                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
+                </div>
+                <div class="category_name">
+                    <p>{{category.name}}</p>
+                </div>
+            </div>
+            <div class="catgory_list" *ngFor="let category of categories">
+                <div class="category_image">
+                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
+                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
+                </div>
+                <div class="category_name">
+                    <p>{{category.name}}</p>
+                </div>
+            </div>
+            <!-- <div class="catgory_list" *ngFor="let category of categories">
+                <div class="category_image">
+                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
+                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
+                </div>
+                <div class="category_name">
+                    <p>{{category.name}}</p>
+                </div>
+            </div>
+            <div class="catgory_list" *ngFor="let category of categories">
+                <div class="category_image">
+                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
+                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
+                </div>
+                <div class="category_name">
+                    <p>{{category.name}}</p>
+                </div>
+            </div>
+            <div class="catgory_list" *ngFor="let category of categories">
+                <div class="category_image">
+                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
+                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
+                </div>
+                <div class="category_name">
+                    <p>{{category.name}}</p>
+                </div>
+            </div> -->
         </div>
     </ng-container>
     <ng-template #elseBlock>
-        <h1 class="not-found">Category not found !!!</h1>
+        <div class="container">
+            <h1>Category not found!!!</h1>
+        </div>
     </ng-template>
 </div>
