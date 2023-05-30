@@ -39,6 +39,7 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.loginForm.value).subscribe(
       (res) => {
+        this.authService.loginCheck();
         this.message = res.message;
         this.openSnackBar();
         localStorage.clear();
