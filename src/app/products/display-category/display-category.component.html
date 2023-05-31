@@ -14,65 +14,12 @@
                     <p>{{category.name}}</p>
                 </div>
             </div>
-            <div class="catgory_list" *ngFor="let category of categories">
-                <div class="category_image">
-                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
-                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
-                </div>
-                <div class="category_name">
-                    <p>{{category.name}}</p>
-                </div>
-            </div>
-            <div class="catgory_list" *ngFor="let category of categories">
-                <div class="category_image">
-                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
-                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
-                </div>
-                <div class="category_name">
-                    <p>{{category.name}}</p>
-                </div>
-            </div>
-            <div class="catgory_list" *ngFor="let category of categories">
-                <div class="category_image">
-                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
-                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
-                </div>
-                <div class="category_name">
-                    <p>{{category.name}}</p>
-                </div>
-            </div>
-            <!-- <div class="catgory_list" *ngFor="let category of categories">
-                <div class="category_image">
-                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
-                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
-                </div>
-                <div class="category_name">
-                    <p>{{category.name}}</p>
-                </div>
-            </div>
-            <div class="catgory_list" *ngFor="let category of categories">
-                <div class="category_image">
-                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
-                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
-                </div>
-                <div class="category_name">
-                    <p>{{category.name}}</p>
-                </div>
-            </div>
-            <div class="catgory_list" *ngFor="let category of categories">
-                <div class="category_image">
-                    <img src="http://localhost:8088/uploads/category_images/{{category.category_image}}"
-                        alt="category image" class="category-image" (click)="onSelectedCategory(category)" />
-                </div>
-                <div class="category_name">
-                    <p>{{category.name}}</p>
-                </div>
-            </div> -->
         </div>
     </ng-container>
     <ng-template #elseBlock>
-        <div class="container">
-            <h1>Category not found!!!</h1>
+        <div class="elseblock">
+            <h1>Oops!!!</h1>
+            <h2>Category not found!!!</h2>
         </div>
     </ng-template>
 </div>

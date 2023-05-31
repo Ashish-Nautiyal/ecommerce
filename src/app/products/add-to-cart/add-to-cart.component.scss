@@ -1,31 +1,93 @@
-input {
-    width: 20px;
+.container {
+    width: 100%;
+}
+
+.cart_container {
+    margin-top: 20px;
+    margin-left: 85px;
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 35px;
+    row-gap: 150px;
+}
+
+.cart_list {
+    border: 2px solid black;
+    border-radius: 15px;
+    height: 225px;
+    width: 240px;
+}
+
+.cart_image {
+    width: 240px;
+    height: 225px;
+}
+
+.cart_image img {
+    width: 240px;
+    height: 225px;
+    border-radius: 15px;
+}
+
+.cart_content {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+}
+
+.cart_text_content {
+    height: 66px;
+    width: 240px;
     text-align: center;
+    margin-top: 8px;
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.cart_button_group {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cart_button_group input {
+    width: 30px;
+    height: 20px;
     border: 1px solid black;
 }
 
-h1 {
-    font-size: 30px;
-    font-weight: 100;
-    font-family: 'Times New Roman', Times, serif;
+.remove_cart_button {
     text-align: center;
 }
 
-.btn button {
-    background-color: cornflowerblue;
-    color: white;
-    border: 1px solid cornflowerblue;
-    border-radius: 5px;
-    height: 30px;
-    cursor: pointer;
+.cart_total {
+    margin-top: 200px;
+    text-align: center;
+    height: 20px;
 }
 
-.bt button {
-    background-color: cornflowerblue;
-    color: white;
-    border: 1px solid cornflowerblue;
-    border-radius: 5px;
-    height: 30px;
-    cursor: pointer;
-    margin-right: 350px;
+.cart_total h2 {
+    font-size: 18px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.cart_total button {
+    background-color: chocolate;
+}
+
+.elseblock {
+    text-align: center;
+    margin-top: 200px;
+}
+
+.elseblock h1 {
+    font-size: 84px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.elseblock h2 {
+    font-size: 44px;
+    font-family: 'Times New Roman', Times, serif;
+    padding-top: 20px;
+    padding-bottom: 50px;
 }

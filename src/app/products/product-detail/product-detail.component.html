@@ -10,39 +10,8 @@
                 <tbody>
                     <tr>
                         <td>
-                            <span *ngFor="let val of allVariant[variantIndex].variant_image;let i=index"
-                                class="colourBtn">
-                                <button (mouseenter)="changeImage(i)">
-                                    <img src="http://localhost:8088/uploads/product_variant_images/{{val}}"
-                                        alt="product image" height="40px" width="40px" />
-                                </button>
-                            </span>
                         </td>
                         <td>
-                            <div>
-                                <button (click)="openDialog(variantIndex)">
-                                    <img src="http://localhost:8088/uploads/product_variant_images/{{allVariant[variantIndex].variant_image[imageIndex]}}"
-                                        alt="product image" height="250px" width="250px" />
-                                </button>
-                                <p><b>Name</b>&nbsp;&nbsp;<span>{{allVariant[variantIndex].name}}</span></p>
-                                <p><b>Price</b>&nbsp;&nbsp;<span>{{allVariant[variantIndex].price}}</span></p>
-                                <div *ngIf="allVariant[variantIndex].quantity > 0; else thisOne">
-                                    <p><b>Available</b>&nbsp;&nbsp;<span>{{allVariant[variantIndex].quantity}}</span>
-                                    </p>
-                                </div>
-                                <ng-template #thisOne>
-                                    <p class="stock">Out of Stock</p>
-                                </ng-template>
-
-                                <p><b>Colour</b>&nbsp;&nbsp;
-                                    <span *ngFor="let val of allVariant;let i=index">
-                                        <img src="http://localhost:8088/uploads/product_variant_images/{{val.colour_image}}"
-                                            alt="product image" height="15px" width="30px"
-                                            (click)="onSelectColour(i)" />
-                                        &nbsp;
-                                    </span>
-                                </p>
-                            </div>
                         </td>
                     </tr>
                     <tr *ngIf="allVariant[variantIndex].quantity > 0;else this1">
@@ -73,45 +42,75 @@
 </ng-template> -->
 <div class="container">
     <div class="product_container">
-        <div class="side_images">
-            <div class="image" *ngFor="let val of allVariant[variantIndex].variant_image;let i=index">
-                <img src="http://localhost:8088/uploads/product_variant_images/{{val}}"(mouseenter)="changeImage(i)"
-                    alt="product image" />
+        <ng-container *ngIf="allVariant.length > 0;else elseBlock">
+            <div class="side_images">
+                <div class="side_image" *ngFor="let val of allVariant[variantIndex].variant_image;let i=index">
+                    <img src="http://localhost:8088/uploads/product_variant_images/{{val}}"
+                        (mouseenter)="changeImage(i)" alt="product image" />
+                </div>
             </div>
-        </div>
-        <div class="main_content">
-            <div class="main_image">
-                <img src="http://localhost:8088/uploads/product_variant_images/{{allVariant[variantIndex].variant_image[imageIndex]}}"
-                    (click)="openDialog(variantIndex)" alt="product image" />
-            </div>
-            <div class="content">
-                <div class="variant_detail">
-                    <label>Name</label>
-                    <p>{{allVariant[variantIndex].name}}</p>
-                    <label>Price</label>
-                    <p>{{allVariant[variantIndex].price}}</p>
-                    <div *ngIf="allVariant[variantIndex].quantity > 0; else thisOne">
-                        <label>Available</label>
-                        <p>{{allVariant[variantIndex].quantity}}</p>
+            <div class="main_content">
+                <div class="main_image">
+                    <img src="http://localhost:8088/uploads/product_variant_images/{{allVariant[variantIndex].variant_image[imageIndex]}}"
+                        (click)="openDialog(variantIndex)" alt="product image" />
+                </div>
+                <div class="content">
+                    <div class="variant_text_content">
+                        <h6>{{allVariant[variantIndex].name}}</h6>
+                        <p class="price">{{allVariant[variantIndex].price | currency: 'INR'}}</p>
+                        <label>About this item: </label>
+                        <ul>
+                            <li>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quia optio sapiente in impedit
+                                tempore voluptatibus nemo animi, maiores sit delectus!</li>
+                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur asperiores omnis culpa
+                                adipisci autem. Quasi odit, similique quidem incidunt fuga deserunt corrupti consectetur
+                                tenetur quae quod ducimus, cum sed accusamus cumque labore rerum exercitationem alias
+                                molestiae commodi eius culpa quos accusantium pariatur aspernatur. Optio,
+                                necessitatibus. Explicabo nostrum officia accusamus labore?</li>
+                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Beatae a, aperiam rem natus
+                                sint corporis omnis vitae ipsam corrupti excepturi quidem repellendus autem tempore
+                                distinctio reiciendis adipisci ea consequatur voluptate, repudiandae, iure soluta
+                                blanditiis nemo! Vel praesentium quo aliquam nihil!
+                            </li>
+                            <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sit, doloremque! Modi, natus,
+                                animi cupiditate odio voluptatibus commodi ea atque delectus, nulla tenetur possimus.
+                                Veniam ad omnis natus itaque at dolorum.</li>
+                            <li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tenetur asperiores omnis culpa
+                                adipisci autem. Quasi odit, similique quidem incidunt fuga deserunt corrupti consectetur
+                                tenetur quae quod ducimus, cum sed accusamus cumque labore rerum exercitationem alias
+                                molestiae commodi eius culpa quos accusantium pariatur aspernatur. Optio,
+                                necessitatibus. Explicabo nostrum officia accusamus labore?</li>
+                        </ul>
+                        <ng-container *ngIf="allVariant[variantIndex].quantity > 0; else available">
+                            <p>{{allVariant[variantIndex].quantity}}</p>
+                        </ng-container>
+                        <ng-template #available>
+                            <p>Out of Stock</p>
+                        </ng-template>
+                        <label>Colour: </label><span>{{allVariant[variantIndex].colour}}</span>
+                        <ng-container *ngFor="let val of allVariant;let i=index">
+                            <img src="http://localhost:8088/uploads/product_variant_images/{{val.colour_image}}"
+                                alt="product image" (click)="onSelectColour(i)" />
+                        </ng-container>
                     </div>
-                    <ng-template #thisOne>
-                        <p class="stock">Out of Stock</p>
-                    </ng-template>
-                    <div class="color_image" *ngFor="let val of allVariant;let i=index">
-                        <img src="http://localhost:8088/uploads/product_variant_images/{{val.colour_image}}"
-                            alt="product image" (click)="onSelectColour(i)" />
+                    <div class="variant_action_button">
+                        <button mat-raised-button color="primary" class="addToCart"
+                            (click)="addToCart(allVariant[variantIndex])">Add to
+                            cart</button>
+                        <button mat-raised-button color="primary" (click)="addWishList(allVariant[variantIndex])">Add to
+                            wishlist</button>
+                        <button mat-raised-button color="primary" (click)="buyNow(allVariant[variantIndex])">Buy
+                            now</button>
                     </div>
                 </div>
-                <ng-template #thisOne>
-                    <p class="stock">Out of Stock</p>
-                </ng-template>
-                <p><b>Colour</b>&nbsp;&nbsp;
-                    <span>
-    
-                        &nbsp;
-                    </span>
-                </p>
             </div>
-        </div>
+        </ng-container>
+        <ng-template #elseBlock>
+            <div class="elseblock">
+                <h1>Oops!!!</h1>
+                <h2>Variants not found!!!</h2>
+                <button (click)="goBack()" mat-raised-button>Go back</button>
+            </div>
+        </ng-template>
     </div>
 </div>

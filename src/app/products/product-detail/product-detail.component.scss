@@ -1,8 +1,8 @@
-.container{
+.container {
     margin: 20px;
 }
 
-.image img{
+.side_image img {
     border: 2px solid cornflowerblue;
     border-radius: 5px;
     border-color: black;
@@ -10,9 +10,7 @@
     height: 60px;
 }
 
-
-
-.main_image img{
+.main_image img {
     border: 2px solid rgb(3, 5, 9);
     border-radius: 10px;
     position: absolute;
@@ -21,10 +19,70 @@
     height: 340px;
 }
 
-.color_image img{
+.color_image img {
     border: 2px solid cornflowerblue;
     border-radius: 5px;
     border-color: black;
     width: 50px;
     height: 30px;
+}
+
+.buy_now_btn {
+    margin-top: 10px;
+    margin-left: 80px;
+}
+
+.elseblock {
+    text-align: center;
+    margin-top: 220px;
+}
+
+.elseblock h1 {
+    font-size: 84px;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.elseblock h2 {
+    font-size: 44px;
+    font-family: 'Times New Roman', Times, serif;
+    padding-top: 20px;
+    padding-bottom: 50px;
+}
+
+.variant_text_content {
+    position: absolute;
+    left: 25%;
+    top: 5%;
+    width: 800px;
+}
+
+.variant_text_content img {
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+}
+
+.variant_text_content label {
+    font-weight: bold;
+}
+
+.variant_text_content h6 {
+    font-size: 40px;
+}
+
+.price {
+    font-size: 20px;
+}
+
+.variant_action_button {
+    margin-top: 90px;
+}
+
+.variant_action_button button {
+    margin-right: 10px;
+}
+
+.addToCart:hover {
+    background-color: #fbff00;
+    color: black;
 }

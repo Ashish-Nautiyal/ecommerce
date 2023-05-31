@@ -40,4 +40,8 @@ export class DisplayProductComponent implements OnInit {
   onSelectedProduct(event: any) {
     this.router.navigate(['/user/productDetail'], { queryParams: { product_id: event._id } });
   }
+
+  goBack(){
+    this.router.navigate(['/user/displayCategory']);
+  }
 }

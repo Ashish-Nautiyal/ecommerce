@@ -10,29 +10,13 @@
           <p>{{product.name}}</p>
         </div>
       </div>
-      <div class="product_list" *ngFor="let product of products">
-        <div class="product_image">
-          <img src="http://localhost:8088/uploads/product_images/{{product.product_image}}" alt="product image"
-            (click)="onSelectedProduct(product)" />
-        </div>
-        <div class="product_name">
-          <p>{{product.name}}</p>
-        </div>
-      </div>
-      <div class="product_list" *ngFor="let product of products">
-        <div class="product_image">
-          <img src="http://localhost:8088/uploads/product_images/{{product.product_image}}" alt="product image"
-            (click)="onSelectedProduct(product)" />
-        </div>
-        <div class="product_name">
-          <p>{{product.name}}</p>
-        </div>
-      </div>
     </div>
   </ng-container>
   <ng-template #elseBlock>
-    <div class="container">
-      <h1>Products not found!!!</h1>
+    <div class="elseblock">
+      <h1>Oops!!!</h1>
+      <h2>Products not found!!!</h2>
+      <button (click)="goBack()" mat-raised-button>Go back</button>
     </div>
   </ng-template>
 </div>

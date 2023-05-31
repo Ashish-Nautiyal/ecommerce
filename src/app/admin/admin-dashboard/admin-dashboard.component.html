@@ -1,85 +1,87 @@
-<mat-toolbar>
-    <span>
-        <mat-icon (click)="sidenav.toggle()">dashboard</mat-icon>
-    </span>
-</mat-toolbar>
-<mat-sidenav-container>
-    <mat-sidenav #sidenav mode="side">
-        <mat-nav-list>
-            <mat-expansion-panel class="mat-elevation-z0">
-                <mat-expansion-panel-header>
-                    Category
-                </mat-expansion-panel-header>
+<div class="container">
+    <div class="dashboard_icon_container">
+        <mat-icon class="dashboard_icon" (click)="sidenav.toggle()">dashboard</mat-icon>
+    </div>
+    <div class="sidenav_container">
+        <mat-sidenav-container>
+            <mat-sidenav #sidenav mode="side">
                 <mat-nav-list>
-                    <a mat-list-item routerLink="add-category">Add Category</a>
-                    <a mat-list-item routerLink="listCategory">Update Category</a>
-                </mat-nav-list>
-            </mat-expansion-panel>
+                    <mat-expansion-panel class="mat-elevation-z0">
+                        <mat-expansion-panel-header>
+                            Category
+                        </mat-expansion-panel-header>
+                        <mat-nav-list>
+                            <a mat-list-item routerLink="add-category">Add Category</a>
+                            <a mat-list-item routerLink="listCategory">Update Category</a>
+                        </mat-nav-list>
+                    </mat-expansion-panel>
 
-            <mat-expansion-panel class="mat-elevation-z0">
-                <mat-expansion-panel-header>
-                    Sub-Category
-                </mat-expansion-panel-header>
-                <mat-nav-list>
-                    <a mat-list-item routerLink="add-sub-category">Add Sub-Category</a>
-                    <a mat-list-item routerLink="listSubCategory">Update Sub-Category</a>
-                </mat-nav-list>
-            </mat-expansion-panel>
+                    <mat-expansion-panel class="mat-elevation-z0">
+                        <mat-expansion-panel-header>
+                            Sub-Category
+                        </mat-expansion-panel-header>
+                        <mat-nav-list>
+                            <a mat-list-item routerLink="add-sub-category">Add Sub-Category</a>
+                            <a mat-list-item routerLink="listSubCategory">Update Sub-Category</a>
+                        </mat-nav-list>
+                    </mat-expansion-panel>
 
-            <mat-expansion-panel class="mat-elevation-z0">
-                <mat-expansion-panel-header>
-                    Product
-                </mat-expansion-panel-header>
-                <mat-nav-list>
-                    <a mat-list-item routerLink="add-product">Add Products</a>
-                    <a mat-list-item routerLink="listProduct">Update Product</a>
-                </mat-nav-list>
-            </mat-expansion-panel>
+                    <mat-expansion-panel class="mat-elevation-z0">
+                        <mat-expansion-panel-header>
+                            Product
+                        </mat-expansion-panel-header>
+                        <mat-nav-list>
+                            <a mat-list-item routerLink="add-product">Add Products</a>
+                            <a mat-list-item routerLink="listProduct">Update Product</a>
+                        </mat-nav-list>
+                    </mat-expansion-panel>
 
-            <mat-expansion-panel class="mat-elevation-z0">
-                <mat-expansion-panel-header>
-                    Variant
-                </mat-expansion-panel-header>
-                <mat-nav-list>
-                    <a mat-list-item routerLink="add-variant">Add Variant</a>
-                    <a mat-list-item routerLink="listVariant">Update Variant</a>
-                </mat-nav-list>
-            </mat-expansion-panel>
+                    <mat-expansion-panel class="mat-elevation-z0">
+                        <mat-expansion-panel-header>
+                            Variant
+                        </mat-expansion-panel-header>
+                        <mat-nav-list>
+                            <a mat-list-item routerLink="add-variant">Add Variant</a>
+                            <a mat-list-item routerLink="listVariant">Update Variant</a>
+                        </mat-nav-list>
+                    </mat-expansion-panel>
 
-            <mat-expansion-panel class="mat-elevation-z0">
-                <mat-expansion-panel-header>
-                    Attribute
-                </mat-expansion-panel-header>
-                <mat-nav-list>
-                    <a mat-list-item routerLink="add-attribute">Add Attribute</a>
-                    <a mat-list-item routerLink="listAttribute">Update Attribute</a>
-                </mat-nav-list>
-            </mat-expansion-panel>
+                    <mat-expansion-panel class="mat-elevation-z0">
+                        <mat-expansion-panel-header>
+                            Attribute
+                        </mat-expansion-panel-header>
+                        <mat-nav-list>
+                            <a mat-list-item routerLink="add-attribute">Add Attribute</a>
+                            <a mat-list-item routerLink="listAttribute">Update Attribute</a>
+                        </mat-nav-list>
+                    </mat-expansion-panel>
 
-            <mat-expansion-panel class="mat-elevation-z0">
-                <mat-expansion-panel-header>
-                    Promocode
-                </mat-expansion-panel-header>
-                <mat-nav-list>
-                    <a mat-list-item routerLink="promocode">Add Promocode</a>
-                    <a mat-list-item routerLink="givePromocode">Give Promocode</a>
-                </mat-nav-list>
-            </mat-expansion-panel>
+                    <mat-expansion-panel class="mat-elevation-z0">
+                        <mat-expansion-panel-header>
+                            Promocode
+                        </mat-expansion-panel-header>
+                        <mat-nav-list>
+                            <a mat-list-item routerLink="promocode">Add Promocode</a>
+                            <a mat-list-item routerLink="givePromocode">Give Promocode</a>
+                        </mat-nav-list>
+                    </mat-expansion-panel>
 
-            <mat-expansion-panel class="mat-elevation-z0">
-                <mat-expansion-panel-header>
-                    Tax
-                </mat-expansion-panel-header>
-                <mat-nav-list>
-                    <a mat-list-item routerLink="tax">Add Tax</a>
-                    <a mat-list-item routerLink="applyTax">Apply Tax</a>
+                    <mat-expansion-panel class="mat-elevation-z0">
+                        <mat-expansion-panel-header>
+                            Tax
+                        </mat-expansion-panel-header>
+                        <mat-nav-list>
+                            <a mat-list-item routerLink="tax">Add Tax</a>
+                            <a mat-list-item routerLink="applyTax">Apply Tax</a>
+                        </mat-nav-list>
+                    </mat-expansion-panel>
                 </mat-nav-list>
-            </mat-expansion-panel>
-        </mat-nav-list>
-    </mat-sidenav>
-    <mat-sidenav-content>
-        <div style="height: 88vh;">
-            <router-outlet></router-outlet>
-        </div>
-    </mat-sidenav-content>
-</mat-sidenav-container>
+            </mat-sidenav>
+            <mat-sidenav-content>
+                <div style="height: 88vh;">
+                    <router-outlet></router-outlet>
+                </div>
+            </mat-sidenav-content>
+        </mat-sidenav-container>
+    </div>
+</div>

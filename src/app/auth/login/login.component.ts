@@ -39,13 +39,13 @@ export class LoginComponent implements OnInit {
   onSubmit() {
     this.authService.login(this.loginForm.value).subscribe(
       (res) => {
-        this.authService.loginCheck();
         this.message = res.message;
         this.openSnackBar();
         localStorage.clear();
-        localStorage.setItem('token', res.data.token);
+        localStorage.setItem('token', res.data.token);        
         const helper = new JwtHelperService();
         const token = helper.decodeToken(res.data.token);
+        this.authService.loginCheck(token.role);
         if (token.role == 0) {
           this.router.navigate(['/admin/admin-dashboard']);
         } else {

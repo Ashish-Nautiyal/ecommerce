@@ -1,21 +1,27 @@
   .container {
+    margin-top: 200px;
     text-align: center;
   }
-  
-  .error-title {
-    font-size: 24px;
+
+  .error-title h1 {
+    font-size: 85px;
+    font-family: 'Times New Roman', Times, serif;
+    color: red;
   }
-  
+
+  .error-title h2 {
+    color: red;
+    margin-top: 50px;
+    font-size: 35px;
+    font-family: 'Times New Roman', Times, serif;
+  }
+
   .error-message {
-    margin-bottom: 20px;
+    font-size: 24px;
+    font-family: 'Times New Roman', Times, serif;
   }
-  
+
   .back-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
+    margin-top: 20px;
     border-radius: 4px;
-    cursor: pointer;
   }
-  

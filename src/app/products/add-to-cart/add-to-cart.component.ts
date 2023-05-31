@@ -88,4 +88,8 @@ export class AddToCartComponent implements OnInit {
   proceedToBuy() {
     this.router.navigate(['/user/checkout']);
   }
+
+  goToShop() {
+    this.router.navigate(['/user/displayCategory']);
+  }
 }

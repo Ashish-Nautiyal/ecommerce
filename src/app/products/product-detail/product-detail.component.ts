@@ -81,8 +81,6 @@ export class ProductDetailComponent implements OnInit {
       (res) => {
         this.allVariant = res.data;
         this.tax = res.tax;
-        console.log('tax',this.tax);
-        
       }, (error) => {
         console.log(error);
       }
@@ -102,8 +100,6 @@ export class ProductDetailComponent implements OnInit {
     val.user = user_id;
     val.qty = 1;
     val.tax = this.tax.tax;
-    console.log('val',val);
-    
     if (!localStorage.getItem('cart')) {
       let cart = [];
       cart.push(val);
@@ -171,5 +167,9 @@ export class ProductDetailComponent implements OnInit {
     } else {
       this.openDialogForGuest();
     }
+  }
+
+  goBack() {
+    this.router.navigate(['/user/displayCategory']);
   }
 }
