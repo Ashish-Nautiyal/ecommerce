@@ -1,39 +1,44 @@
-<div style="display: inline-block; width: 20%; margin: 1%;">
-    <div *ngFor="let product of cart">
-        <button>
-            <img src="http://localhost:8088/uploads/product_variant_images/{{product.variant_image[0]}}"
-                alt="product image" height="250px" width="250px" />
-        </button>
-        <p><b>Name</b>&nbsp;&nbsp;<span>{{product.name}}</span></p>
-        <p><b>Price</b>&nbsp;&nbsp;<span>{{product.price}}</span></p>
-        <p> <b>Quantity</b>&nbsp;&nbsp;{{product.qty}}
-        <p><b>Colour</b>&nbsp;&nbsp;
-            <img src="http://localhost:8088/uploads/product_variant_images/{{product.colour_image}}" alt="product image"
-                height="10px" width="30px" />
-        </p>
-    </div>
-    <div class="edit-product-button">
-        <button mat-raised-button (click)="editProduct()" color="primary">Edit Product</button>
-    </div>
-</div>
-<div class="container-address" style="margin-top: 50px;">
-    <ng-container *ngIf="shippingAddress.length > 0">
-        <h1>Shipping Address</h1>
-        <mat-card style="display: inline-block; width: 20%; margin: 1%;">
-            <mat-card-content>
-                <b>{{shippingAddress[0].type}}</b>
-                <p>{{shippingAddress[0].street | uppercase}} {{shippingAddress[0].city | uppercase}}
-                    {{shippingAddress[0].state | uppercase}}
-                    {{shippingAddress[0].country |
-                    uppercase}}</p>
-                <p> {{shippingAddress[0].pincode | uppercase}}</p>
-            </mat-card-content>
-        </mat-card>
-        <div>
-            <button mat-raised-button (click)="back()" color="primary">Change Address</button>
+<div class="container">
+    <div class="product_container">
+        <div class="product_list" *ngFor="let product of cart;">
+            <div>
+                <img src="http://localhost:8088/uploads/product_variant_images/{{product.variant_image[0]}}"
+                    alt="product image"/>
+            </div>
+            <div class="product_detail">
+                <p>Name: <span>{{product.name}}</span></p>
+                <p>Price: <span>{{product.price}}</span></p>
+                <p> Quantity: <span>{{product.qty}}</span>
+                <p>Colour: <span>{{product.colour}}</span></p>
+            </div>
         </div>
-    </ng-container>
+        <button mat-raised-button (click)="editProduct()">Edit Product</button>
+    </div>
+    <div class="address_container">
+        <ng-container *ngIf="shippingAddress.length > 0">
+            <h1>Shipping Address</h1>
+            <mat-card style="display: inline-block; width: 20%; margin: 1%;">
+                <mat-card-content>
+                    <b>{{shippingAddress[0].type}}</b>
+                    <p>{{shippingAddress[0].street | uppercase}} {{shippingAddress[0].city | uppercase}}
+                        {{shippingAddress[0].state | uppercase}}
+                        {{shippingAddress[0].country |
+                        uppercase}}</p>
+                    <p> {{shippingAddress[0].pincode | uppercase}}</p>
+                </mat-card-content>
+            </mat-card>
+            <div>
+                <button mat-raised-button (click)="back()" color="primary">Change Address</button>
+            </div>
+        </ng-container>
+    </div>
+    <div class="payment_container">
+
+    </div>
 </div>
+
+
+
 <div style="margin-top: 50px;">
     <div class="container">
         <form (ngSubmit)="applyPromocode()">

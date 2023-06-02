@@ -1,3 +1,7 @@
+.container {
+    margin-top: 40px;
+}
+
 /* Center the form */
 .product-form {
     display: flex;
@@ -28,6 +32,7 @@
     border-radius: 3px;
     font-size: 16px;
 }
+
 span {
     color: red;
     font-size: 14px;
@@ -99,6 +104,7 @@ span[aria-hidden="false"] {
     opacity: 0.5;
     cursor: not-allowed;
 }
+
 select {
     padding: 0.5rem;
     border: 1px solid #ccc;

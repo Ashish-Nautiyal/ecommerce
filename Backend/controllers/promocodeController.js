@@ -90,8 +90,6 @@ module.exports.applyPromocode = async (req, res) => {
 module.exports.deletePromocode = async (req, res) => {
     try {
         const { _id } = req.query;
-        console.log('query', _id);
-
         if (!_id) {
             return res.status(200).json({ message: 'promocode required.' });
         }

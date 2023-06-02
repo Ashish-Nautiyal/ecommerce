@@ -80,9 +80,11 @@
 
 .variant_action_button button {
     margin-right: 10px;
+    transition: 0.5s;
 }
 
 .addToCart:hover {
     background-color: #fbff00;
     color: black;
+    transition: 0.5s;
 }

@@ -19,7 +19,11 @@ const productSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    product_image: { type: String }
+    product_image: { type: String },
+    sku: {
+        type: String,
+        required: true
+    }
 });
 
 module.exports = mongoose.model('Product', productSchema);

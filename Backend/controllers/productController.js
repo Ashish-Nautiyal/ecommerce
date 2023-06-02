@@ -1,4 +1,5 @@
 const Product = require('../models/productModel');
+const Category = require('../models/categoryModel');
 
 module.exports.addProduct = async (req, res) => {
     const { name, category_id, subCategory_id, description } = req.body;
@@ -7,11 +8,13 @@ module.exports.addProduct = async (req, res) => {
         if (!name || !category_id || !subCategory_id || !description) {
             return res.status(400).json({ message: 'all fields are required' });
         }
+        const sku = await generateProductSku(category_id, subCategory_id, name);
         const product = new Product({
             name: req.body.name,
             category_id: req.body.category_id,
             subCategory_id: req.body.subCategory_id,
             description: req.body.description,
+            sku,
             product_image: req.file.originalname
         });
         await product.save();
@@ -90,3 +93,24 @@ module.exports.deleteProduct = async (req, res) => {
         return res.status(500).json({ message: 'server error' });
     }
 };
+
+async function generateProductSku(category, subCategory, product_name) {
+    try {
+        const categoryDetail = await Category.findById(category);
+        const subCategoryDetail = await Category.findById(subCategory);
+        
+        const catWord = categoryDetail.name.slice(0, 3).toUpperCase();
+        const subCatWord = subCategoryDetail.name.slice(0, 3).toUpperCase();
+        const proName = product_name.slice(0, 3).toUpperCase();
+
+        if (categoryDetail && subCategoryDetail && product_name) {
+            const skuForProduct = catWord + '-' + subCatWord + '-' + proName;
+            return skuForProduct;
+        } else {
+            return 'no sku';
+        }
+    } catch (error) {
+        console.log(error.message);
+        return 'error';
+    }
+}

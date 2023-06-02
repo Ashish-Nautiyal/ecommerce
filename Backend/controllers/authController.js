@@ -140,8 +140,6 @@ module.exports.payment = async (req, res) => {
         success_url: `${YOUR_DOMAIN}/user/success`,
         cancel_url: `${YOUR_DOMAIN}/user/cancel`,
     });
-    console.log('session', session);
-    console.log('bbb', req.body);
     return res.json({ url: session.url });
 }
 
@@ -149,8 +147,6 @@ module.exports.Webhook = async (req, res) => {
     let endpointSecret = "whsec_x9FNCgMRl8KIOmE9p291Ukq7dk16sxnX";
     let session;
     const sig = req.headers['stripe-signature'];
-    console.log('body', req.body);
-    console.log('sig', sig);
     let event;
     try {
         event = stripe.webhooks.constructEvent(req.body, sig, endpointSecret);

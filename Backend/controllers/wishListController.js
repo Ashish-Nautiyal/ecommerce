@@ -50,7 +50,6 @@ module.exports.getWishlist = async (req, res) => {
 
 module.exports.removeWishlist = async (req, res) => {
     try {
-        console.log('body',req.body);
         if (!req.body.user || !req.body.variant_id) {
             return res.status(200).json({ message: 'all fields required' });
         }

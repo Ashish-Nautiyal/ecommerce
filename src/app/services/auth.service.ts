@@ -28,7 +28,6 @@ export class AuthService {
         this.userTypeSubject.next(-1);
       }
     }
-
   }
 
   signUp(body: object): Observable<any> {

@@ -4,8 +4,10 @@
     </div>
     <div class="menu">
         <button routerLink="/user/displayCategory" routerLinkActive="active" mat-button>Home</button>
-        <button *ngIf="isAuthenticated && isAdmin" routerLink="/admin/admin-dashboard" routerLinkActive="active" mat-button>Admin Dashboard</button>
-        <button *ngIf="!isAuthenticated" routerLink="/auth/sign-up" routerLinkActive="active" mat-button>Sign Up</button>
+        <button *ngIf="isAuthenticated && isAdmin;" routerLink="/admin/admin-dashboard"
+            routerLinkActive="active" mat-button>Admin Dashboard</button>
+        <button *ngIf="!isAuthenticated" routerLink="/auth/sign-up" routerLinkActive="active" mat-button>Sign
+            Up</button>
         <button *ngIf="!isAuthenticated" routerLink="/auth/login" routerLinkActive="active" mat-button>Login</button>
         <button *ngIf="isAuthenticated" (click)="logout()" routerLinkActive="active" mat-button>Logout</button>
         <button routerLink="/user/addToCart" mat-button><mat-icon>shopping_cart</mat-icon></button>
